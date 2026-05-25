@@ -1,0 +1,75 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Events
+  description: Gladly REST API — Events. 1 operations. Self-contained Naftiko capability covering the Events business surface
+    of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Events
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-events
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Events business capability.
+    resources:
+    - name: api-v1-events
+      path: /api/v1/events
+      operations:
+      - name: get-api-v1-events
+        method: GET
+        description: List Events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-events-rest
+    port: 8080
+    description: REST adapter for Gladly Events.
+    resources:
+    - path: /v1/api/v1/events
+      name: api-v1-events
+      description: REST surface for api-v1-events.
+      operations:
+      - method: GET
+        name: get-api-v1-events
+        description: List Events
+        call: gladly-events.get-api-v1-events
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Events.
+    tools:
+    - name: gladly-get-api-v1-events
+      description: List Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-events.get-api-v1-events
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.

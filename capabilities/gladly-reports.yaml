@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Reports
+  description: Gladly REST API — Reports. 2 operations. Self-contained Naftiko capability covering the Reports business surface
+    of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Reports
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-reports
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Reports business capability.
+    resources:
+    - name: api-v1-reports
+      path: /api/v1/reports
+      operations:
+      - name: post-api-v1-reports
+        method: POST
+        description: Generate a Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+    - name: api-v1-reports-work-session-events
+      path: /api/v1/reports/work-session-events
+      operations:
+      - name: post-api-v1-reports-work-session-events
+        method: POST
+        description: Generate a Work Session Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-reports-rest
+    port: 8080
+    description: REST adapter for Gladly Reports.
+    resources:
+    - path: /v1/api/v1/reports
+      name: api-v1-reports
+      description: REST surface for api-v1-reports.
+      operations:
+      - method: POST
+        name: post-api-v1-reports
+        description: Generate a Report
+        call: gladly-reports.post-api-v1-reports
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/reports/work-session-events
+      name: api-v1-reports-work-session-events
+      description: REST surface for api-v1-reports-work-session-events.
+      operations:
+      - method: POST
+        name: post-api-v1-reports-work-session-events
+        description: Generate a Work Session Report
+        call: gladly-reports.post-api-v1-reports-work-session-events
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Reports.
+    tools:
+    - name: gladly-post-api-v1-reports
+      description: Generate a Report
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-reports.post-api-v1-reports
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-post-api-v1-reports-work-session-events
+      description: Generate a Work Session Report
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-reports.post-api-v1-reports-work-session-events
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

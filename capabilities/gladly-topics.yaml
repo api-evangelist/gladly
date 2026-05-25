@@ -1,0 +1,188 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Topics
+  description: Gladly REST API — Topics. 4 operations. Self-contained Naftiko capability covering the Topics business surface
+    of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Topics
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-topics
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Topics business capability.
+    resources:
+    - name: api-v1-topics
+      path: /api/v1/topics
+      operations:
+      - name: getTopics
+        method: GET
+        description: List Topics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+      - name: addTopic
+        method: POST
+        description: Add Topic
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+    - name: api-v1-topics-topicId
+      path: /api/v1/topics/{topicId}
+      operations:
+      - name: getTopic
+        method: GET
+        description: Get Topic
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+      - name: updateTopic
+        method: PATCH
+        description: Update Topic
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-topics-rest
+    port: 8080
+    description: REST adapter for Gladly Topics.
+    resources:
+    - path: /v1/api/v1/topics
+      name: api-v1-topics
+      description: REST surface for api-v1-topics.
+      operations:
+      - method: GET
+        name: getTopics
+        description: List Topics
+        call: gladly-topics.getTopics
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/topics
+      name: api-v1-topics
+      description: REST surface for api-v1-topics.
+      operations:
+      - method: POST
+        name: addTopic
+        description: Add Topic
+        call: gladly-topics.addTopic
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/topics/{topicId}
+      name: api-v1-topics-topicId
+      description: REST surface for api-v1-topics-topicId.
+      operations:
+      - method: GET
+        name: getTopic
+        description: Get Topic
+        call: gladly-topics.getTopic
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/topics/{topicId}
+      name: api-v1-topics-topicId
+      description: REST surface for api-v1-topics-topicId.
+      operations:
+      - method: PATCH
+        name: updateTopic
+        description: Update Topic
+        call: gladly-topics.updateTopic
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-topics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Topics.
+    tools:
+    - name: gladly-getTopics
+      description: List Topics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-topics.getTopics
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-addTopic
+      description: Add Topic
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-topics.addTopic
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getTopic
+      description: Get Topic
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-topics.getTopic
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-updateTopic
+      description: Update Topic
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-topics.updateTopic
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

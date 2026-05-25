@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://acme.gladly.com/api/v1/webhook-hooks",
+    "headers": {
+      "Authorization": "Basic <base64(agent@acme.com:API_TOKEN)>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://hooks.acme.com/gladly",
+      "events": ["CONVERSATION_CREATED", "CONVERSATION_CLOSED", "TASK_CLOSED"],
+      "active": true
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "whk_42",
+      "url": "https://hooks.acme.com/gladly",
+      "events": ["CONVERSATION_CREATED", "CONVERSATION_CLOSED", "TASK_CLOSED"],
+      "secret": "whsec_abcd1234",
+      "active": true,
+      "createdAt": "2026-05-24T17:05:00Z"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+name: Gladly Domain Vocabulary
+provider: Gladly
+providerId: gladly
+description: Tag-derived vocabulary for the Gladly REST API surface; sourced from the OpenAPI tag set covering the people-centered customer service platform.
+terms:
+- term: Agents
+  description: Service desk users and their state, including the Call Recorder availability.
+- term: Answer Management
+  description: Author, update, and delete knowledge-base Answers used by Sidekick AI and agent suggestions.
+- term: Audiences
+  description: Segmentation of customers and answers for scoped delivery (region, brand, language).
+- term: Business Hours
+  description: Define when channels and inboxes are staffed, including holidays and overrides.
+- term: Communications
+  description: Send outbound SMS and email directly through the Gladly API.
+- term: Conversations
+  description: Unified, channel-agnostic customer interactions across voice, chat, SMS, email, and social, including items, topics, notes, replies, and redactions.
+- term: Customer Lookup
+  description: External "Lookup API" pattern where Gladly fetches customer context from a brand-owned endpoint.
+- term: Customers
+  description: Unified customer profile with normalized emails, phones, channels, external IDs, and custom attributes.
+- term: Events
+  description: Read the platform event stream for activity that occurred against the organization.
+- term: Export
+  description: Schedule, list, and download bulk data exports of agents, conversations, customers, and metrics.
+- term: Freeform Topics
+  description: Free-text topic application not constrained to the curated topic taxonomy.
+- term: Inboxes
+  description: Logical work-queues that route conversations and tasks to agents.
+- term: Organization
+  description: Read organization-level configuration.
+- term: Proactive Conversations
+  description: Initiate outbound conversations to customers from automated workflows.
+- term: Public Answer
+  description: Help Center–visible answers and the search surface that powers self-service.
+- term: Reports
+  description: Standard and work-session reports for staffing, productivity, and customer outcomes.
+- term: Sidekick AI
+  description: Gladly's AI assistant that drafts replies, automates resolutions, and reads from Answers.
+- term: Tasks
+  description: Discrete work items assignable to agents or inboxes, with comments and due dates.
+- term: Teams
+  description: Groups of agents that share routing and reporting boundaries.
+- term: Topics
+  description: Curated taxonomy applied to conversations for reporting and routing.
+- term: User Identity
+  description: Issue signed JWT identities for authenticated chat sessions.
+- term: Webhooks
+  description: Subscribe brand-owned HTTPS endpoints to platform events (conversation, message, task, customer, agent state).
+- term: Rate Limit
+  description: Default 10 req/sec per organization with Ratelimit-Limit-Second / Ratelimit-Remaining-Second response headers and 429 throttling.
+- term: Rich Content
+  description: Markdown, structured cards, quick replies, and attachments rendered in supported channels.
+- term: Lookup API
+  description: Brand-hosted endpoint Gladly calls to enrich a conversation with first-party customer data.
+- term: App Platform
+  description: Embedded app/connector framework for surfacing third-party experiences inside the Gladly Hero agent UI.
+- term: Hero
+  description: Gladly's agent workspace (formerly "Gladly Team") used by service representatives.

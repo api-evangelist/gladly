@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/gladly/gladly-webhook-schema.json",
+  "title": "Gladly Webhook",
+  "description": "Schema for a Webhook subscription in Gladly. Webhooks deliver event payloads (conversation status changes, message sent, task closed, etc.) to a customer-supplied HTTPS endpoint.",
+  "type": "object",
+  "required": ["id", "url", "events"],
+  "properties": {
+    "id": {"type": "string"},
+    "url": {"type": "string", "format": "uri", "description": "HTTPS endpoint Gladly POSTs event payloads to."},
+    "events": {
+      "type": "array",
+      "description": "Event types the webhook is subscribed to.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CONVERSATION_CREATED",
+          "CONVERSATION_UPDATED",
+          "CONVERSATION_CLOSED",
+          "MESSAGE_CREATED",
+          "TASK_CREATED",
+          "TASK_UPDATED",
+          "TASK_CLOSED",
+          "CUSTOMER_CREATED",
+          "CUSTOMER_UPDATED",
+          "AGENT_STATE_CHANGED"
+        ]
+      }
+    },
+    "secret": {"type": "string", "description": "Shared secret used to sign payloads with HMAC-SHA256."},
+    "active": {"type": "boolean"},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "modifiedAt": {"type": "string", "format": "date-time"}
+  }
+}

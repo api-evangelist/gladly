@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://acme.gladly.com/api/v1/tasks",
+    "headers": {
+      "Authorization": "Basic <base64(agent@acme.com:API_TOKEN)>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "customerId": "XRJvp8lSS5aD2RucjY5zkw",
+      "name": "Process refund for order #4521",
+      "description": "Customer received damaged item; ship replacement and refund shipping.",
+      "dueAt": "2026-05-26T17:00:00Z",
+      "assignee": {"inboxId": "ibx_returns"}
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "tsk_77kQ",
+      "customerId": "XRJvp8lSS5aD2RucjY5zkw",
+      "name": "Process refund for order #4521",
+      "status": "OPEN",
+      "createdAt": "2026-05-24T17:02:00Z"
+    }
+  }
+}

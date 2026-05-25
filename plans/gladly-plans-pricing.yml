@@ -1,0 +1,153 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Gladly
+providerId: gladly
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: true
+tags:
+  - Customer Service
+  - CX
+  - Contact Center
+  - AI
+description: 'Reconciled plans and per-seat / per-minute pricing for the Gladly customer-service platform. Sourced from public reporting (ringly.io, hiverhq.com, smbguide.com), Gladly help docs (voice & SMS usage costs), and apitracker.io.'
+sources:
+  - https://www.gladly.ai/
+  - https://www.ringly.io/blog/gladly-pricing
+  - https://hiverhq.com/blog/gladly-pricing
+  - https://www.smbguide.com/review/gladly/
+  - https://help.gladly.com/docs/voice-and-sms-phone-number-costs
+plans:
+  - id: gladly-hero
+    name: Hero
+    type: subscription
+    description: Entry-level Gladly Hero (agent workspace) package. Minimum 10 users, billed annually.
+    entries:
+      - label: Agent seat
+        name: agent_seat
+        type: subscription
+        metric: user
+        unit: 1
+        timeFrame: month
+        geo: US
+        price: '180.00'
+        limit: 10
+        userMultiplied: true
+    elements:
+      - name: Unified customer view across voice, chat, SMS, email, and social
+      - name: Conversation timeline and customer history
+      - name: Topics, audiences, and inbox routing
+      - name: Standard reporting
+      - name: REST API access
+  - id: gladly-superhero
+    name: Superhero
+    type: subscription
+    description: Superhero package adds advanced routing, expanded integrations, and full reporting. Minimum 45 users, billed annually.
+    entries:
+      - label: Agent seat
+        name: agent_seat
+        type: subscription
+        metric: user
+        unit: 1
+        timeFrame: month
+        geo: US
+        price: '210.00'
+        limit: 45
+        userMultiplied: true
+    elements:
+      - name: Everything in Hero
+      - name: Advanced routing and rules
+      - name: Custom integrations via App Platform
+      - name: Expanded reporting
+      - name: Sandbox environment
+  - id: gladly-sidekick-ai
+    name: Sidekick AI
+    type: usage-based
+    description: Gladly's AI customer service agent, priced per resolved conversation. Stacks on top of Hero or Superhero.
+    entries:
+      - label: AI-resolved conversation
+        name: sidekick_conversation
+        type: metered
+        metric: conversation
+        unit: 1
+        timeFrame: usage
+        geo: global
+        price: '0.60'
+        userMultiplied: false
+    elements:
+      - name: AI agent across chat, email, and SMS
+      - name: Plain-English "Guides" for behavior configuration
+      - name: Hand-off to human agents with full context
+      - name: Reads from the Answers knowledge base
+  - id: gladly-voice-ai
+    name: Voice AI Add-on
+    type: usage-based
+    description: Voice AI usage charge for inbound calls handled by Sidekick AI on the voice channel.
+    entries:
+      - label: Voice AI minute
+        name: voice_ai_minute
+        type: metered
+        metric: minute
+        unit: 1
+        timeFrame: usage
+        geo: US
+        price: '0.06216'
+        userMultiplied: false
+  - id: gladly-voice-toll-free
+    name: Voice — Toll-Free Inbound
+    type: usage-based
+    description: Per-minute charge for inbound toll-free voice calls into Gladly numbers.
+    entries:
+      - label: Toll-free inbound minute
+        name: toll_free_inbound_minute
+        type: metered
+        metric: minute
+        unit: 1
+        timeFrame: usage
+        geo: US
+        price: '0.02794'
+        userMultiplied: false
+  - id: gladly-sms
+    name: SMS Messaging
+    type: usage-based
+    description: Per-message SMS charge; price varies by number type (local long code vs short code vs toll-free).
+    entries:
+      - label: SMS message (low)
+        name: sms_message_low
+        type: metered
+        metric: message
+        unit: 1
+        timeFrame: usage
+        geo: US
+        price: '0.00273'
+        userMultiplied: false
+      - label: SMS message (high)
+        name: sms_message_high
+        type: metered
+        metric: message
+        unit: 1
+        timeFrame: usage
+        geo: US
+        price: '0.00637'
+        userMultiplied: false
+  - id: gladly-enterprise
+    name: Enterprise / Custom
+    type: contact
+    description: Custom enterprise pricing for large brands; includes negotiated seat counts, dedicated CSM, SSO, audit logs, and procurement terms.
+    entries:
+      - label: Custom contract
+        name: enterprise_contract
+        type: contact
+        metric: user
+        unit: 1
+        timeFrame: month
+        geo: global
+        price: 'Call'
+        userMultiplied: true
+    elements:
+      - name: Negotiated seat pricing
+      - name: SSO / SAML
+      - name: Audit logs
+      - name: Dedicated CSM and onboarding
+      - name: SLAs and procurement-friendly contracts

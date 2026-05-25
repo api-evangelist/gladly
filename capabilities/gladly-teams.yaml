@@ -1,0 +1,110 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Teams
+  description: Gladly REST API — Teams. 2 operations. Self-contained Naftiko capability covering the Teams business surface
+    of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Teams
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-teams
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Teams business capability.
+    resources:
+    - name: api-v1-teams
+      path: /api/v1/teams
+      operations:
+      - name: getTeams
+        method: GET
+        description: List Teams
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: api-v1-teams-teamId
+      path: /api/v1/teams/{teamId}
+      operations:
+      - name: getTeam
+        method: GET
+        description: Get Team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-teams-rest
+    port: 8080
+    description: REST adapter for Gladly Teams.
+    resources:
+    - path: /v1/api/v1/teams
+      name: api-v1-teams
+      description: REST surface for api-v1-teams.
+      operations:
+      - method: GET
+        name: getTeams
+        description: List Teams
+        call: gladly-teams.getTeams
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/teams/{teamId}
+      name: api-v1-teams-teamId
+      description: REST surface for api-v1-teams-teamId.
+      operations:
+      - method: GET
+        name: getTeam
+        description: Get Team
+        call: gladly-teams.getTeam
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-teams-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Teams.
+    tools:
+    - name: gladly-getTeams
+      description: List Teams
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-teams.getTeams
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getTeam
+      description: Get Team
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-teams.getTeam
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.

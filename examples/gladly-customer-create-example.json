@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://acme.gladly.com/api/v1/customer-profiles",
+    "headers": {
+      "Authorization": "Basic <base64(agent@acme.com:API_TOKEN)>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Avery Walker",
+      "emails": [{"original": "avery@example.com", "primary": true}],
+      "phones": [{"original": "+14155551234", "type": "MOBILE", "regionCode": "US", "primary": true}],
+      "externalCustomerId": "shopify:12345",
+      "customAttributes": {
+        "loyaltyTier": "gold",
+        "lifetimeValue": 1284.50
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "XRJvp8lSS5aD2RucjY5zkw",
+      "name": "Avery Walker",
+      "emails": [{"original": "avery@example.com", "normalized": "avery@example.com", "primary": true}],
+      "phones": [{"original": "+14155551234", "normalized": "+14155551234", "type": "MOBILE", "regionCode": "US", "primary": true}],
+      "externalCustomerId": "shopify:12345",
+      "customAttributes": {"loyaltyTier": "gold", "lifetimeValue": 1284.50},
+      "createdAt": "2026-05-24T17:00:00Z",
+      "modifiedAt": "2026-05-24T17:00:00Z"
+    }
+  }
+}

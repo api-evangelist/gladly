@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/gladly/gladly-conversation-schema.json",
+  "title": "Gladly Conversation",
+  "description": "Schema for a Conversation in the Gladly REST API. A Conversation is the unified container for all interactions with a single Customer across channels and time.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": {"type": "string", "description": "Gladly-assigned conversation identifier."},
+    "customerId": {"type": "string", "description": "Customer the conversation belongs to."},
+    "status": {
+      "type": "string",
+      "description": "Current conversation status.",
+      "enum": ["OPEN", "WAITING", "CLOSED", "DELETED"]
+    },
+    "channel": {
+      "type": "string",
+      "description": "Primary channel the conversation is currently active on.",
+      "enum": ["EMAIL", "VOICE", "SMS", "CHAT", "FACEBOOK_MESSENGER", "INSTAGRAM", "WHATSAPP", "TASK"]
+    },
+    "assignee": {
+      "type": "object",
+      "properties": {
+        "agentId": {"type": "string"},
+        "inboxId": {"type": "string"}
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"}
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "content": {"type": "string"},
+          "agentId": {"type": "string"},
+          "createdAt": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "createdAt": {"type": "string", "format": "date-time"},
+    "modifiedAt": {"type": "string", "format": "date-time"},
+    "closedAt": {"type": "string", "format": "date-time"}
+  }
+}

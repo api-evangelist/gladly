@@ -1,0 +1,17 @@
+{
+  "title": "Gladly Customer Structure",
+  "description": "Structural documentation for the Gladly Customer entity — the unified profile Gladly maintains for every end-customer across all channels.",
+  "type": "object",
+  "fields": [
+    {"name": "id", "type": "string", "required": true, "description": "Gladly-assigned unique customer ID."},
+    {"name": "name", "type": "string", "required": false, "description": "Display name."},
+    {"name": "emails", "type": "array<object>", "required": false, "description": "Email addresses (original, normalized, primary)."},
+    {"name": "phones", "type": "array<object>", "required": false, "description": "Phone numbers (E.164 normalized, type, region, primary)."},
+    {"name": "address", "type": "string", "required": false, "description": "Postal address."},
+    {"name": "externalCustomerId", "type": "string", "required": false, "description": "ID in an external system of record."},
+    {"name": "customAttributes", "type": "object", "required": false, "description": "Brand-defined key/value pairs."},
+    {"name": "channels", "type": "array<object>", "required": false, "description": "Reachable channels (EMAIL, VOICE, SMS, CHAT, FACEBOOK, INSTAGRAM, WHATSAPP)."},
+    {"name": "createdAt", "type": "string", "format": "date-time", "required": false},
+    {"name": "modifiedAt", "type": "string", "format": "date-time", "required": false}
+  ]
+}

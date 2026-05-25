@@ -1,0 +1,17 @@
+{
+  "title": "Gladly Answer Structure",
+  "description": "Structural documentation for the Gladly Answer entity — knowledge-base articles that power Sidekick AI responses, agent suggestions, and the public Help Center.",
+  "type": "object",
+  "fields": [
+    {"name": "id", "type": "string", "required": true},
+    {"name": "name", "type": "string", "required": false},
+    {"name": "summary", "type": "string", "required": false, "description": "One-paragraph summary used by Sidekick AI."},
+    {"name": "bodyHtml", "type": "string", "required": false},
+    {"name": "audienceIds", "type": "array<string>", "required": false},
+    {"name": "topicIds", "type": "array<string>", "required": false},
+    {"name": "isPublic", "type": "boolean", "required": false},
+    {"name": "languageCode", "type": "string", "required": false, "description": "BCP-47 (e.g. en-US)."},
+    {"name": "createdAt", "type": "string", "format": "date-time", "required": false},
+    {"name": "modifiedAt", "type": "string", "format": "date-time", "required": false}
+  ]
+}

@@ -1,0 +1,46 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Gladly
+providerId: gladly
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Quotas
+  - Customer Service
+description: 'Reconciled rate limits for the Gladly REST API. Default 10 requests per second per organization across all HTTP methods, with separate Reporting API tier and per-second response headers.'
+sources:
+  - https://developer.gladly.com/rest/
+  - https://help.gladly.com/developer-tutorials/docs/default-api-rate-limits
+headers:
+  limit: Ratelimit-Limit-Second
+  remaining: Ratelimit-Remaining-Second
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+algorithm: fixed-window-per-second
+limits:
+  - tier: Default REST API
+    scope: organization
+    rpm: 600
+    rps: 10
+    burst: 10
+    methods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+    notes: 10 requests per second per organization across all HTTP methods. Concurrency not enforced separately. Exceeding the limit returns HTTP 429.
+  - tier: Reporting API
+    scope: organization
+    rps: 'documented separately'
+    notes: The Reporting API has its own dedicated tier described in the developer portal; aggregate report jobs rather than polling at the default 10 req/sec.
+recommendations:
+  - Honor Ratelimit-Remaining-Second to back off proactively.
+  - For bulk loads, use the Export jobs API instead of looping over per-record endpoints.
+  - For event ingestion, prefer Webhooks over polling.
+  - On 429, retry with exponential backoff starting at 1s.

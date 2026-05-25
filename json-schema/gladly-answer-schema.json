@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/gladly/gladly-answer-schema.json",
+  "title": "Gladly Answer",
+  "description": "Schema for an Answer in the Gladly knowledge base. Answers power Sidekick AI replies, agent suggestions, and the public Help Center.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": {"type": "string"},
+    "name": {"type": "string", "description": "Short canonical name for the answer."},
+    "summary": {"type": "string", "description": "One-paragraph summary used by Sidekick AI."},
+    "bodyHtml": {"type": "string", "description": "Long-form answer content in HTML."},
+    "audienceIds": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Audience IDs the answer is scoped to."
+    },
+    "topicIds": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "isPublic": {"type": "boolean", "description": "Whether the answer is exposed via Public Answers / Help Center."},
+    "languageCode": {"type": "string", "description": "BCP-47 language tag (e.g. en-US)."},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "modifiedAt": {"type": "string", "format": "date-time"}
+  }
+}

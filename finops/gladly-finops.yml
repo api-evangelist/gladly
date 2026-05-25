@@ -1,0 +1,103 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Gladly
+providerId: gladly
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: true
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - Customer Service
+  - CX
+description: FOCUS-aligned FinOps definition for the Gladly customer-service platform. Per-seat subscription for Hero/Superhero, per-conversation metering for Sidekick AI, and per-minute / per-message metering for voice and SMS channels.
+sources:
+  - https://www.gladly.ai/
+  - https://help.gladly.com/docs/voice-and-sms-phone-number-costs
+  - https://www.ringly.io/blog/gladly-pricing
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Gladly
+serviceCategory: Customer Service Software
+billingModel:
+  pricingCategory: Hybrid
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Subscription
+    - Usage
+    - Tax
+    - Credit
+    - Adjustment
+  primaryUnit: agent_seat
+  secondaryUnits:
+    - sidekick_conversation
+    - voice_minute
+    - sms_message
+focusColumns:
+  ServiceName: Gladly Platform
+  ServiceCategory: Customer Service Software
+  ProviderName: Gladly
+  PublisherName: Gladly
+  InvoiceIssuerName: Gladly
+  PricingCategory: Hybrid
+  PricingUnit: seat
+  BillingCurrency: USD
+meters:
+  - name: agent_seat
+    unit: seat
+    aggregation: max
+    dimensions:
+      - tier
+      - inbox
+      - team
+    notes: Hero $180/seat/mo (10 seat minimum) or Superhero $210/seat/mo (45 seat minimum), billed annually.
+  - name: sidekick_conversation
+    unit: conversation
+    aggregation: sum
+    dimensions:
+      - channel
+      - audience
+      - language
+    notes: Approximately $0.60 per AI-resolved conversation.
+  - name: voice_ai_minute
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - direction
+      - number
+    notes: Approximately $0.06216 per Voice AI minute.
+  - name: toll_free_inbound_minute
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - number
+    notes: Approximately $0.02794 per inbound toll-free minute.
+  - name: sms_message
+    unit: message
+    aggregation: sum
+    dimensions:
+      - number_type
+      - direction
+    notes: $0.00273 to $0.00637 per message depending on local long code, short code, or toll-free.
+allocation:
+  recommended:
+    - tag agents by team, brand, and inbox for showback
+    - allocate Sidekick AI conversations by channel and audience
+    - allocate voice spend by inbound/outbound and toll-free vs local
+optimization:
+  practices:
+    - Right-size seat counts annually against MAU agent activity reports
+    - Lean on Sidekick AI for high-volume, low-complexity topics (FAQ, order status, returns) to deflect seat hours
+    - Use the Lookup API to enrich conversations rather than mirroring profiles into Gladly via per-record API calls
+    - Prefer Webhooks over Reports polling to avoid hitting the 10 req/sec API ceiling
+governance:
+  - Track per-org API rate-limit utilization to avoid 429-driven retries that inflate per-conversation handle time
+  - Reconcile annual seat commit against actual provisioned agents quarterly
+  - Review channel cost-per-resolution (voice vs SMS vs chat) and shift mix accordingly

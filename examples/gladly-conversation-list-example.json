@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://acme.gladly.com/api/v1/customer-profiles/XRJvp8lSS5aD2RucjY5zkw/conversations",
+    "headers": {
+      "Authorization": "Basic <base64(agent@acme.com:API_TOKEN)>"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": [
+      {
+        "id": "cnv_abc123",
+        "customerId": "XRJvp8lSS5aD2RucjY5zkw",
+        "status": "OPEN",
+        "channel": "CHAT",
+        "assignee": {"agentId": "agt_99", "inboxId": "ibx_support"},
+        "topics": [{"id": "tpc_returns", "name": "Returns"}],
+        "createdAt": "2026-05-24T16:45:00Z",
+        "modifiedAt": "2026-05-24T16:58:12Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Inboxes
+  description: Gladly REST API — Inboxes. 2 operations. Self-contained Naftiko capability covering the Inboxes business surface
+    of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Inboxes
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-inboxes
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Inboxes business capability.
+    resources:
+    - name: api-v1-inboxes
+      path: /api/v1/inboxes
+      operations:
+      - name: getInboxes
+        method: GET
+        description: List Inboxes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: api-v1-inboxes-inboxId
+      path: /api/v1/inboxes/{inboxId}
+      operations:
+      - name: getInbox
+        method: GET
+        description: Get Inbox
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-inboxes-rest
+    port: 8080
+    description: REST adapter for Gladly Inboxes.
+    resources:
+    - path: /v1/api/v1/inboxes
+      name: api-v1-inboxes
+      description: REST surface for api-v1-inboxes.
+      operations:
+      - method: GET
+        name: getInboxes
+        description: List Inboxes
+        call: gladly-inboxes.getInboxes
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/inboxes/{inboxId}
+      name: api-v1-inboxes-inboxId
+      description: REST surface for api-v1-inboxes-inboxId.
+      operations:
+      - method: GET
+        name: getInbox
+        description: Get Inbox
+        call: gladly-inboxes.getInbox
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-inboxes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Inboxes.
+    tools:
+    - name: gladly-getInboxes
+      description: List Inboxes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-inboxes.getInboxes
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getInbox
+      description: Get Inbox
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-inboxes.getInbox
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.

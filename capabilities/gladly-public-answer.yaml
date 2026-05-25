@@ -1,0 +1,323 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Public Answer
+  description: Gladly REST API — Public Answer. 4 operations. Self-contained Naftiko capability covering the Public Answer
+    business surface of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Public Answer
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-public-answer
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Public Answer business capability.
+    resources:
+    - name: api-v1-orgs-orgId-answers-search?q=search+terms
+      path: /api/v1/orgs/{orgId}/answers-search?q=search+terms
+      operations:
+      - name: searchAnswers
+        method: GET
+        description: Search Public Answers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgId
+          in: path
+          type: string
+          required: true
+          description: 'id of your organization
+
+
+            You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+            '
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: search term
+        - name: lng
+          in: query
+          type: string
+          required: false
+          description: language code
+        - name: audienceId
+          in: query
+          type: string
+          required: false
+          description: Audience ID. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking
+            on the Edit button next to the Audience in question. The ID will be in the page URL.
+    - name: api-v1-orgs-orgId-answers?lng=lng&audienceId=audienceId
+      path: /api/v1/orgs/{orgId}/answers?lng={lng}&audienceId={audienceId}
+      operations:
+      - name: listAnswers
+        method: GET
+        description: List Public Answers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgId
+          in: path
+          type: string
+          required: true
+          description: 'id of your organization
+
+
+            You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+            '
+        - name: lng
+          in: query
+          type: string
+          required: false
+          description: 'Language of the answers returned
+
+
+            Defaults to `en-us`
+
+            '
+        - name: audienceId
+          in: query
+          type: string
+          required: false
+          description: 'Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings
+            > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the
+            page URL.
+
+            '
+    - name: api-v1-orgs-orgId-help-center-helpCenterId-answer-titles?lng
+      path: /api/v1/orgs/{orgId}/help-center/{helpCenterId}/answer-titles?lng={lng}&audienceId={audienceId}
+      operations:
+      - name: getAnswerTitles
+        method: GET
+        description: List Help Center Answer Titles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgId
+          in: path
+          type: string
+          required: true
+          description: 'id of your organization
+
+
+            You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+            '
+        - name: helpCenterId
+          in: path
+          type: string
+          required: true
+          description: 'Help Center ID
+
+
+            You can look up the ID by going to Settings > Help Center in Gladly, then clicking on the 3 dots next to the Help
+            Center and selecting Configure. Help Center ID will be in the URL
+
+            '
+        - name: lng
+          in: query
+          type: string
+          required: false
+          description: 'Language of the answers returned
+
+
+            Defaults to `en-us`
+
+            '
+        - name: audienceId
+          in: query
+          type: string
+          required: false
+          description: 'Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings
+            > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the
+            page URL.
+
+            '
+    - name: api-v1-orgs-orgId-answers-answerId
+      path: /api/v1/orgs/{orgId}/answers/{answerId}
+      operations:
+      - name: getAnswer
+        method: GET
+        description: Get Public Answer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgId
+          in: path
+          type: string
+          required: true
+          description: 'id of your organization
+
+
+            You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+            '
+        - name: answerId
+          in: path
+          type: string
+          required: true
+          description: id of the answer
+        - name: lng
+          in: query
+          type: string
+          required: false
+          description: language code
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-public-answer-rest
+    port: 8080
+    description: REST adapter for Gladly Public Answer.
+    resources:
+    - path: /v1/api/v1/orgs/{orgId}/answers-search?q=search+terms
+      name: api-v1-orgs-orgId-answers-search?q=search+terms
+      description: REST surface for api-v1-orgs-orgId-answers-search?q=search+terms.
+      operations:
+      - method: GET
+        name: searchAnswers
+        description: Search Public Answers
+        call: gladly-public-answer.searchAnswers
+        with:
+          orgId: rest.path.orgId
+          q: rest.query.q
+          lng: rest.query.lng
+          audienceId: rest.query.audienceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/{orgId}/answers?lng={lng}&audienceId={audienceId}
+      name: api-v1-orgs-orgId-answers?lng=lng&audienceId=audienceId
+      description: REST surface for api-v1-orgs-orgId-answers?lng=lng&audienceId=audienceId.
+      operations:
+      - method: GET
+        name: listAnswers
+        description: List Public Answers
+        call: gladly-public-answer.listAnswers
+        with:
+          orgId: rest.path.orgId
+          lng: rest.query.lng
+          audienceId: rest.query.audienceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/{orgId}/help-center/{helpCenterId}/answer-titles?lng={lng}&audienceId={audienceId}
+      name: api-v1-orgs-orgId-help-center-helpCenterId-answer-titles?lng
+      description: REST surface for api-v1-orgs-orgId-help-center-helpCenterId-answer-titles?lng.
+      operations:
+      - method: GET
+        name: getAnswerTitles
+        description: List Help Center Answer Titles
+        call: gladly-public-answer.getAnswerTitles
+        with:
+          orgId: rest.path.orgId
+          helpCenterId: rest.path.helpCenterId
+          lng: rest.query.lng
+          audienceId: rest.query.audienceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/{orgId}/answers/{answerId}
+      name: api-v1-orgs-orgId-answers-answerId
+      description: REST surface for api-v1-orgs-orgId-answers-answerId.
+      operations:
+      - method: GET
+        name: getAnswer
+        description: Get Public Answer
+        call: gladly-public-answer.getAnswer
+        with:
+          orgId: rest.path.orgId
+          answerId: rest.path.answerId
+          lng: rest.query.lng
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-public-answer-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Public Answer.
+    tools:
+    - name: gladly-searchAnswers
+      description: Search Public Answers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-public-answer.searchAnswers
+      with:
+        orgId: tools.orgId
+        q: tools.q
+        lng: tools.lng
+        audienceId: tools.audienceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-listAnswers
+      description: List Public Answers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-public-answer.listAnswers
+      with:
+        orgId: tools.orgId
+        lng: tools.lng
+        audienceId: tools.audienceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getAnswerTitles
+      description: List Help Center Answer Titles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-public-answer.getAnswerTitles
+      with:
+        orgId: tools.orgId
+        helpCenterId: tools.helpCenterId
+        lng: tools.lng
+        audienceId: tools.audienceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getAnswer
+      description: Get Public Answer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-public-answer.getAnswer
+      with:
+        orgId: tools.orgId
+        answerId: tools.answerId
+        lng: tools.lng
+      outputParameters:
+      - type: object
+        mapping: $.

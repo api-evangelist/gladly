@@ -1,0 +1,18 @@
+{
+  "title": "Gladly Conversation Structure",
+  "description": "Structural documentation for the Gladly Conversation entity — the unified, channel-agnostic container for all interactions with a Customer.",
+  "type": "object",
+  "fields": [
+    {"name": "id", "type": "string", "required": true},
+    {"name": "customerId", "type": "string", "required": true, "description": "Owning customer."},
+    {"name": "status", "type": "enum<OPEN|WAITING|CLOSED|DELETED>", "required": false},
+    {"name": "channel", "type": "enum<EMAIL|VOICE|SMS|CHAT|FACEBOOK_MESSENGER|INSTAGRAM|WHATSAPP|TASK>", "required": false},
+    {"name": "assignee.agentId", "type": "string", "required": false},
+    {"name": "assignee.inboxId", "type": "string", "required": false},
+    {"name": "topics", "type": "array<object>", "required": false, "description": "Topic taxonomy applied to the conversation."},
+    {"name": "notes", "type": "array<object>", "required": false, "description": "Agent-authored notes."},
+    {"name": "createdAt", "type": "string", "format": "date-time", "required": false},
+    {"name": "modifiedAt", "type": "string", "format": "date-time", "required": false},
+    {"name": "closedAt", "type": "string", "format": "date-time", "required": false}
+  ]
+}

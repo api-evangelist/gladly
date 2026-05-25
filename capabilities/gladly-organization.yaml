@@ -1,0 +1,75 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Organization
+  description: Gladly REST API — Organization. 1 operations. Self-contained Naftiko capability covering the Organization business
+    surface of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Organization
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-organization
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Organization business capability.
+    resources:
+    - name: api-v1-organization
+      path: /api/v1/organization
+      operations:
+      - name: getOrganization
+        method: GET
+        description: Get Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-organization-rest
+    port: 8080
+    description: REST adapter for Gladly Organization.
+    resources:
+    - path: /v1/api/v1/organization
+      name: api-v1-organization
+      description: REST surface for api-v1-organization.
+      operations:
+      - method: GET
+        name: getOrganization
+        description: Get Organization
+        call: gladly-organization.getOrganization
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-organization-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Organization.
+    tools:
+    - name: gladly-getOrganization
+      description: Get Organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-organization.getOrganization
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.

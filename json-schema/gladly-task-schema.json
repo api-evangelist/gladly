@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/gladly/gladly-task-schema.json",
+  "title": "Gladly Task",
+  "description": "Schema for a Task resource in the Gladly REST API. Tasks are work items assigned to agents or teams that can be tied to a Customer and Conversation.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": {"type": "string", "description": "Gladly-assigned task identifier."},
+    "customerId": {"type": "string"},
+    "conversationId": {"type": "string"},
+    "name": {"type": "string", "description": "Short title for the task."},
+    "description": {"type": "string", "description": "Long-form task body."},
+    "status": {
+      "type": "string",
+      "enum": ["OPEN", "CLOSED"]
+    },
+    "dueAt": {"type": "string", "format": "date-time"},
+    "assignee": {
+      "type": "object",
+      "properties": {
+        "agentId": {"type": "string"},
+        "inboxId": {"type": "string"}
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "content": {"type": "string"},
+          "agentId": {"type": "string"},
+          "createdAt": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "createdAt": {"type": "string", "format": "date-time"},
+    "modifiedAt": {"type": "string", "format": "date-time"},
+    "closedAt": {"type": "string", "format": "date-time"}
+  }
+}

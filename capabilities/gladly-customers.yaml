@@ -1,0 +1,245 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Customers
+  description: Gladly REST API — Customers. 5 operations. Self-contained Naftiko capability covering the Customers business
+    surface of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Customers
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-customers
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Customers business capability.
+    resources:
+    - name: api-v1-customer-profiles
+      path: /api/v1/customer-profiles
+      operations:
+      - name: createCustomer
+        method: POST
+        description: Create Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+      - name: findCustomers
+        method: GET
+        description: Find Customers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: email
+          in: query
+          type: string
+          required: false
+          description: customer email address to search on.
+        - name: externalCustomerId
+          in: query
+          type: string
+          required: false
+          description: Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior
+            to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field is not
+            searchable.
+        - name: phoneNumber
+          in: query
+          type: string
+          required: false
+          description: 'Phone number in E.164 format. The value should be URL escaped where `+` becomes `%2B`.
+
+            '
+    - name: api-v1-customer-profiles-customerId
+      path: /api/v1/customer-profiles/{customerId}
+      operations:
+      - name: getCustomer
+        method: GET
+        description: Get Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+      - name: updateCustomer
+        method: PATCH
+        description: Update Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+      - name: deleteCustomer
+        method: DELETE
+        description: Delete Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-customers-rest
+    port: 8080
+    description: REST adapter for Gladly Customers.
+    resources:
+    - path: /v1/api/v1/customer-profiles
+      name: api-v1-customer-profiles
+      description: REST surface for api-v1-customer-profiles.
+      operations:
+      - method: POST
+        name: createCustomer
+        description: Create Customer
+        call: gladly-customers.createCustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/customer-profiles
+      name: api-v1-customer-profiles
+      description: REST surface for api-v1-customer-profiles.
+      operations:
+      - method: GET
+        name: findCustomers
+        description: Find Customers
+        call: gladly-customers.findCustomers
+        with:
+          email: rest.query.email
+          externalCustomerId: rest.query.externalCustomerId
+          phoneNumber: rest.query.phoneNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/customer-profiles/{customerId}
+      name: api-v1-customer-profiles-customerId
+      description: REST surface for api-v1-customer-profiles-customerId.
+      operations:
+      - method: GET
+        name: getCustomer
+        description: Get Customer
+        call: gladly-customers.getCustomer
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/customer-profiles/{customerId}
+      name: api-v1-customer-profiles-customerId
+      description: REST surface for api-v1-customer-profiles-customerId.
+      operations:
+      - method: PATCH
+        name: updateCustomer
+        description: Update Customer
+        call: gladly-customers.updateCustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/customer-profiles/{customerId}
+      name: api-v1-customer-profiles-customerId
+      description: REST surface for api-v1-customer-profiles-customerId.
+      operations:
+      - method: DELETE
+        name: deleteCustomer
+        description: Delete Customer
+        call: gladly-customers.deleteCustomer
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-customers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Customers.
+    tools:
+    - name: gladly-createCustomer
+      description: Create Customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-customers.createCustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-findCustomers
+      description: Find Customers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-customers.findCustomers
+      with:
+        email: tools.email
+        externalCustomerId: tools.externalCustomerId
+        phoneNumber: tools.phoneNumber
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getCustomer
+      description: Get Customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-customers.getCustomer
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-updateCustomer
+      description: Update Customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-customers.updateCustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-deleteCustomer
+      description: Delete Customer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: gladly-customers.deleteCustomer
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.

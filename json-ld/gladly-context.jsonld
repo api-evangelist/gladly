@@ -1,0 +1,89 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "gladly": "https://api-evangelist.com/vocab/gladly/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Customer": {
+      "@id": "gladly:Customer",
+      "@context": {
+        "id": {"@id": "gladly:Customer/id", "@type": "xsd:string"},
+        "name": {"@id": "schema:name", "@type": "xsd:string"},
+        "emails": {"@id": "schema:email", "@container": "@list"},
+        "phones": {"@id": "schema:telephone", "@container": "@list"},
+        "address": {"@id": "schema:address", "@type": "xsd:string"},
+        "externalCustomerId": {"@id": "schema:identifier", "@type": "xsd:string"},
+        "customAttributes": {"@id": "gladly:Customer/customAttributes"},
+        "channels": {"@id": "schema:contactPoint", "@container": "@list"},
+        "createdAt": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+        "modifiedAt": {"@id": "schema:dateModified", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "Conversation": {
+      "@id": "schema:Conversation",
+      "@context": {
+        "id": {"@id": "gladly:Conversation/id", "@type": "xsd:string"},
+        "customerId": {"@id": "gladly:Conversation/customerId", "@type": "xsd:string"},
+        "status": {"@id": "gladly:Conversation/status", "@type": "xsd:string"},
+        "channel": {"@id": "gladly:Conversation/channel", "@type": "xsd:string"},
+        "assignee": {"@id": "gladly:Conversation/assignee"},
+        "topics": {"@id": "schema:keywords", "@container": "@list"},
+        "notes": {"@id": "schema:comment", "@container": "@list"},
+        "createdAt": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+        "modifiedAt": {"@id": "schema:dateModified", "@type": "xsd:dateTime"},
+        "closedAt": {"@id": "gladly:Conversation/closedAt", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "Task": {
+      "@id": "schema:Action",
+      "@context": {
+        "id": {"@id": "gladly:Task/id", "@type": "xsd:string"},
+        "customerId": {"@id": "gladly:Task/customerId", "@type": "xsd:string"},
+        "conversationId": {"@id": "gladly:Task/conversationId", "@type": "xsd:string"},
+        "name": {"@id": "schema:name", "@type": "xsd:string"},
+        "description": {"@id": "schema:description", "@type": "xsd:string"},
+        "status": {"@id": "schema:actionStatus", "@type": "xsd:string"},
+        "dueAt": {"@id": "gladly:Task/dueAt", "@type": "xsd:dateTime"},
+        "assignee": {"@id": "schema:agent"},
+        "comments": {"@id": "schema:comment", "@container": "@list"},
+        "createdAt": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+        "modifiedAt": {"@id": "schema:dateModified", "@type": "xsd:dateTime"},
+        "closedAt": {"@id": "gladly:Task/closedAt", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "Answer": {
+      "@id": "schema:Article",
+      "@context": {
+        "id": {"@id": "gladly:Answer/id", "@type": "xsd:string"},
+        "name": {"@id": "schema:name", "@type": "xsd:string"},
+        "summary": {"@id": "schema:abstract", "@type": "xsd:string"},
+        "bodyHtml": {"@id": "schema:articleBody", "@type": "xsd:string"},
+        "audienceIds": {"@id": "schema:audience", "@container": "@list"},
+        "topicIds": {"@id": "schema:keywords", "@container": "@list"},
+        "isPublic": {"@id": "schema:isAccessibleForFree", "@type": "xsd:boolean"},
+        "languageCode": {"@id": "schema:inLanguage", "@type": "xsd:string"},
+        "createdAt": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+        "modifiedAt": {"@id": "schema:dateModified", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "Webhook": {
+      "@id": "gladly:Webhook",
+      "@context": {
+        "id": {"@id": "gladly:Webhook/id", "@type": "xsd:string"},
+        "url": {"@id": "schema:url", "@type": "xsd:anyURI"},
+        "events": {"@id": "gladly:Webhook/events", "@container": "@list"},
+        "secret": {"@id": "gladly:Webhook/secret", "@type": "xsd:string"},
+        "active": {"@id": "gladly:Webhook/active", "@type": "xsd:boolean"},
+        "createdAt": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+        "modifiedAt": {"@id": "schema:dateModified", "@type": "xsd:dateTime"}
+      }
+    }
+  }
+}

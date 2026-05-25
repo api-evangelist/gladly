@@ -1,0 +1,378 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Answer Management
+  description: Gladly REST API — Answer Management. 7 operations. Self-contained Naftiko capability covering the Answer Management
+    business surface of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Answer Management
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-answer-management
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Answer Management business capability.
+    resources:
+    - name: api-v1-answers
+      path: /api/v1/answers
+      operations:
+      - name: addAnswer
+        method: POST
+        description: Add Answer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+    - name: api-v1-answers-answerId
+      path: /api/v1/answers/{answerId}
+      operations:
+      - name: getAnswerById
+        method: GET
+        description: Get Answer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: answerId
+          in: path
+          type: string
+          required: true
+          description: id of the answer
+      - name: updateAnswer
+        method: PATCH
+        description: Update Answer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: answerId
+          in: path
+          type: string
+          required: true
+          description: id of the answer
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+      - name: deleteAnswer
+        method: DELETE
+        description: Delete Answer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: answerId
+          in: path
+          type: string
+          required: true
+          description: id of the answer
+    - name: api-v1-answers-answerId-languages-language-type-type
+      path: /api/v1/answers/{answerId}/languages/{language}/type/{type}
+      operations:
+      - name: getAnswerContentByLanguageAndType
+        method: GET
+        description: Get Answer Content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: answerId
+          in: path
+          type: string
+          required: true
+          description: id of the answer
+        - name: language
+          in: path
+          type: string
+          required: true
+          description: Language code according to ISO 639 format. The specified language must also be configured for the org.
+        - name: type
+          in: path
+          type: string
+          required: true
+          description: Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`.
+      - name: addAnswerContentByLanguageAndType
+        method: PUT
+        description: Add or Update Answer Content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: answerId
+          in: path
+          type: string
+          required: true
+          description: id of the answer
+        - name: language
+          in: path
+          type: string
+          required: true
+          description: Language code according to ISO 639 format. The specified language must also be configured for the org.
+        - name: type
+          in: path
+          type: string
+          required: true
+          description: Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`.
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+      - name: deleteAnswerContentByLanguageAndType
+        method: DELETE
+        description: Delete Answer Content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: answerId
+          in: path
+          type: string
+          required: true
+          description: id of the answer
+        - name: language
+          in: path
+          type: string
+          required: true
+          description: Language code according to ISO 639 format. The specified language must also be configured for the org.
+        - name: type
+          in: path
+          type: string
+          required: true
+          description: Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`.
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-answer-management-rest
+    port: 8080
+    description: REST adapter for Gladly Answer Management.
+    resources:
+    - path: /v1/api/v1/answers
+      name: api-v1-answers
+      description: REST surface for api-v1-answers.
+      operations:
+      - method: POST
+        name: addAnswer
+        description: Add Answer
+        call: gladly-answer-management.addAnswer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/answers/{answerId}
+      name: api-v1-answers-answerId
+      description: REST surface for api-v1-answers-answerId.
+      operations:
+      - method: GET
+        name: getAnswerById
+        description: Get Answer
+        call: gladly-answer-management.getAnswerById
+        with:
+          answerId: rest.path.answerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/answers/{answerId}
+      name: api-v1-answers-answerId
+      description: REST surface for api-v1-answers-answerId.
+      operations:
+      - method: PATCH
+        name: updateAnswer
+        description: Update Answer
+        call: gladly-answer-management.updateAnswer
+        with:
+          answerId: rest.path.answerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/answers/{answerId}
+      name: api-v1-answers-answerId
+      description: REST surface for api-v1-answers-answerId.
+      operations:
+      - method: DELETE
+        name: deleteAnswer
+        description: Delete Answer
+        call: gladly-answer-management.deleteAnswer
+        with:
+          answerId: rest.path.answerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/answers/{answerId}/languages/{language}/type/{type}
+      name: api-v1-answers-answerId-languages-language-type-type
+      description: REST surface for api-v1-answers-answerId-languages-language-type-type.
+      operations:
+      - method: GET
+        name: getAnswerContentByLanguageAndType
+        description: Get Answer Content
+        call: gladly-answer-management.getAnswerContentByLanguageAndType
+        with:
+          answerId: rest.path.answerId
+          language: rest.path.language
+          type: rest.path.type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/answers/{answerId}/languages/{language}/type/{type}
+      name: api-v1-answers-answerId-languages-language-type-type
+      description: REST surface for api-v1-answers-answerId-languages-language-type-type.
+      operations:
+      - method: PUT
+        name: addAnswerContentByLanguageAndType
+        description: Add or Update Answer Content
+        call: gladly-answer-management.addAnswerContentByLanguageAndType
+        with:
+          answerId: rest.path.answerId
+          language: rest.path.language
+          type: rest.path.type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/answers/{answerId}/languages/{language}/type/{type}
+      name: api-v1-answers-answerId-languages-language-type-type
+      description: REST surface for api-v1-answers-answerId-languages-language-type-type.
+      operations:
+      - method: DELETE
+        name: deleteAnswerContentByLanguageAndType
+        description: Delete Answer Content
+        call: gladly-answer-management.deleteAnswerContentByLanguageAndType
+        with:
+          answerId: rest.path.answerId
+          language: rest.path.language
+          type: rest.path.type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-answer-management-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Answer Management.
+    tools:
+    - name: gladly-addAnswer
+      description: Add Answer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-answer-management.addAnswer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getAnswerById
+      description: Get Answer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-answer-management.getAnswerById
+      with:
+        answerId: tools.answerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-updateAnswer
+      description: Update Answer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-answer-management.updateAnswer
+      with:
+        answerId: tools.answerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-deleteAnswer
+      description: Delete Answer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: gladly-answer-management.deleteAnswer
+      with:
+        answerId: tools.answerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getAnswerContentByLanguageAndType
+      description: Get Answer Content
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-answer-management.getAnswerContentByLanguageAndType
+      with:
+        answerId: tools.answerId
+        language: tools.language
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-addAnswerContentByLanguageAndType
+      description: Add or Update Answer Content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: gladly-answer-management.addAnswerContentByLanguageAndType
+      with:
+        answerId: tools.answerId
+        language: tools.language
+        type: tools.type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-deleteAnswerContentByLanguageAndType
+      description: Delete Answer Content
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: gladly-answer-management.deleteAnswerContentByLanguageAndType
+      with:
+        answerId: tools.answerId
+        language: tools.language
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.

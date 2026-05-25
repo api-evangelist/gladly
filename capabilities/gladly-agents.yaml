@@ -1,0 +1,184 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Agents
+  description: Gladly REST API — Agents. 4 operations. Self-contained Naftiko capability covering the Agents business surface
+    of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Agents
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-agents
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Agents business capability.
+    resources:
+    - name: api-v1-agents
+      path: /api/v1/agents
+      operations:
+      - name: getAgents
+        method: GET
+        description: List Agents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: api-v1-agents-agentId
+      path: /api/v1/agents/{agentId}
+      operations:
+      - name: getAgent
+        method: GET
+        description: Get Agent
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: api-v1-agents-agentId-call-recorder
+      path: /api/v1/agents/{agentId}/call-recorder
+      operations:
+      - name: getAgentCallRecording
+        method: GET
+        description: Get Agent CallRecorder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+      - name: updateAgentCallRecording
+        method: PATCH
+        description: Update Agent CallRecorder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-agents-rest
+    port: 8080
+    description: REST adapter for Gladly Agents.
+    resources:
+    - path: /v1/api/v1/agents
+      name: api-v1-agents
+      description: REST surface for api-v1-agents.
+      operations:
+      - method: GET
+        name: getAgents
+        description: List Agents
+        call: gladly-agents.getAgents
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/agents/{agentId}
+      name: api-v1-agents-agentId
+      description: REST surface for api-v1-agents-agentId.
+      operations:
+      - method: GET
+        name: getAgent
+        description: Get Agent
+        call: gladly-agents.getAgent
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/agents/{agentId}/call-recorder
+      name: api-v1-agents-agentId-call-recorder
+      description: REST surface for api-v1-agents-agentId-call-recorder.
+      operations:
+      - method: GET
+        name: getAgentCallRecording
+        description: Get Agent CallRecorder
+        call: gladly-agents.getAgentCallRecording
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/agents/{agentId}/call-recorder
+      name: api-v1-agents-agentId-call-recorder
+      description: REST surface for api-v1-agents-agentId-call-recorder.
+      operations:
+      - method: PATCH
+        name: updateAgentCallRecording
+        description: Update Agent CallRecorder
+        call: gladly-agents.updateAgentCallRecording
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-agents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Agents.
+    tools:
+    - name: gladly-getAgents
+      description: List Agents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-agents.getAgents
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getAgent
+      description: Get Agent
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-agents.getAgent
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getAgentCallRecording
+      description: Get Agent CallRecorder
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-agents.getAgentCallRecording
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-updateAgentCallRecording
+      description: Update Agent CallRecorder
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-agents.updateAgentCallRecording
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

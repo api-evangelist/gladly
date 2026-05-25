@@ -1,0 +1,423 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gladly REST API — Tasks
+  description: Gladly REST API — Tasks. 8 operations. Self-contained Naftiko capability covering the Tasks business surface
+    of the Gladly Customer Service Platform.
+  tags:
+  - Gladly
+  - Tasks
+  - Customer Service
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    GLADLY_ORGANIZATION: GLADLY_ORGANIZATION
+    GLADLY_AGENT_EMAIL: GLADLY_AGENT_EMAIL
+    GLADLY_API_TOKEN: GLADLY_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: gladly-tasks
+    baseUri: https://{{env.GLADLY_ORGANIZATION}}.gladly.com
+    description: Gladly REST API — Tasks business capability.
+    resources:
+    - name: api-v1-tasks
+      path: /api/v1/tasks
+      operations:
+      - name: createTaskAndCustomer
+        method: POST
+        description: Create Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+    - name: api-v1-customers-customerId-tasks
+      path: /api/v1/customers/{customerId}/tasks
+      operations:
+      - name: createTask
+        method: POST
+        description: Create Task for Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: path
+          type: string
+          required: true
+          description: 'Id of the customer associated with the task to create.
+
+
+            You can look up the id using the [Find customers](index.html#tag/Customers) API.
+
+            '
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+      - name: getTasks
+        method: GET
+        description: List Tasks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customerId
+          in: path
+          type: string
+          required: true
+          description: 'Id of the customer whose tasks you''d like to view.
+
+            '
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: 'Fetch tasks with the provided status.
+
+            '
+    - name: api-v1-tasks-taskId
+      path: /api/v1/tasks/{taskId}
+      operations:
+      - name: updateTask
+        method: PATCH
+        description: Update Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+          description: 'Id of the task that is to be updated
+
+            '
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+      - name: getTask
+        method: GET
+        description: Get Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+          description: 'Id of the task requested
+
+            '
+    - name: api-v1-tasks-taskId-comments
+      path: /api/v1/tasks/{taskId}/comments
+      operations:
+      - name: createTaskComment
+        method: POST
+        description: Add Task Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+          description: 'Id of the task that will be commented on.
+
+            '
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body (JSON).
+      - name: getTaskComments
+        method: GET
+        description: Get Task Comments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+          description: 'Id of the task comments are requested for.
+
+            '
+    - name: api-v1-tasks-taskId-comments-commentId
+      path: /api/v1/tasks/{taskId}/comments/{commentId}
+      operations:
+      - name: getTaskComment
+        method: GET
+        description: Get Task Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+          description: 'Task id
+
+            '
+        - name: commentId
+          in: path
+          type: string
+          required: true
+          description: 'Comment id
+
+            '
+    authentication:
+      type: basic
+      username: '{{env.GLADLY_AGENT_EMAIL}}'
+      password: '{{env.GLADLY_API_TOKEN}}'
+  exposes:
+  - type: rest
+    namespace: gladly-tasks-rest
+    port: 8080
+    description: REST adapter for Gladly Tasks.
+    resources:
+    - path: /v1/api/v1/tasks
+      name: api-v1-tasks
+      description: REST surface for api-v1-tasks.
+      operations:
+      - method: POST
+        name: createTaskAndCustomer
+        description: Create Task
+        call: gladly-tasks.createTaskAndCustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/customers/{customerId}/tasks
+      name: api-v1-customers-customerId-tasks
+      description: REST surface for api-v1-customers-customerId-tasks.
+      operations:
+      - method: POST
+        name: createTask
+        description: Create Task for Customer
+        call: gladly-tasks.createTask
+        with:
+          customerId: rest.path.customerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/customers/{customerId}/tasks
+      name: api-v1-customers-customerId-tasks
+      description: REST surface for api-v1-customers-customerId-tasks.
+      operations:
+      - method: GET
+        name: getTasks
+        description: List Tasks
+        call: gladly-tasks.getTasks
+        with:
+          customerId: rest.path.customerId
+          status: rest.query.status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/tasks/{taskId}
+      name: api-v1-tasks-taskId
+      description: REST surface for api-v1-tasks-taskId.
+      operations:
+      - method: PATCH
+        name: updateTask
+        description: Update Task
+        call: gladly-tasks.updateTask
+        with:
+          taskId: rest.path.taskId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/tasks/{taskId}
+      name: api-v1-tasks-taskId
+      description: REST surface for api-v1-tasks-taskId.
+      operations:
+      - method: GET
+        name: getTask
+        description: Get Task
+        call: gladly-tasks.getTask
+        with:
+          taskId: rest.path.taskId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/tasks/{taskId}/comments
+      name: api-v1-tasks-taskId-comments
+      description: REST surface for api-v1-tasks-taskId-comments.
+      operations:
+      - method: POST
+        name: createTaskComment
+        description: Add Task Comment
+        call: gladly-tasks.createTaskComment
+        with:
+          taskId: rest.path.taskId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/tasks/{taskId}/comments
+      name: api-v1-tasks-taskId-comments
+      description: REST surface for api-v1-tasks-taskId-comments.
+      operations:
+      - method: GET
+        name: getTaskComments
+        description: Get Task Comments
+        call: gladly-tasks.getTaskComments
+        with:
+          taskId: rest.path.taskId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/tasks/{taskId}/comments/{commentId}
+      name: api-v1-tasks-taskId-comments-commentId
+      description: REST surface for api-v1-tasks-taskId-comments-commentId.
+      operations:
+      - method: GET
+        name: getTaskComment
+        description: Get Task Comment
+        call: gladly-tasks.getTaskComment
+        with:
+          taskId: rest.path.taskId
+          commentId: rest.path.commentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gladly-tasks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gladly Tasks.
+    tools:
+    - name: gladly-createTaskAndCustomer
+      description: Create Task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-tasks.createTaskAndCustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-createTask
+      description: Create Task for Customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-tasks.createTask
+      with:
+        customerId: tools.customerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getTasks
+      description: List Tasks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-tasks.getTasks
+      with:
+        customerId: tools.customerId
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-updateTask
+      description: Update Task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-tasks.updateTask
+      with:
+        taskId: tools.taskId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getTask
+      description: Get Task
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-tasks.getTask
+      with:
+        taskId: tools.taskId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-createTaskComment
+      description: Add Task Comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gladly-tasks.createTaskComment
+      with:
+        taskId: tools.taskId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getTaskComments
+      description: Get Task Comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-tasks.getTaskComments
+      with:
+        taskId: tools.taskId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gladly-getTaskComment
+      description: Get Task Comment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gladly-tasks.getTaskComment
+      with:
+        taskId: tools.taskId
+        commentId: tools.commentId
+      outputParameters:
+      - type: object
+        mapping: $.

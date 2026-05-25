@@ -1,0 +1,57 @@
+extends:
+- spectral:oas
+rules:
+  # Operation hygiene
+  operation-operationId: error
+  operation-operationId-unique: error
+  operation-operationId-valid-in-url: warn
+  operation-summary: error
+  operation-description: warn
+  operation-tag-defined: error
+  operation-tags: error
+  operation-singular-tag:
+    description: Each operation should belong to exactly one Gladly business surface tag.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: warn
+    then:
+      field: tags
+      function: length
+      functionOptions:
+        max: 1
+  # Summaries follow the project's Title Case convention
+  gladly-summary-title-case:
+    description: Operation summary should use Title Case.
+    given: $.paths[*][get,post,put,patch,delete].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([A-Z0-9][\w''\-]*)(\s+(a|an|and|as|at|but|by|for|if|in|nor|of|on|or|so|the|to|up|yet|via|per|vs|[A-Z0-9][\w''\-]*))*$'
+  # Tag governance
+  openapi-tags: error
+  openapi-tags-alphabetical: off
+  # Schema and component governance
+  no-$ref-siblings: error
+  oas3-unused-component: warn
+  oas3-valid-media-example: warn
+  oas3-valid-schema-example: warn
+  # Security
+  oas3-server-not-example.com: error
+  # Path style — Gladly mounts /api/v1 on the organization subdomain
+  gladly-paths-no-trailing-slash:
+    description: Gladly paths must not end with a trailing slash (other than the root).
+    given: $.paths
+    severity: error
+    then:
+      function: pattern
+      field: '@key'
+      functionOptions:
+        notMatch: '.+/$'
+  # Auth coverage — every op should require basic auth unless explicitly exempted
+  gladly-security-required:
+    description: Every operation should declare basic auth unless it is the public answer search.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: warn
+    then:
+      field: security
+      function: truthy

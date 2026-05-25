@@ -1,0 +1,14 @@
+{
+  "title": "Gladly Webhook Structure",
+  "description": "Structural documentation for the Gladly Webhook subscription resource.",
+  "type": "object",
+  "fields": [
+    {"name": "id", "type": "string", "required": true},
+    {"name": "url", "type": "string", "format": "uri", "required": true, "description": "HTTPS endpoint receiving event payloads."},
+    {"name": "events", "type": "array<string>", "required": true, "description": "Event types subscribed to (CONVERSATION_*, MESSAGE_*, TASK_*, CUSTOMER_*, AGENT_STATE_CHANGED)."},
+    {"name": "secret", "type": "string", "required": false, "description": "Shared HMAC-SHA256 signing secret."},
+    {"name": "active", "type": "boolean", "required": false},
+    {"name": "createdAt", "type": "string", "format": "date-time", "required": false},
+    {"name": "modifiedAt", "type": "string", "format": "date-time", "required": false}
+  ]
+}
