@@ -1,0 +1,1858 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Communications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send SMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/communications/sms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To send an SMS message to a customer specified by a mobile phone number.\n\nGladly can send outbound SMS messages globally. By default, your organization is set up to only allow access to your home country.  To send SMS messages to other countries, please contact [Gladly Support](https://help.gladly.com/implementation/docs/filing-a-support-issue) with a P4 designation.\n\nPlease be aware that:\n- Any automated outbound text messages **must** comply with carrier [acceptable use policies](https://help."
+        },
+        {
+          "info": {
+            "name": "Send Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/communications/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to send an email messages to a customer specified by an email address.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the email address specified as part of the payload.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Conversations for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/conversations",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "gHufx-U3QqOmhvFuViceTw",
+                "type": "path",
+                "description": "Id of the customer to get all conversations for"
+              }
+            ]
+          },
+          "docs": "Get the list of conversations for a customer.\nThe list is not paginated and will return at most 100 conversations.\nThe conversations are returned in ascending order by timestamp.\nThe `Gladly-Limited-Data` header flag in the response will indicate if the customer has more conversations than returned.\n"
+        },
+        {
+          "info": {
+            "name": "Get Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "9BcE2O0DQ2ynGHRmk9FeoA",
+                "type": "path",
+                "description": "Id of the conversation to get"
+              }
+            ]
+          },
+          "docs": "Get conversation metadata such as it's assignee, topics, inbox, etc.\n"
+        },
+        {
+          "info": {
+            "name": "Update Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "9BcE2O0DQ2ynGHRmk9FeoA",
+                "type": "path",
+                "description": "Id of the conversation"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update conversation assignee, statusor both\n"
+        },
+        {
+          "info": {
+            "name": "Create Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To add items to the timeline for a customer specified by identifying information. If the customer doesn't exist, a new customer profile is created.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the mobile phone number or email address specified as part of the payload.\n"
+        },
+        {
+          "info": {
+            "name": "Get Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ]
+          },
+          "docs": "Returns the conversation item with the provided id.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the item to be deleted.\n"
+              }
+            ]
+          },
+          "docs": "To delete an item.\n\nPlease note only items of type **CUSTOMER_ACTIVITY** may be deleted by this API.\n"
+        },
+        {
+          "info": {
+            "name": "Get Media",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/media/recording",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ]
+          },
+          "docs": "Returns the media file associated with the conversation item\n"
+        },
+        {
+          "info": {
+            "name": "Get Voice Transcript",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/voice-transcript",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ]
+          },
+          "docs": "Returns a transcript of a phone call or a voicemail\n"
+        },
+        {
+          "info": {
+            "name": "Get Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/attachments/:attachmentId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation item that contains the attachment.\n"
+              },
+              {
+                "name": "attachmentId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the attachment to retrieve.\n"
+              }
+            ]
+          },
+          "docs": "Returns a redirect to the URL of the specified attachment on a conversation item.\n\nThe response is a `303 See Other` redirect. Follow the redirect to download the attachment content.\n\nAttachments are available on conversation items with content types that support them, such as emails, chat messages, SMS messages, and custom channel messages.\n"
+        },
+        {
+          "info": {
+            "name": "Create Item for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/conversation-items",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To add items to a customer's timeline.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the mobile phone number or email address specified as part of the payload.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Item for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/conversation-items/:itemId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the item to be deleted.\n"
+              }
+            ]
+          },
+          "docs": "To delete an item.\n\nPlease note only items of type **CUSTOMER_ACTIVITY** may be deleted by this API.\n"
+        },
+        {
+          "info": {
+            "name": "List Items in Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/items",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "9BcE2O0DQ2ynGHRmk9FeoA",
+                "type": "path",
+                "description": "Id of the conversation to get the timeline for"
+              },
+              {
+                "name": "sessionId",
+                "value": "5k04bYuTRGqyT6uoSQfWVA",
+                "type": "query",
+                "description": "Return only items whose `sessionId` matches the given value."
+              }
+            ]
+          },
+          "docs": "Get the list of items in the timeline of a conversation.\nThe conversation represents a period of related interactions between a customer and your organization.\nThe list is not paginated and will return at most 1000 items. The items are returned in ascending order by timestamp.\nThe `Gladly-Limited-Data` header flag in the response will indicate if the conversation has more items than returned.\n\nThe response can be filtered by session using the optional `sessionId` query parameter.\n"
+        },
+        {
+          "info": {
+            "name": "Add Topics to Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/topics",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a list of topics to the conversation. If a topic being added already exists on the conversation, that topic is ignored.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Topic From Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/topics/:topicId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              },
+              {
+                "name": "topicId",
+                "value": "",
+                "type": "path",
+                "description": "Id of topic to be deleted from conversation.\n"
+              }
+            ]
+          },
+          "docs": "Delete a topic from a conversation.\n"
+        },
+        {
+          "info": {
+            "name": "Add or Remove Freeform Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-history/:customerId/conversations/:conversationId/custom-attributes",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer.\n"
+              },
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or removes a list of freeform topics to the conversation. If the freeform topic being added already exists on the conversation, that topic is ignored.\n"
+        },
+        {
+          "info": {
+            "name": "Add Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/notes",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds note to an existing conversation."
+        },
+        {
+          "info": {
+            "name": "Get Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/notes/:noteId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation\n"
+              },
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "id of the note\n"
+              }
+            ]
+          },
+          "docs": "Returns the note with the provided conversation and note id.\n"
+        },
+        {
+          "info": {
+            "name": "Reply to Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/reply",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a response to a conversation item. If no agent is assigned to the conversation, the conversation is assigned to the API User who made this call."
+        },
+        {
+          "info": {
+            "name": "Redact Conversation Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/redact",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For supported items, the item's content will be removed but the item will\nremain in the conversation timeline. Supported types are Chat Message,\nSMS Message, Email, Twitter (decommissioned as of 04/20/23, but can still be redacted), WhatsApp, Voicemail, Phone Call.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To add tasks to the timeline for a customer specified by identifying information. If the customer doesn't exist, a new customer profile is created.\n"
+        },
+        {
+          "info": {
+            "name": "List Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/tasks",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer whose tasks you'd like to view.\n"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Fetch tasks with the provided status.\n"
+              }
+            ]
+          },
+          "docs": "Fetch all tasks for a customer.\n\nThe list is not paginated and will return at most 2000 tasks. The tasks are returned in descending order by timestamp. \nThe `Gladly-Limited-Data` header flag in the response will indicate if the customer has more tasks than returned.        \n\nTo see and act on any newly created tasks, webhooks can be used to listen for task related events.\nTasks older than the limit can be viewed using the Task Export.\n"
+        },
+        {
+          "info": {
+            "name": "Create Task for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/tasks",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a task to an existing customer's conversation timeline\n"
+        },
+        {
+          "info": {
+            "name": "Get Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task requested\n"
+              }
+            ]
+          },
+          "docs": "Get task\n"
+        },
+        {
+          "info": {
+            "name": "Update Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task that is to be updated\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing task\n"
+        },
+        {
+          "info": {
+            "name": "Get Task Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId/comments",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task comments are requested for.\n"
+              }
+            ]
+          },
+          "docs": "The comments are returned in ascending order by createdAt timestamp. The list is not paginated and will return at most 1000 task comments. The `Gladly-Limited-Data` header flag in the response will indicate if the task has more comments than returned.\n\nTo see and act on any newly created task comments, webhooks can be used to listen to any task comment related events.\n"
+        },
+        {
+          "info": {
+            "name": "Add Task Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId/comments",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task that will be commented on.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a comment on a task.  Note that you can’t create comments on closed tasks.\n![Task Comment](assets/task-comment.png)\n"
+        },
+        {
+          "info": {
+            "name": "Get Task Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId/comments/:commentId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Task id\n"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "Comment id\n"
+              }
+            ]
+          },
+          "docs": "Get task comment.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Freeform Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Custom Attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/custom-attributes/:customAttributeId",
+            "params": [
+              {
+                "name": "customAttributeId",
+                "value": "",
+                "type": "path",
+                "description": "id of the custom attribute\n"
+              }
+            ]
+          },
+          "docs": "Returns a custom attribute that matches the provided custom attribute id.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "customer email address to search on."
+              },
+              {
+                "name": "externalCustomerId",
+                "value": "",
+                "type": "query",
+                "description": "Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field is not searchable."
+              },
+              {
+                "name": "phoneNumber",
+                "value": "",
+                "type": "query",
+                "description": "Phone number in E.164 format. The value should be URL escaped where `+` becomes `%2B`.\n"
+              }
+            ]
+          },
+          "docs": "Find customers by searching by choosing **one** of the following identifiers as query parameters:\n\n```\n/api/v1/customer-profiles?phoneNumber=%2B14151234567\n```\n\nMax limit of 50 profiles returned, sorted by most recently updatedAt date descending. \n"
+        },
+        {
+          "info": {
+            "name": "Create Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new customer with the supplied profile data.\n"
+        },
+        {
+          "info": {
+            "name": "Get Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the customer"
+              }
+            ]
+          },
+          "docs": "Get a customer by unique id.\nIf a customer has been merged into another, an error will be returned specifying the new id of the customer.\n"
+        },
+        {
+          "info": {
+            "name": "Update Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the customer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a customer by unique id with the supplied JSON patch.\n\nYou may supply only the properties which you want to update or insert into the profile.\nWhen updating arrays, such as `phones` and `emails` you must provide the entire list of values\nsince it is not possible to add or delete a single value.\n\nIf a customer has been merged into another, an error will be returned specifying the new id of the customer.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the customer"
+              }
+            ]
+          },
+          "docs": "Delete a customer and all associated conversations.\n\nAll conversations associated with the customer must be closed before the customer can be deleted.\n\nThis operation is irreversible.\n\nThe user associated with the API token must have both Compliance Admin and API User roles.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Identity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a User Identity JWT",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/user-identity-jwt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a User Identity JWT for a customer. The JWT is used to authenticate the customer with \n[Chat](https://developer.gladly.com/chat/). The JWT contains the customer identity information.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Public Answer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Public Answers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/answers-search?q=search+terms",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "search term"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "language code"
+              },
+              {
+                "name": "audienceId",
+                "value": "",
+                "type": "query",
+                "description": "Audience ID. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of answers that match the provided query string.\n"
+        },
+        {
+          "info": {
+            "name": "List Public Answers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/answers?lng=:lng&audienceId=:audienceId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "Language of the answers returned\n\nDefaults to `en-us`\n"
+              },
+              {
+                "name": "audienceId",
+                "value": "",
+                "type": "query",
+                "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n"
+              }
+            ]
+          },
+          "docs": "Returns the first 1000 public answers sorted alphabetically by name.\n"
+        },
+        {
+          "info": {
+            "name": "List Help Center Answer Titles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/help-center/:helpCenterId/answer-titles?lng=:lng&audienceId=:audienceId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "helpCenterId",
+                "value": "",
+                "type": "path",
+                "description": "Help Center ID\n\nYou can look up the ID by going to Settings > Help Center in Gladly, then clicking on the 3 dots next to the Help Center and selecting Configure. Help Center ID will be in the URL\n"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "Language of the answers returned\n\nDefaults to `en-us`\n"
+              },
+              {
+                "name": "audienceId",
+                "value": "",
+                "type": "query",
+                "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n"
+              }
+            ]
+          },
+          "docs": "Returns an array of answers configured in Help Center sections with their ID and name\n"
+        },
+        {
+          "info": {
+            "name": "Get Public Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/answers/:answerId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "language code"
+              }
+            ]
+          },
+          "docs": "Returns the answer with the provided id.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Answer Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an answer to the list of answers.\n"
+        },
+        {
+          "info": {
+            "name": "Get Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              }
+            ]
+          },
+          "docs": "Returns the answer requested.\n"
+        },
+        {
+          "info": {
+            "name": "Update Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the answer with the provided id.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              }
+            ]
+          },
+          "docs": "Deletes the answer with the provided id.\n"
+        },
+        {
+          "info": {
+            "name": "Get Answer Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId/languages/:language/type/:type",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "path",
+                "description": "Language code according to ISO 639 format. The specified language must also be configured for the org."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+              }
+            ]
+          },
+          "docs": "Returns the answer content requested by language and type.\n"
+        },
+        {
+          "info": {
+            "name": "Add or Update Answer Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId/languages/:language/type/:type",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "path",
+                "description": "Language code according to ISO 639 format. The specified language must also be configured for the org."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or Updates the answer content for the specified answer by language and type.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Answer Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId/languages/:language/type/:type",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "path",
+                "description": "Language code according to ISO 639 format. The specified language must also be configured for the org."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+              }
+            ]
+          },
+          "docs": "Deletes the answer content for the specified answer by language and type.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents"
+          },
+          "docs": "Returns a list of agents.\n"
+        },
+        {
+          "info": {
+            "name": "Get Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents/:agentId",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "id of the agent"
+              }
+            ]
+          },
+          "docs": "Get an agent profile by their unique id.\n"
+        },
+        {
+          "info": {
+            "name": "Get Agent CallRecorder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents/:agentId/call-recorder",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "Gladly ID or Gladly email address of the agent"
+              }
+            ]
+          },
+          "docs": "Get an agent call recording status.\n"
+        },
+        {
+          "info": {
+            "name": "Update Agent CallRecorder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents/:agentId/call-recorder",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "Gladly ID or Gladly email address of the agent"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an agent's active call recording status. This API allows changing the `recording` property.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audiences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Audiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/audiences"
+          },
+          "docs": "Returns a list of audiences.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Business Hours",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours"
+          },
+          "docs": "Returns a list of all business hours configurations for your organization.\n"
+        },
+        {
+          "info": {
+            "name": "Create Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new business hours configuration for your organization.\n"
+        },
+        {
+          "info": {
+            "name": "Get Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours/:businessHoursId",
+            "params": [
+              {
+                "name": "businessHoursId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the business hours configuration"
+              }
+            ]
+          },
+          "docs": "Returns a single business hours configuration by its unique ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours/:businessHoursId",
+            "params": [
+              {
+                "name": "businessHoursId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the business hours configuration"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing business hours configuration. The `version` field must match the current version of the business hours to prevent conflicting updates.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours/:businessHoursId",
+            "params": [
+              {
+                "name": "businessHoursId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the business hours configuration"
+              }
+            ]
+          },
+          "docs": "Deletes a business hours configuration. The primary business hours configuration cannot be deleted.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/organization"
+          },
+          "docs": "Returns metadata about your organization.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Inboxes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Inboxes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/inboxes"
+          },
+          "docs": "Returns a list of inbox metadata.\n"
+        },
+        {
+          "info": {
+            "name": "Get Inbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/inboxes/:inboxId",
+            "params": [
+              {
+                "name": "inboxId",
+                "value": "",
+                "type": "path",
+                "description": "id of the inbox"
+              }
+            ]
+          },
+          "docs": "Get the metadata for an inbox by its unique id.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/teams"
+          },
+          "docs": "Returns a list of teams.\n"
+        },
+        {
+          "info": {
+            "name": "Get Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              }
+            ]
+          },
+          "docs": "Get a team by its unique id.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics"
+          },
+          "docs": "Returns a list of Topics.\n"
+        },
+        {
+          "info": {
+            "name": "Add Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a Topic to the list of available Topics.\n"
+        },
+        {
+          "info": {
+            "name": "Get Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics/:topicId",
+            "params": [
+              {
+                "name": "topicId",
+                "value": "",
+                "type": "path",
+                "description": "id of the Topic"
+              }
+            ]
+          },
+          "docs": "Get a Topic by its unique id.\n"
+        },
+        {
+          "info": {
+            "name": "Update Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics/:topicId",
+            "params": [
+              {
+                "name": "topicId",
+                "value": "",
+                "type": "path",
+                "description": "id of the Topic"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing Topic.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/export/schedules"
+          },
+          "docs": "List all schedules. Currently, only one schedule can be configured per organization. The schedule will generate recurring data export jobs with an hourly or daily frequency. By default, each organization has a daily export job configured. To change the job frequency, please contact Gladly Support.\n\nHourly schedules generate new jobs on a roughly two hour lag after the `nextStartAt` time. For example, for an hourly schedule with a `nextStartAt` equal to `2019-01-21T08:00:00.00Z`, the next job wil"
+        },
+        {
+          "info": {
+            "name": "List Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/export/jobs",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "export job status to search on."
+              },
+              {
+                "name": "startAt",
+                "value": "",
+                "type": "query",
+                "description": "Starting time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be more than 14 days ago. Default is 14 days ago.\n\nThe date should be in ISO 8601 format.\n"
+              },
+              {
+                "name": "endAt",
+                "value": "",
+                "type": "query",
+                "description": "Ending time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be before 'startAt' or in the future. Default is now.\n\nThe date should be in ISO 8601 format.\n"
+              }
+            ]
+          },
+          "docs": "List all jobs for the organization in any status for the last 14 days. \n```\n/api/v1/export/jobs\n```\n\nYou can further filter the results by including query parameters for `status`, `startAt`, and `endAt`.\n```\n/api/v1/export/jobs?status=COMPLETED&startAt=2024-09-15T00:00:00.000Z&endAt=2024-09-16T00:00:00.000Z\n```\n"
+        },
+        {
+          "info": {
+            "name": "Get Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/export/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "id of the job"
+              }
+            ]
+          },
+          "docs": "Get a job by unique id.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/export/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "id of the job"
+              }
+            ]
+          },
+          "docs": "Delete a job and all associated files. *Note*: job status must be `COMPLETED` or `FAILED` to be deleted.\n"
+        },
+        {
+          "info": {
+            "name": "Get File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/export/jobs/:jobId/files/:filename",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "id of the job"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "path",
+                "description": "name of the file"
+              }
+            ]
+          },
+          "docs": "Download a file generated by a data export job.\nFilenames can be found from an export [job's](index.html#operation/getJob) `files` field.\n\nFiles are returned in `.jsonl` format where each line is a `json` object representing an element from the array of data. Please note that, in rare cases, conversation items with invalid attributes may be excluded from the data export. For example:\n- An email message that was undelivered due to an invalid recipient email address\n- EMAIL / SMS auto-replies sent"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Proactive Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Recipient Collection for an Existing Proactive Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/campaigns/:campaignId/recipient-collections",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path",
+                "description": "id of the campaign to create a new recipient collection for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new recipient collection for an existing proactive campaign that will be contacted based on the campaign settings.\n\nYou can locate the `campaignId` by navigating to the campaign in the dashboard and copying the `id` from the URL.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a report with a set of specific parameters and filters. The report is returned as a CSV file. These are the same reports that you can normally access via UI. For more information about each report, check out the [Reporting and Insights](https://connect.gladly.com/docs/help-documentation/reports-and-insights/) section of the help docs."
+        },
+        {
+          "info": {
+            "name": "Generate a Work Session Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/reports/work-session-events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> **Note:** This endpoint will generate the V2 version of the Work Session Report. Metrics may differ from the V4 version, used in the Gladly UI.\n> To generate a Work Sessions V4 Report, use the [Reports API](/rest/#tag/Reports).\n\nA **Work Session** represents a period of time that an Agent spends working with a Customer on a given channel, during a given Contact (messaging exchange, phone call, etc.). In particular:\n  - A Customer may have 0 or more Conversations, but only 1 Conversation is ope"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/webhooks"
+          },
+          "docs": "Returns a list of webhooks.\n"
+        },
+        {
+          "info": {
+            "name": "Create Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new webhook with the supplied data. The webhook will be in disabled state by default.\n\nIf creating a new enabled webhook, your service is expected to respond to a [Ping Event](#section/Ping-Event).\n\nYou are limited to 20 webhooks for your organization.\n"
+        },
+        {
+          "info": {
+            "name": "Get Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "id of the webhook"
+              }
+            ]
+          },
+          "docs": "Get a webhook by ID\n"
+        },
+        {
+          "info": {
+            "name": "Update Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "id of the webhook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update webhook by id.\n\nIf enabling a webhook or updating a webhook's URL, your service is expected to respond to a [Ping Event](#section/Ping-Event).\n"
+        },
+        {
+          "info": {
+            "name": "Delete Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "id of the webhook"
+              }
+            ]
+          },
+          "docs": "Delete a webhook by ID\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/gladly/webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gladly will perform a POST request to your endpoint when the event occurs.\n\nYour service is expected to respond within 15 seconds.\n\nIf your service responds to a webhook notification with a response code outside the 2XX range or times out after 15 seconds, Gladly considers that delivery as failed and will resend the request up to 4 times over an hour. After the fourth attempt, we will deactivate the webhook and will notify all API Users in your organization's environment via email.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/events",
+            "params": [
+              {
+                "name": "startAt",
+                "value": "",
+                "type": "query",
+                "description": "Starting time of the events interval. This is based on the `timestamp` field which indicates when the event was recorded. Must be from last 24 hours.\n\nThe date should be in ISO 8601 format.\n"
+              },
+              {
+                "name": "endAt",
+                "value": "",
+                "type": "query",
+                "description": "Ending time of the events interval. This is based on the `timestamp` field which indicates when the event was recorded. If unspecified, current time will be implied.\n\nThe date should be in ISO 8601 format.\n"
+              },
+              {
+                "name": "entities",
+                "value": "",
+                "type": "query",
+                "description": "Entity types that have associated events. Any number of types is acceptable and at least one must be present\n\nAvailable Types: `AGENT_AVAILABILITY`, `AGENT_STATUS`, `CONTACT`, `CONVERSATION`, `CUSTOMER`, `CUSTOMER_PROFILE`, `PAYMENT_REQUEST`,`TASK`\n"
+              }
+            ]
+          },
+          "docs": "Returns a stream of events for the specified entities within the given time range. Responses are streamed using JSONL.\n\nEvents are up to 15 seconds behind real-time. \n\n```\n/api/v1/events?startAt=2020-05-20T14:00:00Z&entities=AGENT_STATUS&entities=AGENT_AVAILABILITY\n```\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
