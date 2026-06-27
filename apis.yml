@@ -48,13 +48,13 @@ apis:
       - url: json-ld/gladly-context.jsonld
         type: JSONLD
       - url: examples/gladly-customer-create-example.json
-        type: Example
+        type: Examples
       - url: examples/gladly-conversation-list-example.json
-        type: Example
+        type: Examples
       - url: examples/gladly-task-create-example.json
-        type: Example
+        type: Examples
       - url: examples/gladly-webhook-create-example.json
-        type: Example
+        type: Examples
     description: >-
       Gladly's unified REST API for the people-centered customer service platform. Exposes Customers, Conversations,
       Messages, Tasks, Answers (knowledge base), Topics, Teams, Inboxes, Audiences, Business Hours, Communications
@@ -90,7 +90,7 @@ apis:
       - url: https://developer.gladly.com/chat/
         type: Documentation
       - url: https://cdn.gladly.com/chat-sdk/widget.js
-        type: SDK
+        type: SDKs
     description: >-
       JavaScript chat widget loaded from the Gladly CDN. Exposes `Gladly.init`, `show`, `close`, `setUser`,
       `startConversation`, `navigate`, `applyCampaign`, `getAvailability`, plus a full event system (availability,
@@ -111,7 +111,7 @@ apis:
       - url: https://github.com/gladly/sidekick-ios-sdk
         type: SourceCode
       - url: https://github.com/gladly/sidekick-ios-sdk
-        type: SDK
+        type: SDKs
     description: >-
       Swift SDK (v1.2.5, iOS 11+) for embedding the Gladly Sidekick chat experience in iOS apps. Ships `Gladly`,
       `GladlySettings`, `GladlyUser`, `UIConfiguration`, `UIHeaderConfiguration`, and delegate protocols for chat
@@ -131,7 +131,7 @@ apis:
       - url: https://github.com/gladly/sidekick-android-sdk
         type: SourceCode
       - url: https://github.com/gladly/sidekick-android-sdk
-        type: SDK
+        type: SDKs
     description: >-
       Kotlin SDK (Android Q / API 29+) for embedding the Gladly Sidekick chat experience in Android apps. Provides
       `Gladly.initialize`, `setUser`, `showChat`, `handleMessageReceived`, `getUnreadCount`,
@@ -189,7 +189,7 @@ apis:
       - url: json-schema/gladly-webhook-schema.json
         type: JSONSchema
       - url: examples/gladly-webhook-create-example.json
-        type: Example
+        type: Examples
     description: >-
       Event-driven push channel that delivers Gladly platform events (conversation created/updated/closed, message
       created, task created/updated/closed, customer created/updated, agent state changes) to a brand-supplied HTTPS
