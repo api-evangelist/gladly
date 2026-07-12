@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/gladly-rest-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  description: "Gladly API uses token-based **Basic Authentication**. API tokens are associated\
+    \ with designated Gladly users.\nTo create and use an API token, your user must have the\
+    \ API User permission. An API token can be used to perform any API request without restriction.\n\
+    \n| user name   | password  |\n| ----------- | --------- |\n| agent email | API token |\n\
+    \nThe credentials must be passed via an `Authorization` "
+  sources:
+  - openapi/gladly-rest-api-openapi.yml

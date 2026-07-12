@@ -227,6 +227,10 @@ maintainers:
     email: info@apievangelist.com
 specificationVersion: '0.20'
 common:
+  - type: DomainSecurity
+    url: security/gladly-domain-security.yml
+  - type: Authentication
+    url: authentication/gladly-authentication.yml
   - url: https://www.gladly.ai/
     type: Portal
   - url: https://developer.gladly.com/
