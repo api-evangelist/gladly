@@ -227,6 +227,8 @@ maintainers:
     email: info@apievangelist.com
 specificationVersion: '0.20'
 common:
+  - type: AgenticAccess
+    url: agentic-access/gladly-agentic-access.yml
   - type: DomainSecurity
     url: security/gladly-domain-security.yml
   - type: Authentication
