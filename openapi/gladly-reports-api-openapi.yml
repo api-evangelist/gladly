@@ -1,0 +1,638 @@
+openapi: 3.0.1
+info:
+  title: Gladly Agents Reports API
+  version: '1.0'
+  description: '# Introducing the Gladly API
+
+
+    At Gladly, we believe that customer service is best when it''s a conversation.
+
+    That means more than just helping customers with one-off questions or issues: it''s about making them feel known, valued, and respected for the individuals they are.
+
+
+    The Gladly API was built to help facilitate those relationships, providing agents with the rich customer context
+
+    they need to deliver seamless experiences that make customers feel like they''re more than just a number in a sea of others.
+
+
+    # Overview
+
+
+    You can integrate easily with Gladly by calling Gladly''s [REST API](#section/Overview/REST-API)
+
+    and implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.
+
+
+    Some examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer''s timeline,
+
+    providing the latest information about a customer''s orders, and more.
+
+
+    ## REST API
+
+
+    Clients can access the **REST API** via HTTPS at your organization''s Gladly domain (e.g. `https://{organization}.gladly.com`).
+
+
+    Resources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.
+
+    In addition, all responses and payloads are in JSON with consistent error codes and formats.
+
+
+    ## Lookup API
+
+
+    The Gladly **Lookup API** allows your organization to provide data services to power the agent''s experience with a complete view of your customers''
+
+    information, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.
+
+
+    Like the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.
+
+
+    Gladly will perform lookups when certain activities occur within Gladly, such as when a customer''s profile is loaded.
+
+
+    A detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).
+
+
+    ## Testing
+
+
+    Test the myriad possibilities of the Gladly API in a safe, secure space. We''ll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).
+
+
+    Your sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.
+
+
+    # Getting Started
+
+
+    Think of this section as getting the keys to unlocking your access to the Gladly APIs.
+
+    First, you''ll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).
+
+    With these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly''s API [resources](#section/Overview/Resources).
+
+
+    ## Permissions
+
+
+    Gladly Administrators can set API permissions on an agent-by-agent basis.
+
+    We''ll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.
+
+
+    To allow a user to create API tokens and access the API:
+
+    1. Log in to your Gladly instance.
+
+    2. Open the menu on the top left-hand corner of the page.
+
+    3. Navigate to **Settings** > **Users*
+
+    4. Search and click the user profile you wish to give access to.
+
+    5. You''ll see a permission called **API User**. Select it, while making sure to keep the user''s **Agent** role intact.
+
+    6. Hit **Save** to give access.
+
+
+    ![Agent profile screen](assets/permissions-agent.png)
+
+
+    We recommend creating a dedicated user to make API calls, whose account won''t be used for agent and organization management.
+
+    This will help you with any future audits of API activity vs. agent activity.
+
+
+    ## Creating API Tokens
+
+
+    You must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).
+
+    If your profile already has access to the **API User** permission, you''ll see a menu item titled **More settings**. Click **More settings**:
+
+
+    ![API Token Menu](assets/permissions-token-nav.png)
+
+
+    Click **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:
+
+
+    ![API Token Add](assets/permissions-token-add.png)
+
+
+    A token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).
+
+    You can rename the token to something more easily referenceable by clicking the name to edit.
+
+
+    This token will be associated with your agent profile, which we refer to as the API User in this document.
+
+
+    ![API Token View](assets/permissions-token-view.png)
+
+
+    For security purposes, you''ll only see a new token once before you navigate away from the page.
+
+
+    ## Replacing/Rotating API Tokens
+
+
+    Should you lose this token, or wish to rotate your application keys, you can do the following:
+
+
+    1. Generate a new token.
+
+    2. Store the new token in a secure location.
+
+    3. Delete the old token.
+
+    4. Update your applications/scripts with the new token.
+
+
+    # Authentication
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->'
+servers:
+- url: https://{organization}.gladly.com/api/v1
+  description: Production
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly organization subdomain
+- url: https://{organization}.gladly.qa/api/v1
+  description: Sandbox
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly QA organization subdomain
+security:
+- basicAuth: []
+tags:
+- name: Reports
+  description: 'A **Report** in Gladly contains metrics that you need to run the contact center. Reports API allows you to access Gladly''s reports programatically.
+
+    '
+paths:
+  /api/v1/reports:
+    post:
+      tags:
+      - Reports
+      summary: Generate a Report
+      description: Generate a report with a set of specific parameters and filters. The report is returned as a CSV file. These are the same reports that you can normally access via UI. For more information about each report, check out the [Reporting and Insights](https://connect.gladly.com/docs/help-documentation/reports-and-insights/) section of the help docs.
+      requestBody:
+        description: Parameters describing the report to generate.
+        content:
+          application/json:
+            schema:
+              title: Report request body
+              type: object
+              required:
+              - metricSet
+              - startAt
+              - endAt
+              properties:
+                metricSet:
+                  type: string
+                  description: 'This parameter is used to specify that the report should include a predetermined set of metrics. These are the same reports that you can normally access via UI.
+
+
+                    For more information about each report, check out the [Work With OOTB Reports](https://help.gladly.com/docs/export-reports) section of the help docs.
+
+                    '
+                  example: ContactSummaryReport
+                  enum:
+                  - AgentAwayTimeReport
+                  - AgentAvailableTimeReportV2
+                  - AgentDurationsReport
+                  - AgentDurationsReportV2
+                  - AgentLoginTimeReport
+                  - AgentSummary
+                  - AgentSummaryV2
+                  - AgentSummaryGlanceReport
+                  - AgentSummaryGlanceReportV2
+                  - AgentTimestampsReport
+                  - FirstContactResolutionByAgentV2Report
+                  - PaymentsByAgentReport
+                  - WorkSessionEventsReportV3
+                  - WorkSessionEventsReportV4
+                  - WorkSessionsReport
+                  - WorkSessionsReportV3
+                  - AnswerUsageReport
+                  - AnswerUsageByAgentReport
+                  - ChannelMixReportV2
+                  - ChannelWaitTimeReport
+                  - ChannelWaitTimeReportV2
+                  - ContactExportReportV3
+                  - ContactSummaryReport
+                  - ContactSummaryReportV2
+                  - ContactSummaryCountsReport
+                  - ContactSummaryDurationsReport
+                  - ContactSummaryDurationsReportV2
+                  - ContactTimestampsReport
+                  - ConversationExportReport
+                  - ConversationSidekickExportReport
+                  - ConversationSummaryReport
+                  - ConversationTimestampsReport
+                  - AbandonedCallsInIVRReport
+                  - AutoThrottleMissedConversationsReport
+                  - IVRExecutiveSummaryReportV2
+                  - IvrEndStatesReportV2
+                  - PaymentsSummaryReport
+                  - ProactiveVoiceSummaryReport
+                  - TopicHierarchyReport
+                  - TaskExportReport
+                  - TaskSummaryReport
+                  - TaskTimestampsReport
+                  - TopicSummaryReport
+                  - AutoThrottleChangesReport
+                  - ChatDisplayPctChangesReport
+                  - HelpCenterAnswerSearchReport
+                  - HelpCenterAnswerUsageReport
+                  - QuickActionsUsageReport
+                  - SelfServiceThreadsReport
+                  - SidekickAssistsByClassificationTopicReport
+                  - GladAppAnswerSearchReport
+                  - GladAppAnswerUsageReport
+                  - GladAppContactPointsReport
+                  - GladlyAISessionsDetailReport
+                  - GladlyAISessionsDetailWithMessagesReport
+                timezone:
+                  type: string
+                  description: 'The timezone to be used for the report. Supported timezones are those found in the IANA timezone database.
+
+
+                    If omitted, the organization''s default timezone will be used.
+
+                    '
+                  example: America/Denver
+                startAt:
+                  type: string
+                  description: 'Starting date at the timezone indicated by the timezone parameter. The report will begin at midnight of the specified date.
+
+
+                    The date should be in the format `YYYY-mm-dd`. For example `2019-05-01`.
+
+                    '
+                  example: '2019-05-01'
+                endAt:
+                  type: string
+                  description: 'Ending date at the timezone indicated by the timezone parameter. The report will end just before midnight of the following day such that the report includes all data for the `endAt` day.
+
+
+                    The date should be in the format `YYYY-mm-dd`. For example `2019-05-01`.
+
+                    '
+                  example: '2019-05-16'
+                startAtTime:
+                  type: string
+                  description: 'Starting time of the report interval, in ISO 8601 format `YYYY-mm-ddThh:mmZ`. For example `2020-04-13T19:27Z`.
+
+
+                    This filter is optional and only applies to the following `metricSet`s: `AgentSummaryReport` and `ContactExportReportV3`.
+
+
+                    If `startAtTime` is supplied, `endAtTime` must also be supplied, and `startAt`, `endAt`, and `timezone` must not be specified.
+
+                    '
+                  example: 2020-04-13T19:27Z
+                endAtTime:
+                  type: string
+                  description: 'Ending time of the report interval, in ISO 8601 format `YYYY-mm-ddThh:mmZ`. For example `2020-04-13T19:27Z`.
+
+
+                    This filter is optional and only applies to the following `metricSet`s: `AgentSummaryReport` and `ContactExportReportV3`.
+
+
+                    If `endAtTime` is supplied, `startAtTime` must also be supplied, and `startAt`, `endAt`, and `timezone` must not be specified.
+
+                    '
+                  example: 2020-04-14T19:27Z
+                aggregationLevel:
+                  type: string
+                  default: daily
+                  description: '\
+
+                    The aggregation level for the report.
+
+
+                    Applies to the following `metricSet`s: `AgentAwayTimeReport`, `AgentAvailableTimeReportV2`, `AgentLoginTimeReport`, `AgentSummary`, `AgentSummaryV2`, `AgentSummaryGlanceReport`, `AgentSummaryGlanceReportV2`, `FirstContactResolutionByAgentV2Report`, `AnswerUsageReport`, `AnswerUsageByAgentReport`, `ChannelMixReportV2`, `ChannelWaitTimeReport`, `ChannelWaitTimeReportV2`, `ContactSummaryReport`, `ContactSummaryReportV2`, `ContactSummaryCountsReport`, `ContactSummaryDurationsReport`, `ContactSummaryDurationsReportV2`, `ConversationSummaryReport`, `AbandonedCallsInIVRReport`, `AutoThrottleMissedConversationsReport`, `PaymentsSummaryReport`, `ProactiveVoiceSummaryReport`, `TopicHierarchyReport`, `TaskSummaryReport`, `HelpCenterAnswerUsageReport`, `QuickActionsUsageReport`, and `GladAppAnswerUsageReport`.
+
+
+                    Note that an individual aggregationLevel may only be available depending on the `metricSet` and date range selected (e.g.: "halfHourly" is not available on the `AgentSummary` `metricSet` if requesting over 1 month''s worth of data)
+
+                    '
+                  enum:
+                  - halfHourly
+                  - daily
+                  - weekly
+                  - monthly
+                  - quarterly
+                  example: daily
+                filters:
+                  type: object
+                  description: Additional filters that can be applied to the report. Each filter applies to select `metricSet`s. Compatibility is detailed in the description of each parameter.
+                  properties:
+                    channel:
+                      type: string
+                      default: allChannels
+                      description: '\
+
+                        Specifies a channel to filter the report by. Specifying a channel filter may alter which metrics are returned. For details, see the Data Dictionary.
+
+
+                        Applies to the following `metricSet`s: `FirstContactResolutionByAgentV2Report`, `WorkSessionsReport`, `WorkSessionsReportV3`, `ChannelMixReportV2`, `ContactExportReportV3`, `ContactSummaryReport`, `ContactSummaryReportV2`, `ContactSummaryCountsReport`, `ContactSummaryDurationsReport`, `ContactSummaryDurationsReportV2`, `TopicHierarchyReport`, `TopicSummaryReport`.
+
+                        '
+                      enum:
+                      - allChannels
+                      - chat
+                      - email
+                      - fbMessenger
+                      - sms
+                      - twitter
+                      - voice
+                      - whatsapp
+                      - instagramDirect
+                      example: voice
+                    inboxes:
+                      type: array
+                      items:
+                        type: string
+                      default: []
+                      description: '\
+
+                        An array containing inbox IDs of the inboxes for which to filter this report.
+
+
+                        Passing an inbox ID for a nonexistent inbox will result in an error response.
+
+
+                        Applies to the following `metricSet`s: `FirstContactResolutionByAgentV2Report`, `WorkSessionsReport`, `WorkSessionsReportV3`, `ChannelMixReportV2`, `ChannelWaitTimeReport`,`ChannelWaitTimeReportV2`, `ContactExportReportV3`, `ContactSummaryReport`,`ContactSummaryReportV2`, `ContactSummaryCountsReport`, `ContactSummaryDurationsReport`, `ContactSummaryDurationsReportV2`, `ConversationExportReport`, `ConversationSidekickExportReport`, `ConversationSummaryReport`, `TopicHierarchyReport`, `TopicSummaryReport`, `TaskExportReport`, and `TaskSummaryReport`.
+
+
+                        See the [Inboxes API](#operation/getInboxes) documentation for more details on how to get inbox IDs.
+
+                        '
+                      example:
+                      - c23d738960f946988e943f400313133a
+                      - 2c475a4351ce4aa39ff5cb9f526d77db
+                    teams:
+                      type: array
+                      items:
+                        type: string
+                      default: []
+                      description: '\
+
+                        An array containing team IDs of the teams to be included in the report.
+
+
+                        Passing a team ID for a nonexistent team will result in an error response.
+
+
+                        Applies to the following `metricSet`s: `AgentAvailableTimeReportV2`, `AgentDurationsReport`, `AgentDurationsReportV2`, `AgentLoginTimeReport`, `AgentSummary`, `AgentSummaryV2`, `AgentSummaryGlanceReport`, `AgentSummaryGlanceReportV2`, `AgentTimestampsReport`, `FirstContactResolutionByAgentV2Report`, `WorkSessionsReport`, `WorkSessionsReportV3`, `AnswerUsageByAgentReport`, `TaskExportReport`, and `TaskSummaryReport`.
+
+
+                        See the [Teams API](#operation/getTeams) documentation for more details on how to get team IDs.
+
+                        '
+                      example:
+                      - dd96426e5d2b4fed86dad91cdcc84112
+                      - cab03fe3066e4fa7ba3397e8925c5132
+                    phoneNumber:
+                      type: string
+                      description: 'Specifies which inbound phone number the report is to be generated for.
+
+
+                        The number must be in E164 format. For example `+15555555555`.
+
+
+                        Applies to and is **required** for the following `metricSet`s: `IVRExecutiveSummaryReportV2`, and `IvrEndStatesReportV2`.
+
+                        '
+                      example: '+15555555555'
+            examples:
+              ContactSummaryReport:
+                value:
+                  metricSet: ContactSummaryReport
+                  timezone: America/Los_Angeles
+                  startAt: '2021-10-01'
+                  endAt: '2021-10-02'
+                  aggregationLevel: daily
+                  filters:
+                    channel: allChannels
+                    inboxes:
+                    - c23d738960f946988e943f400313133a
+                    - 2c475a4351ce4aa39ff5cb9f526d77db
+              IvrEndStatesReportV2:
+                value:
+                  metricSet: IvrEndStatesReportV2
+                  startAt: '2019-05-01'
+                  endAt: '2019-05-16'
+                  aggregationLevel: daily
+                  filters:
+                    phoneNumber: '+15555555555'
+        required: true
+      responses:
+        '200':
+          description: Report CSV
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename=SummaryReportV2-20190501-20190516-Daily.csv
+          content:
+            text/csv:
+              schema:
+                description: CSV report
+                format: binary
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid filter:
+                  value:
+                    errors:
+                    - attr: filters.phoneNumber
+                      code: invalid
+                      detail: the phoneNumber filter cannot be applied to the SummaryReport metricSet
+                    - attr: aggregationLevel
+                      code: invalid
+                      detail: the specified value is not a valid aggregation level
+                missing metricSet:
+                  value:
+                    errors:
+                    - attr: metricSet
+                      code: blank
+                      detail: metricSet must be specified
+                nonexistent inbox:
+                  value:
+                    errors:
+                    - attr: filters.inboxes
+                      code: present
+                      detail: the requested inbox does not exist
+  /api/v1/reports/work-session-events:
+    post:
+      tags:
+      - Reports
+      summary: Generate a Work Session Report
+      description: "> **Note:** This endpoint will generate the V2 version of the Work Session Report. Metrics may differ from the V4 version, used in the Gladly UI.\n> To generate a Work Sessions V4 Report, use the [Reports API](/rest/#tag/Reports).\n\nA **Work Session** represents a period of time that an Agent spends working with a Customer on a given channel, during a given Contact (messaging exchange, phone call, etc.). In particular:\n  - A Customer may have 0 or more Conversations, but only 1 Conversation is open at any given time.\n  - A Conversation may contain 0 or more Contacts (e.g.: A single phone call, a chat session, an email session).\n  - A Contact may have 0 or more Work Sessions (i.e.: Agents who work on the Contact).\n  - A Work Session is the unique combination of contact_session_id and agent_id. The agent_id column will be NULL if the contact has not been handled by any Agent.\n\nThe Work Session Report API contains **both** contacts and work sessions. It allows you to understand what your inbound contact volume looks like, and to get a view into how Agents are using their time. The primary use of this information is for forecasting and scheduling purposes, but it can also be used to understand, at a fine-grained level, aspects of agent behavior, agent performance, multichannel conversation patterns and more.\n\nThe time anchor for data returned by this API is COALESCE(contact_session_created_at, contact_session_ended_at) (i.e.: if contact_session_ended_at does not exist, use contact_session_created_at. Otherwise, use contact_session_ended_at).\n\nThis means that if it is currently 2023-03-23T00:00Z and:\n  - contact_session_id A was created on 2023-03-21T04:00Z and ended on 2023-03-22T04:00Z\n  - You set the startAt time filter to 2023-03-21T00:00Z\n  - You set the endAt time filter to 2023-03-22T00:00Z\n  - You would not be able to retrieve contact_session_id A in your API request. Instead, you will need to set the endAt time filter to now() (aka 2023-03-23T00:00Z) to retrieve the contact information.\n\nTherefore, the general recommendation to get correct data is always to set the endAt time to now() rather than the end interval you'd like to analyze - this will accomodate contacts that \"move\" intervals due to ending.\n\nNote that:\n  - work_session_unknown_time_sec and work_session_after_contact_time_sec may accumulate after the contact ends and before the conversation ends / another contact begins\n  - work_session_handle_time_sec will only be available for a contact after it ends\n  - This report is subject to the same [data latency](https://help.gladly.com/docs/why-is-my-reporting-data-not-current) as other Gladly reports\n\nThis CSV file contains the following columns, whose definitions may be viewed via the [Work Sessions](https://help.gladly.com/docs/work-sessions) section of the help docs.\n  - id\n  - contact_session_id\n  - contact_session_created_at\n  - customer_id\n  - conversation_id\n  - inbox_id\n  - channel\n  - direction\n  - agent_accepted_at\n  - contact_session_routed_at\n  - agent_id\n  - sla_fulfilled_at\n  - contact_session_ended_at\n  - status\n  - within_sla\n  - work_session_handle_time_sec\n  - work_session_after_contact_time_sec\n  - work_session_unknown_time_sec\n  - accepted_inbox_id\n"
+      requestBody:
+        description: A time range for the report that will be generated.
+        content:
+          application/json:
+            schema:
+              title: Work Session Report request body
+              type: object
+              required:
+              - startAtTime
+              - endAtTime
+              properties:
+                startAtTime:
+                  type: string
+                  description: 'Starting time of the report interval
+
+
+                    The date should be in ISO 8601 format `YYYY-mm-ddThh:mmZ`. For example 2020-04-13T19:27Z
+
+                    '
+                  example: 2020-04-13T19:27Z
+                endAtTime:
+                  type: string
+                  description: 'Ending time of the report interval. This date is inclusive meaning that the report will include data up to 1min past the endAtTime
+
+
+                    The date should be in ISO 8601 format `YYYY-mm-ddThh:mmZ`. For example 2020-04-14T19:27-09:00
+
+                    '
+                  example: 2020-04-14T19:27-09:00
+            example:
+              startAtTime: 2020-04-13T19:27-09:00
+              endAtTime: 2020-04-14T19:27-09:00
+        required: true
+      responses:
+        '200':
+          description: Work Session Report CSV
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename=WorkSessionEventsReport-20200302T1000Z-20200302T2000Z.csv
+          content:
+            text/csv:
+              schema:
+                description: Work Session Report CSV
+                format: binary
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid parameter:
+                  value:
+                    errors:
+                    - attr: startAtTime
+                      code: invalid
+                      detail: endAtTime must occur after startAtTime
+components:
+  schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Gladly API uses token-based **Basic Authentication**. API tokens are associated with designated Gladly users.
+
+        To create and use an API token, your user must have the API User permission. An API token can be used to perform any API request without restriction.
+
+
+        | user name   | password  |
+
+        | ----------- | --------- |
+
+        | agent email | API token |
+
+
+        The credentials must be passed via an `Authorization` HTTP header. All requests must be made over HTTPS.
+
+
+        ```shell
+
+        curl -u user@organization.com:$GLADLY_API_TOKEN \
+
+        https://organization.gladly.com/api/v1/organization
+
+        ```
+
+        '
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth — username is the API user email; password is the API token. Requires the "API User" permission.
+x-tagGroups:
+- name: REST API
+  tags:
+  - Agents
+  - Public Answer
+  - Answer Management
+  - Audiences
+  - Business Hours
+  - Communications
+  - Conversations
+  - Customers
+  - Events
+  - Export
+  - Freeform Topics
+  - Inboxes
+  - Organization
+  - Proactive Conversations
+  - Reports
+  - Tasks
+  - Teams
+  - User Identity
+  - Topics
+  - Webhooks
+- name: Webhooks
+  tags:
+  - Summary
+  - Payloads
+- name: Lookup API
+  tags:
+  - Customer Lookup
+- name: Resources
+  tags:
+  - Versioning
+  - Error Handling
+  - Rate Limit
+  - Rich Content
+  - Launching Soon

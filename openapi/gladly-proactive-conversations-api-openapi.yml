@@ -1,0 +1,482 @@
+openapi: 3.0.1
+info:
+  title: Gladly Agents Proactive Conversations API
+  version: '1.0'
+  description: '# Introducing the Gladly API
+
+
+    At Gladly, we believe that customer service is best when it''s a conversation.
+
+    That means more than just helping customers with one-off questions or issues: it''s about making them feel known, valued, and respected for the individuals they are.
+
+
+    The Gladly API was built to help facilitate those relationships, providing agents with the rich customer context
+
+    they need to deliver seamless experiences that make customers feel like they''re more than just a number in a sea of others.
+
+
+    # Overview
+
+
+    You can integrate easily with Gladly by calling Gladly''s [REST API](#section/Overview/REST-API)
+
+    and implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.
+
+
+    Some examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer''s timeline,
+
+    providing the latest information about a customer''s orders, and more.
+
+
+    ## REST API
+
+
+    Clients can access the **REST API** via HTTPS at your organization''s Gladly domain (e.g. `https://{organization}.gladly.com`).
+
+
+    Resources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.
+
+    In addition, all responses and payloads are in JSON with consistent error codes and formats.
+
+
+    ## Lookup API
+
+
+    The Gladly **Lookup API** allows your organization to provide data services to power the agent''s experience with a complete view of your customers''
+
+    information, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.
+
+
+    Like the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.
+
+
+    Gladly will perform lookups when certain activities occur within Gladly, such as when a customer''s profile is loaded.
+
+
+    A detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).
+
+
+    ## Testing
+
+
+    Test the myriad possibilities of the Gladly API in a safe, secure space. We''ll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).
+
+
+    Your sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.
+
+
+    # Getting Started
+
+
+    Think of this section as getting the keys to unlocking your access to the Gladly APIs.
+
+    First, you''ll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).
+
+    With these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly''s API [resources](#section/Overview/Resources).
+
+
+    ## Permissions
+
+
+    Gladly Administrators can set API permissions on an agent-by-agent basis.
+
+    We''ll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.
+
+
+    To allow a user to create API tokens and access the API:
+
+    1. Log in to your Gladly instance.
+
+    2. Open the menu on the top left-hand corner of the page.
+
+    3. Navigate to **Settings** > **Users*
+
+    4. Search and click the user profile you wish to give access to.
+
+    5. You''ll see a permission called **API User**. Select it, while making sure to keep the user''s **Agent** role intact.
+
+    6. Hit **Save** to give access.
+
+
+    ![Agent profile screen](assets/permissions-agent.png)
+
+
+    We recommend creating a dedicated user to make API calls, whose account won''t be used for agent and organization management.
+
+    This will help you with any future audits of API activity vs. agent activity.
+
+
+    ## Creating API Tokens
+
+
+    You must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).
+
+    If your profile already has access to the **API User** permission, you''ll see a menu item titled **More settings**. Click **More settings**:
+
+
+    ![API Token Menu](assets/permissions-token-nav.png)
+
+
+    Click **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:
+
+
+    ![API Token Add](assets/permissions-token-add.png)
+
+
+    A token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).
+
+    You can rename the token to something more easily referenceable by clicking the name to edit.
+
+
+    This token will be associated with your agent profile, which we refer to as the API User in this document.
+
+
+    ![API Token View](assets/permissions-token-view.png)
+
+
+    For security purposes, you''ll only see a new token once before you navigate away from the page.
+
+
+    ## Replacing/Rotating API Tokens
+
+
+    Should you lose this token, or wish to rotate your application keys, you can do the following:
+
+
+    1. Generate a new token.
+
+    2. Store the new token in a secure location.
+
+    3. Delete the old token.
+
+    4. Update your applications/scripts with the new token.
+
+
+    # Authentication
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->'
+servers:
+- url: https://{organization}.gladly.com/api/v1
+  description: Production
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly organization subdomain
+- url: https://{organization}.gladly.qa/api/v1
+  description: Sandbox
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly QA organization subdomain
+security:
+- basicAuth: []
+tags:
+- name: Proactive Conversations
+  description: 'A proactive conversation consists of a **campaign** and **recipients**. This APIs intended use-case would be to provide status updates to a customer and not for marketing purposes.
+
+    '
+paths:
+  /api/v1/campaigns/{campaignId}/recipient-collections:
+    parameters:
+    - name: campaignId
+      in: path
+      description: id of the campaign to create a new recipient collection for
+      required: true
+      schema:
+        type: string
+        example: yQ16L_YURROhXAg3KzkuYQ
+    post:
+      tags:
+      - Proactive Conversations
+      summary: Create Recipient Collection for an Existing Proactive Campaign
+      description: 'Create a new recipient collection for an existing proactive campaign that will be contacted based on the campaign settings.
+
+
+        You can locate the `campaignId` by navigating to the campaign in the dashboard and copying the `id` from the URL.
+
+        '
+      operationId: createRecipientCollection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Recipient Collection Create Request
+              description: Request payload for creating a new recipient collection
+              type: object
+              required:
+              - name
+              - startAfter
+              - recipients
+              properties:
+                name:
+                  type: string
+                  description: Name for recipient collection
+                  example: Delivery reminders
+                startAfter:
+                  type: string
+                  format: RFC3339
+                  description: The time after which the recipient collection should start processing
+                  example: '2019-02-21T07:15:19.07272933Z'
+                endBefore:
+                  type: string
+                  format: RFC3339
+                  description: The time before which the recipient collection should stop processing
+                  example: '2019-02-21T07:15:19.07272933Z'
+                recipients:
+                  type: array
+                  items:
+                    oneOf:
+                    - title: Email Recipients
+                      description: Email recipients for recipient collection request
+                      type: object
+                      required:
+                      - customerName
+                      - emailAddress
+                      - timezone
+                      properties:
+                        customerName:
+                          type: string
+                          description: Name of customer
+                          example: Jane Smith
+                        emailAddress:
+                          type: string
+                          description: Email address for the customer
+                          example: jane.smith@example.com
+                        timezone:
+                          type: string
+                          description: Timezone the customer is located in. Supported timezones are those found in the IANA timezone database.
+                          example: America/Los_Angeles
+                    - title: SMS Recipients
+                      description: SMS recipients for recipient collection request
+                      type: object
+                      required:
+                      - customerName
+                      - phoneNumber
+                      - timezone
+                      properties:
+                        customerName:
+                          type: string
+                          description: Name of customer
+                          example: Jane Smith
+                        phoneNumber:
+                          type: string
+                          description: Phone Number for the customer
+                          example: (415) 555-1234
+                        timezone:
+                          type: string
+                          description: Timezone the customer is located in. Supported timezones are those found in the IANA timezone database.
+                          example: America/Los_Angeles
+                    - title: Voice Recipients
+                      description: Voice recipients for recipient collection request
+                      type: object
+                      required:
+                      - customerName
+                      - phoneNumber
+                      - timezone
+                      properties:
+                        customerName:
+                          type: string
+                          description: Name of customer
+                          example: Jane Smith
+                        phoneNumber:
+                          type: string
+                          description: Phone Number for the customer
+                          example: (415) 555-1234
+                        timezone:
+                          type: string
+                          description: Timezone the customer is located in. Supported timezones are those found in the IANA timezone database.
+                          example: America/Los_Angeles
+            examples:
+              Email Recipient Collection:
+                summary: Create recipient collection with email recipients
+                value:
+                  name: Email collection
+                  startAfter: '2024-05-13T16:32:00.000Z'
+                  recipients:
+                  - customerName: John Baker
+                    emailAddress: john.baker@example.com
+                    timezone: America/Los_Angeles
+                  - customerName: Jane Smith
+                    emailAddress: jane.smith@example.com
+                    timezone: America/New_York
+              SMS Recipient Collection:
+                summary: Create recipient collection with sms recipients
+                value:
+                  name: SMS collection
+                  startAfter: '2024-05-13T16:32:00.000Z'
+                  recipients:
+                  - customerName: John Baker
+                    phoneNumber: '+14155551234'
+                    timezone: America/Los_Angeles
+                  - customerName: Jane Smith
+                    phoneNumber: (212) 555-9876
+                    timezone: America/New_York
+              Voice Recipient Collection:
+                summary: Create recipient collection with voice recipients
+                value:
+                  name: Voice collection
+                  startAfter: '2024-05-13T16:32:00.000Z'
+                  recipients:
+                  - customerName: John Baker
+                    phoneNumber: '+14155551234'
+                    timezone: America/Los_Angeles
+                  - customerName: Jane Smith
+                    phoneNumber: (212) 555-9876
+                    timezone: America/New_York
+      responses:
+        '200':
+          description: created recipient collection
+          content:
+            application/json:
+              schema:
+                title: Recipient Collection
+                description: Recipient Collection
+                type: object
+                required:
+                - id
+                - campaignId
+                - type
+                - startAfter
+                - name
+                - status
+                properties:
+                  id:
+                    type: string
+                    description: Unique recipient collection id
+                    example: oiaFOojmQu2v8CRQaVUIjw
+                  campaignId:
+                    type: string
+                    description: Campaign id the recipient collection belongs to
+                    example: qmkz789yRyO6BdC8WeEitA
+                  type:
+                    type: string
+                    description: Type of recipient collection
+                    example: EMAIL
+                    enum:
+                    - EMAIL
+                    - SMS
+                    - VOICE
+                  startAfter:
+                    type: string
+                    format: RFC3339
+                    description: The time after which the recipient collection should start processing
+                    example: '2019-02-21T07:15:19.07272933Z'
+                  endBefore:
+                    type: string
+                    format: RFC3339
+                    description: The time before which the recipient collection should stop processing
+                    example: '2019-02-21T07:15:19.07272933Z'
+                  name:
+                    type: string
+                    description: Name of the recipient collection
+                    example: My Collection
+                  status:
+                    type: string
+                    description: Status of the recipient collection
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - CANCELED
+                    - COMPLETED
+                    - PENDING
+                    - SCHEDULED
+        '404':
+          description: campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrors'
+components:
+  schemas:
+    NotFoundErrors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - code: not_exist
+            detail: entity does not exist
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Gladly API uses token-based **Basic Authentication**. API tokens are associated with designated Gladly users.
+
+        To create and use an API token, your user must have the API User permission. An API token can be used to perform any API request without restriction.
+
+
+        | user name   | password  |
+
+        | ----------- | --------- |
+
+        | agent email | API token |
+
+
+        The credentials must be passed via an `Authorization` HTTP header. All requests must be made over HTTPS.
+
+
+        ```shell
+
+        curl -u user@organization.com:$GLADLY_API_TOKEN \
+
+        https://organization.gladly.com/api/v1/organization
+
+        ```
+
+        '
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth — username is the API user email; password is the API token. Requires the "API User" permission.
+x-tagGroups:
+- name: REST API
+  tags:
+  - Agents
+  - Public Answer
+  - Answer Management
+  - Audiences
+  - Business Hours
+  - Communications
+  - Conversations
+  - Customers
+  - Events
+  - Export
+  - Freeform Topics
+  - Inboxes
+  - Organization
+  - Proactive Conversations
+  - Reports
+  - Tasks
+  - Teams
+  - User Identity
+  - Topics
+  - Webhooks
+- name: Webhooks
+  tags:
+  - Summary
+  - Payloads
+- name: Lookup API
+  tags:
+  - Customer Lookup
+- name: Resources
+  tags:
+  - Versioning
+  - Error Handling
+  - Rate Limit
+  - Rich Content
+  - Launching Soon

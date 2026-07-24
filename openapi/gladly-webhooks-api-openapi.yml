@@ -1,0 +1,566 @@
+openapi: 3.0.1
+info:
+  title: Gladly Agents Webhooks API
+  version: '1.0'
+  description: '# Introducing the Gladly API
+
+
+    At Gladly, we believe that customer service is best when it''s a conversation.
+
+    That means more than just helping customers with one-off questions or issues: it''s about making them feel known, valued, and respected for the individuals they are.
+
+
+    The Gladly API was built to help facilitate those relationships, providing agents with the rich customer context
+
+    they need to deliver seamless experiences that make customers feel like they''re more than just a number in a sea of others.
+
+
+    # Overview
+
+
+    You can integrate easily with Gladly by calling Gladly''s [REST API](#section/Overview/REST-API)
+
+    and implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.
+
+
+    Some examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer''s timeline,
+
+    providing the latest information about a customer''s orders, and more.
+
+
+    ## REST API
+
+
+    Clients can access the **REST API** via HTTPS at your organization''s Gladly domain (e.g. `https://{organization}.gladly.com`).
+
+
+    Resources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.
+
+    In addition, all responses and payloads are in JSON with consistent error codes and formats.
+
+
+    ## Lookup API
+
+
+    The Gladly **Lookup API** allows your organization to provide data services to power the agent''s experience with a complete view of your customers''
+
+    information, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.
+
+
+    Like the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.
+
+
+    Gladly will perform lookups when certain activities occur within Gladly, such as when a customer''s profile is loaded.
+
+
+    A detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).
+
+
+    ## Testing
+
+
+    Test the myriad possibilities of the Gladly API in a safe, secure space. We''ll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).
+
+
+    Your sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.
+
+
+    # Getting Started
+
+
+    Think of this section as getting the keys to unlocking your access to the Gladly APIs.
+
+    First, you''ll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).
+
+    With these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly''s API [resources](#section/Overview/Resources).
+
+
+    ## Permissions
+
+
+    Gladly Administrators can set API permissions on an agent-by-agent basis.
+
+    We''ll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.
+
+
+    To allow a user to create API tokens and access the API:
+
+    1. Log in to your Gladly instance.
+
+    2. Open the menu on the top left-hand corner of the page.
+
+    3. Navigate to **Settings** > **Users*
+
+    4. Search and click the user profile you wish to give access to.
+
+    5. You''ll see a permission called **API User**. Select it, while making sure to keep the user''s **Agent** role intact.
+
+    6. Hit **Save** to give access.
+
+
+    ![Agent profile screen](assets/permissions-agent.png)
+
+
+    We recommend creating a dedicated user to make API calls, whose account won''t be used for agent and organization management.
+
+    This will help you with any future audits of API activity vs. agent activity.
+
+
+    ## Creating API Tokens
+
+
+    You must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).
+
+    If your profile already has access to the **API User** permission, you''ll see a menu item titled **More settings**. Click **More settings**:
+
+
+    ![API Token Menu](assets/permissions-token-nav.png)
+
+
+    Click **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:
+
+
+    ![API Token Add](assets/permissions-token-add.png)
+
+
+    A token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).
+
+    You can rename the token to something more easily referenceable by clicking the name to edit.
+
+
+    This token will be associated with your agent profile, which we refer to as the API User in this document.
+
+
+    ![API Token View](assets/permissions-token-view.png)
+
+
+    For security purposes, you''ll only see a new token once before you navigate away from the page.
+
+
+    ## Replacing/Rotating API Tokens
+
+
+    Should you lose this token, or wish to rotate your application keys, you can do the following:
+
+
+    1. Generate a new token.
+
+    2. Store the new token in a secure location.
+
+    3. Delete the old token.
+
+    4. Update your applications/scripts with the new token.
+
+
+    # Authentication
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->'
+servers:
+- url: https://{organization}.gladly.com/api/v1
+  description: Production
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly organization subdomain
+- url: https://{organization}.gladly.qa/api/v1
+  description: Sandbox
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly QA organization subdomain
+security:
+- basicAuth: []
+tags:
+- name: Webhooks
+  description: 'A **Webhook** is a way to send notifications about Gladly events as a POST request to the endpoint of your choice.
+
+    '
+paths:
+  /api/v1/webhooks:
+    post:
+      tags:
+      - Webhooks
+      summary: Create Webhook
+      description: 'Create a new webhook with the supplied data. The webhook will be in disabled state by default.
+
+
+        If creating a new enabled webhook, your service is expected to respond to a [Ping Event](#section/Ping-Event).
+
+
+        You are limited to 20 webhooks for your organization.
+
+        '
+      operationId: createWebhook
+      requestBody:
+        required: true
+        description: Webhook to add
+        content:
+          application/json:
+            schema:
+              title: Webhook
+              allOf:
+              - $ref: '#/paths/~1api~1v1~1webhooks~1%7BwebhookId%7D/patch/requestBody/content/application~1json/schema'
+              - type: object
+                required:
+                - url
+                - events
+            example:
+              name: CSAT integration
+              url: https://gateway.organization.com/gladly/webhook
+              events:
+              - CONVERSATION/CLOSED
+              credentials:
+                username: integrations@organization.com
+                password: fxdUfTcejVxVs9bQ8DizKccq
+              headers:
+                X-Gladly-Token: '123'
+      callbacks:
+        event:
+          '{$request.body#/url}':
+            post:
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema'
+              responses:
+                '200':
+                  description: Event was accepted
+      responses:
+        '201':
+          description: Created webhook
+          headers:
+            Location:
+              schema:
+                type: string
+                example: /api/v1/webhooks/c5yeqK8VTlm9xAXgvq_5-w
+              description: Location of the created webhook
+        '400':
+          description: Invalid field(s) in request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+    get:
+      tags:
+      - Webhooks
+      summary: List Webhooks
+      description: 'Returns a list of webhooks.
+
+        '
+      operationId: getWebhooks
+      responses:
+        '200':
+          description: Webhook
+          content:
+            application/json:
+              schema:
+                title: Webhooks
+                type: array
+                items:
+                  $ref: '#/paths/~1api~1v1~1webhooks~1%7BwebhookId%7D/patch/requestBody/content/application~1json/schema'
+  /api/v1/webhooks/{webhookId}:
+    parameters:
+    - name: webhookId
+      in: path
+      description: id of the webhook
+      required: true
+      schema:
+        type: string
+        example: a9dIl-kKRrKUZLQtJ-tjtw
+    patch:
+      tags:
+      - Webhooks
+      summary: Update Webhook
+      description: 'Update webhook by id.
+
+
+        If enabling a webhook or updating a webhook''s URL, your service is expected to respond to a [Ping Event](#section/Ping-Event).
+
+        '
+      operationId: updateWebhook
+      requestBody:
+        required: true
+        description: JSON patch of webhook properties to insert or update
+        content:
+          application/json:
+            schema:
+              title: Webhook
+              allOf:
+              - title: Webhook
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    description: id of the webhook
+                    example: a9dIl-kKRrKUZLQtJ-tjtw
+                  name:
+                    type: string
+                    maxLength: 200
+                    description: friendly name of the webhook
+                    example: CSAT integration
+                  events:
+                    type: array
+                    description: list of events that trigger the webhook. More events are coming soon. Please see [Events](#operation/Events) for more information about the data included for each event type.
+                    example:
+                    - CONVERSATION/CLOSED
+                    items:
+                      type: string
+                      enum:
+                      - AGENT_AVAILABILITY/FOCUS_ENTERED
+                      - AGENT_AVAILABILITY/FOCUS_EXITED
+                      - AGENT_AVAILABILITY/UPDATED
+                      - AGENT_STATUS/CHANGED_ACTIVE_REASON
+                      - AGENT_STATUS/LOGGED_IN
+                      - AGENT_STATUS/LOGGED_OUT
+                      - AGENT_STATUS/RETURNED_FROM_AWAY
+                      - AGENT_STATUS/WENT_AWAY
+                      - CONTACT/ENDED
+                      - CONTACT/FULFILLED
+                      - CONTACT/HOLD_ENDED
+                      - CONTACT/HOLD_STARTED
+                      - CONTACT/JOINED
+                      - CONTACT/MESSAGE_RECEIVED
+                      - CONTACT/MESSAGE_SENT
+                      - CONTACT/OFFER_ACCEPTED
+                      - CONTACT/OFFERED
+                      - CONTACT/OFFER_REJECTED
+                      - CONTACT/STARTED
+                      - CONTACT/TRANSFERRED
+                      - CONVERSATION/CLOSED
+                      - CONVERSATION/CREATED
+                      - CONVERSATION/CUSTOM_ATTRIBUTE_ADDED
+                      - CONVERSATION/CUSTOM_ATTRIBUTE_REMOVED
+                      - CONVERSATION/NOTE_CREATED
+                      - CONVERSATION/REOPENED
+                      - CONVERSATION/TOPIC_ADDED
+                      - CONVERSATION/TOPIC_REMOVED
+                      - CONVERSATION_ASSIGNEE/UPDATED
+                      - CONVERSATION_STATUS/UPDATED
+                      - CUSTOMER/MERGED
+                      - CUSTOMER_PROFILE/CREATED
+                      - CUSTOMER_PROFILE/DELETED
+                      - CUSTOMER_PROFILE/MERGED (deprecated)
+                      - CUSTOMER_PROFILE/UPDATED
+                      - EXPORT_JOB/COMPLETED
+                      - EXPORT_JOB/FAILED
+                      - PAYMENT_REQUEST/CREATED
+                      - PAYMENT_REQUEST/STATUS_CHANGED
+                      - PAYMENT_REQUEST/VIEWED
+                      - TASK/ASSIGNEE_UPDATED
+                      - TASK/CLOSED
+                      - TASK/COMMENT_ADDED
+                      - TASK/CONTENT_UPDATED
+                      - TASK/CREATED
+                      - TASK/DUE_DATE_UPDATED
+                      - TASK/FOLLOWER_ADDED
+                      - TASK/FOLLOWER_REMOVED
+                      - TASK/REOPENED
+                  url:
+                    type: string
+                    description: your URL that POST requests are sent to when events occur. HTTPS is required and this value must be unique across all webhooks.
+                    example: https://gateway.organization.com/gladly/webhook
+                  credentials:
+                    title: Basic Auth Credentials
+                    writeOnly: true
+                    required:
+                    - username
+                    - password
+                    properties:
+                      username:
+                        type: string
+                        description: basic auth username
+                        example: integrations@organization.com
+                      password:
+                        type: string
+                        description: basic auth password
+                        example: ''
+                      realm:
+                        type: string
+                        description: optional realm to authenticate with
+                        example: ''
+                  headers:
+                    title: HTTP Headers
+                    type: object
+                    description: custom HTTP headers to include in every request
+                    writeOnly: true
+                    additionalProperties:
+                      type: string
+                      description: static value for the HTTP header
+                    example:
+                      X-API-key: <sharedSecretToken>
+                      X-Gladly-token: <sharedSecretToken>
+                  createdAt:
+                    type: string
+                    format: RFC3339
+                    readOnly: true
+                    description: time the webhook was created
+                    example: '2019-07-03T04:30:12.07Z'
+                  updatedAt:
+                    type: string
+                    format: RFC3339
+                    readOnly: true
+                    description: time the item was last updated
+                    example: '2019-07-09T09:00:10.00Z'
+                  hasCredentials:
+                    type: boolean
+                    readOnly: true
+                    description: whether the webhook has been configured with basic auth credentials
+                    example: true
+                  headerKeys:
+                    type: array
+                    readOnly: true
+                    description: list of header keys (without values) to include in every request to your URL.
+                    example:
+                    - X-Gladly-Key
+                    items:
+                      type: string
+              - type: object
+                properties:
+                  enabled:
+                    type: boolean
+                    default: false
+                    description: whether the webhook is delivering notifications
+                    example: false
+                  disabledAtDueToRetryLimit:
+                    type: string
+                    format: RFC3339
+                    readOnly: true
+                    description: time the webhook was disabled due to our retry limit
+                    example: '2019-07-10T12:00:00.00Z'
+            example:
+              enabled: true
+      responses:
+        '204':
+          description: Updated webhook
+        '400':
+          description: Invalid field(s) in request body
+        '404':
+          description: Webhook with id does not exist
+    delete:
+      tags:
+      - Webhooks
+      summary: Delete Webhook
+      description: 'Delete a webhook by ID
+
+        '
+      operationId: deleteWebhook
+      responses:
+        '204':
+          description: Webhook deleted
+        '400':
+          description: Webhook must be disabled to be deleted
+        '404':
+          description: Webhook with id does not exist
+    get:
+      tags:
+      - Webhooks
+      summary: Get Webhook
+      description: 'Get a webhook by ID
+
+        '
+      operationId: getWebhook
+      responses:
+        '200':
+          description: Webhook
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1api~1v1~1webhooks~1%7BwebhookId%7D/patch/requestBody/content/application~1json/schema'
+        '404':
+          description: Webhook with id does not exist
+components:
+  schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Gladly API uses token-based **Basic Authentication**. API tokens are associated with designated Gladly users.
+
+        To create and use an API token, your user must have the API User permission. An API token can be used to perform any API request without restriction.
+
+
+        | user name   | password  |
+
+        | ----------- | --------- |
+
+        | agent email | API token |
+
+
+        The credentials must be passed via an `Authorization` HTTP header. All requests must be made over HTTPS.
+
+
+        ```shell
+
+        curl -u user@organization.com:$GLADLY_API_TOKEN \
+
+        https://organization.gladly.com/api/v1/organization
+
+        ```
+
+        '
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth — username is the API user email; password is the API token. Requires the "API User" permission.
+x-tagGroups:
+- name: REST API
+  tags:
+  - Agents
+  - Public Answer
+  - Answer Management
+  - Audiences
+  - Business Hours
+  - Communications
+  - Conversations
+  - Customers
+  - Events
+  - Export
+  - Freeform Topics
+  - Inboxes
+  - Organization
+  - Proactive Conversations
+  - Reports
+  - Tasks
+  - Teams
+  - User Identity
+  - Topics
+  - Webhooks
+- name: Webhooks
+  tags:
+  - Summary
+  - Payloads
+- name: Lookup API
+  tags:
+  - Customer Lookup
+- name: Resources
+  tags:
+  - Versioning
+  - Error Handling
+  - Rate Limit
+  - Rich Content
+  - Launching Soon

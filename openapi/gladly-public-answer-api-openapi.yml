@@ -1,0 +1,519 @@
+openapi: 3.0.1
+info:
+  title: Gladly Agents Public Answer API
+  version: '1.0'
+  description: '# Introducing the Gladly API
+
+
+    At Gladly, we believe that customer service is best when it''s a conversation.
+
+    That means more than just helping customers with one-off questions or issues: it''s about making them feel known, valued, and respected for the individuals they are.
+
+
+    The Gladly API was built to help facilitate those relationships, providing agents with the rich customer context
+
+    they need to deliver seamless experiences that make customers feel like they''re more than just a number in a sea of others.
+
+
+    # Overview
+
+
+    You can integrate easily with Gladly by calling Gladly''s [REST API](#section/Overview/REST-API)
+
+    and implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.
+
+
+    Some examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer''s timeline,
+
+    providing the latest information about a customer''s orders, and more.
+
+
+    ## REST API
+
+
+    Clients can access the **REST API** via HTTPS at your organization''s Gladly domain (e.g. `https://{organization}.gladly.com`).
+
+
+    Resources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.
+
+    In addition, all responses and payloads are in JSON with consistent error codes and formats.
+
+
+    ## Lookup API
+
+
+    The Gladly **Lookup API** allows your organization to provide data services to power the agent''s experience with a complete view of your customers''
+
+    information, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.
+
+
+    Like the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.
+
+
+    Gladly will perform lookups when certain activities occur within Gladly, such as when a customer''s profile is loaded.
+
+
+    A detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).
+
+
+    ## Testing
+
+
+    Test the myriad possibilities of the Gladly API in a safe, secure space. We''ll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).
+
+
+    Your sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.
+
+
+    # Getting Started
+
+
+    Think of this section as getting the keys to unlocking your access to the Gladly APIs.
+
+    First, you''ll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).
+
+    With these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly''s API [resources](#section/Overview/Resources).
+
+
+    ## Permissions
+
+
+    Gladly Administrators can set API permissions on an agent-by-agent basis.
+
+    We''ll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.
+
+
+    To allow a user to create API tokens and access the API:
+
+    1. Log in to your Gladly instance.
+
+    2. Open the menu on the top left-hand corner of the page.
+
+    3. Navigate to **Settings** > **Users*
+
+    4. Search and click the user profile you wish to give access to.
+
+    5. You''ll see a permission called **API User**. Select it, while making sure to keep the user''s **Agent** role intact.
+
+    6. Hit **Save** to give access.
+
+
+    ![Agent profile screen](assets/permissions-agent.png)
+
+
+    We recommend creating a dedicated user to make API calls, whose account won''t be used for agent and organization management.
+
+    This will help you with any future audits of API activity vs. agent activity.
+
+
+    ## Creating API Tokens
+
+
+    You must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).
+
+    If your profile already has access to the **API User** permission, you''ll see a menu item titled **More settings**. Click **More settings**:
+
+
+    ![API Token Menu](assets/permissions-token-nav.png)
+
+
+    Click **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:
+
+
+    ![API Token Add](assets/permissions-token-add.png)
+
+
+    A token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).
+
+    You can rename the token to something more easily referenceable by clicking the name to edit.
+
+
+    This token will be associated with your agent profile, which we refer to as the API User in this document.
+
+
+    ![API Token View](assets/permissions-token-view.png)
+
+
+    For security purposes, you''ll only see a new token once before you navigate away from the page.
+
+
+    ## Replacing/Rotating API Tokens
+
+
+    Should you lose this token, or wish to rotate your application keys, you can do the following:
+
+
+    1. Generate a new token.
+
+    2. Store the new token in a secure location.
+
+    3. Delete the old token.
+
+    4. Update your applications/scripts with the new token.
+
+
+    # Authentication
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->'
+servers:
+- url: https://{organization}.gladly.com/api/v1
+  description: Production
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly organization subdomain
+- url: https://{organization}.gladly.qa/api/v1
+  description: Sandbox
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly QA organization subdomain
+security:
+- basicAuth: []
+tags:
+- name: Public Answer
+  description: 'A **Public Answer** in Gladly represents a consumer-facing Answer.
+
+
+    The Public Answers API allows you to search and retrieve Public Answers (created
+
+    directly in the Gladly UI), which you can display in the Chat
+
+    web widget, use to build your website''s help center/FAQ page, or publish
+
+    on any page on your website.
+
+
+    This API can be used without an API token because it only provides access to
+
+    public content. You may also work with Gladly Support to
+
+    enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+
+    access so the API can be used directly from client-side javascript.
+
+
+    ### How a user creates a public answer in Gladly
+
+
+    ![](assets/create-public-answer.png)
+
+
+    ### How that answer is searched and displayed on the Chat Web widget
+
+
+    ![](assets/sidekick-answer-search.png)
+
+    '
+paths:
+  /api/v1/orgs/{orgId}/answers-search?q=search+terms:
+    get:
+      tags:
+      - Public Answer
+      summary: Search Public Answers
+      description: 'Returns a list of answers that match the provided query string.
+
+        '
+      operationId: searchAnswers
+      parameters:
+      - name: orgId
+        in: path
+        description: 'id of your organization
+
+
+          You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: ihKsWxiZCDVtXg1iwVmT9Q
+      - name: q
+        in: query
+        description: search term
+        schema:
+          type: string
+          example: reset%20password
+      - name: lng
+        in: query
+        description: language code
+        schema:
+          type: string
+          example: en-us
+      - name: audienceId
+        in: query
+        description: Audience ID. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.
+        schema:
+          type: string
+          example: en-us
+      responses:
+        '200':
+          description: found answers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: string
+                      description: unique answer id
+                      example: 1grfSzATQLa334VDLCWc4A
+                    name:
+                      type: string
+                      description: Customer facing answer name
+                      example: How to reset your password
+  /api/v1/orgs/{orgId}/answers?lng={lng}&audienceId={audienceId}:
+    get:
+      tags:
+      - Public Answer
+      summary: List Public Answers
+      description: 'Returns the first 1000 public answers sorted alphabetically by name.
+
+        '
+      operationId: listAnswers
+      parameters:
+      - name: orgId
+        in: path
+        description: 'id of your organization
+
+
+          You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: ihKsWxiZCDVtXg1iwVmT9Q
+      - name: lng
+        in: query
+        description: 'Language of the answers returned
+
+
+          Defaults to `en-us`
+
+          '
+        schema:
+          type: string
+          example: es-419
+      - name: audienceId
+        in: query
+        description: 'Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.
+
+          '
+        schema:
+          type: string
+          example: ihKsWxiZCDVtXg1iwVmT9Q
+      responses:
+        '200':
+          description: answers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1api~1v1~1orgs~1%7BorgId%7D~1answers~1%7BanswerId%7D/get/responses/200/content/application~1json/schema'
+  /api/v1/orgs/{orgId}/help-center/{helpCenterId}/answer-titles?lng={lng}&audienceId={audienceId}:
+    get:
+      tags:
+      - Public Answer
+      summary: List Help Center Answer Titles
+      description: 'Returns an array of answers configured in Help Center sections with their ID and name
+
+        '
+      operationId: getAnswerTitles
+      parameters:
+      - name: orgId
+        in: path
+        description: 'id of your organization
+
+
+          You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: ihKsWxiZCDVtXg1iwVmT9Q
+      - name: helpCenterId
+        in: path
+        description: 'Help Center ID
+
+
+          You can look up the ID by going to Settings > Help Center in Gladly, then clicking on the 3 dots next to the Help Center and selecting Configure. Help Center ID will be in the URL
+
+          '
+        required: true
+        schema:
+          type: string
+          example: ihKsWxiZCDVtXg1iwVmT9Q
+      - name: lng
+        in: query
+        description: 'Language of the answers returned
+
+
+          Defaults to `en-us`
+
+          '
+        schema:
+          type: string
+          example: es-419
+      - name: audienceId
+        in: query
+        description: 'Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.
+
+          '
+        schema:
+          type: string
+          example: ihKsWxiZCDVtXg1iwVmT9Q
+      responses:
+        '200':
+          description: answers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: string
+                      description: unique answer id
+                      example: 1grfSzATQLa334VDLCWc4A
+                    name:
+                      type: string
+                      description: Customer facing answer name
+                      example: How to reset your password
+  /api/v1/orgs/{orgId}/answers/{answerId}:
+    get:
+      tags:
+      - Public Answer
+      summary: Get Public Answer
+      description: 'Returns the answer with the provided id.
+
+        '
+      operationId: getAnswer
+      parameters:
+      - name: orgId
+        in: path
+        description: 'id of your organization
+
+
+          You can look up the ID using the [Get organization](index.html#tag/Organization) API.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: ihKsWxiZCDVtXg1iwVmT9Q
+      - name: answerId
+        in: path
+        description: id of the answer
+        required: true
+        schema:
+          type: string
+          example: 1grfSzATQLa334VDLCWc4A
+      - name: lng
+        in: query
+        description: language code
+        schema:
+          type: string
+          example: en-us
+      responses:
+        '200':
+          description: answer
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    description: unique answer id
+                    example: 1grfSzATQLa334VDLCWc4A
+                  name:
+                    type: string
+                    description: Customer facing answer name
+                    example: How to reset your password
+                  bodyHtml:
+                    type: string
+                    description: Public answer content
+                    example: <div><a href="/reset-password">Click here</a> to reset your password</div>
+                  language:
+                    type: string
+                    description: Answer language
+                    example: en-us
+                  updatedAt:
+                    type: string
+                    format: RFC3339 with millis
+                    description: Time the answer was last updated
+                    example: '2023-05-22T10:00:00.000Z'
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Gladly API uses token-based **Basic Authentication**. API tokens are associated with designated Gladly users.
+
+        To create and use an API token, your user must have the API User permission. An API token can be used to perform any API request without restriction.
+
+
+        | user name   | password  |
+
+        | ----------- | --------- |
+
+        | agent email | API token |
+
+
+        The credentials must be passed via an `Authorization` HTTP header. All requests must be made over HTTPS.
+
+
+        ```shell
+
+        curl -u user@organization.com:$GLADLY_API_TOKEN \
+
+        https://organization.gladly.com/api/v1/organization
+
+        ```
+
+        '
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth — username is the API user email; password is the API token. Requires the "API User" permission.
+x-tagGroups:
+- name: REST API
+  tags:
+  - Agents
+  - Public Answer
+  - Answer Management
+  - Audiences
+  - Business Hours
+  - Communications
+  - Conversations
+  - Customers
+  - Events
+  - Export
+  - Freeform Topics
+  - Inboxes
+  - Organization
+  - Proactive Conversations
+  - Reports
+  - Tasks
+  - Teams
+  - User Identity
+  - Topics
+  - Webhooks
+- name: Webhooks
+  tags:
+  - Summary
+  - Payloads
+- name: Lookup API
+  tags:
+  - Customer Lookup
+- name: Resources
+  tags:
+  - Versioning
+  - Error Handling
+  - Rate Limit
+  - Rich Content
+  - Launching Soon

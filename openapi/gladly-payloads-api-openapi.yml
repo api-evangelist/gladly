@@ -1,0 +1,2666 @@
+openapi: 3.0.1
+info:
+  title: Gladly Agents Payloads API
+  version: '1.0'
+  description: '# Introducing the Gladly API
+
+
+    At Gladly, we believe that customer service is best when it''s a conversation.
+
+    That means more than just helping customers with one-off questions or issues: it''s about making them feel known, valued, and respected for the individuals they are.
+
+
+    The Gladly API was built to help facilitate those relationships, providing agents with the rich customer context
+
+    they need to deliver seamless experiences that make customers feel like they''re more than just a number in a sea of others.
+
+
+    # Overview
+
+
+    You can integrate easily with Gladly by calling Gladly''s [REST API](#section/Overview/REST-API)
+
+    and implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.
+
+
+    Some examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer''s timeline,
+
+    providing the latest information about a customer''s orders, and more.
+
+
+    ## REST API
+
+
+    Clients can access the **REST API** via HTTPS at your organization''s Gladly domain (e.g. `https://{organization}.gladly.com`).
+
+
+    Resources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.
+
+    In addition, all responses and payloads are in JSON with consistent error codes and formats.
+
+
+    ## Lookup API
+
+
+    The Gladly **Lookup API** allows your organization to provide data services to power the agent''s experience with a complete view of your customers''
+
+    information, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.
+
+
+    Like the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.
+
+
+    Gladly will perform lookups when certain activities occur within Gladly, such as when a customer''s profile is loaded.
+
+
+    A detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).
+
+
+    ## Testing
+
+
+    Test the myriad possibilities of the Gladly API in a safe, secure space. We''ll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).
+
+
+    Your sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.
+
+
+    # Getting Started
+
+
+    Think of this section as getting the keys to unlocking your access to the Gladly APIs.
+
+    First, you''ll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).
+
+    With these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly''s API [resources](#section/Overview/Resources).
+
+
+    ## Permissions
+
+
+    Gladly Administrators can set API permissions on an agent-by-agent basis.
+
+    We''ll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.
+
+
+    To allow a user to create API tokens and access the API:
+
+    1. Log in to your Gladly instance.
+
+    2. Open the menu on the top left-hand corner of the page.
+
+    3. Navigate to **Settings** > **Users*
+
+    4. Search and click the user profile you wish to give access to.
+
+    5. You''ll see a permission called **API User**. Select it, while making sure to keep the user''s **Agent** role intact.
+
+    6. Hit **Save** to give access.
+
+
+    ![Agent profile screen](assets/permissions-agent.png)
+
+
+    We recommend creating a dedicated user to make API calls, whose account won''t be used for agent and organization management.
+
+    This will help you with any future audits of API activity vs. agent activity.
+
+
+    ## Creating API Tokens
+
+
+    You must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).
+
+    If your profile already has access to the **API User** permission, you''ll see a menu item titled **More settings**. Click **More settings**:
+
+
+    ![API Token Menu](assets/permissions-token-nav.png)
+
+
+    Click **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:
+
+
+    ![API Token Add](assets/permissions-token-add.png)
+
+
+    A token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).
+
+    You can rename the token to something more easily referenceable by clicking the name to edit.
+
+
+    This token will be associated with your agent profile, which we refer to as the API User in this document.
+
+
+    ![API Token View](assets/permissions-token-view.png)
+
+
+    For security purposes, you''ll only see a new token once before you navigate away from the page.
+
+
+    ## Replacing/Rotating API Tokens
+
+
+    Should you lose this token, or wish to rotate your application keys, you can do the following:
+
+
+    1. Generate a new token.
+
+    2. Store the new token in a secure location.
+
+    3. Delete the old token.
+
+    4. Update your applications/scripts with the new token.
+
+
+    # Authentication
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->'
+servers:
+- url: https://{organization}.gladly.com/api/v1
+  description: Production
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly organization subdomain
+- url: https://{organization}.gladly.qa/api/v1
+  description: Sandbox
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly QA organization subdomain
+security:
+- basicAuth: []
+tags:
+- name: Payloads
+paths:
+  /gladly/webhook:
+    servers:
+    - url: https://gateway.organization.com
+      description: Web service hosted on your servers should be reachable from the Gladly cluster
+    post:
+      tags:
+      - Payloads
+      description: 'Gladly will perform a POST request to your endpoint when the event occurs.
+
+
+        Your service is expected to respond within 15 seconds.
+
+
+        If your service responds to a webhook notification with a response code outside the 2XX range or times out after 15 seconds, Gladly considers that delivery as failed and will resend the request up to 4 times over an hour. After the fourth attempt, we will deactivate the webhook and will notify all API Users in your organization''s environment via email.
+
+        '
+      operationId: Events
+      requestBody:
+        description: the event payload
+        content:
+          application/json:
+            schema:
+              title: Event
+              description: data about the event
+              oneOf:
+              - title: Agent Availability Updated
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: zGaHXjD4SR-moMR9LbULDa
+                  type:
+                    type: string
+                    example: AGENT_AVAILABILITY/UPDATED
+                    enum:
+                    - AGENT_AVAILABILITY/UPDATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    title: Initiator
+                    description: Type and ID (if applicable) of the entity that triggered the event.
+                    required:
+                    - id
+                    - type
+                    properties:
+                      id:
+                        type: string
+                        description: ID of the entity that triggered the event.
+                        example: NFpDZtfqhk2pI6fjaVDlFf
+                      type:
+                        type: string
+                        description: The type of the entity that triggered the event.
+                        example: AGENT
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - agentId
+                    - availableFor
+                    - occurredAt
+                    properties:
+                      agentId:
+                        type: string
+                        description: ID of the agent whose availability was updated.
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      availableFor:
+                        type: array
+                        enum:
+                        - MAIL
+                        - MESSAGING
+                        - TASK
+                        - VOICE
+                        description: 'The set of channel types for which the agent is available after changing their availability.
+
+                          '
+                        example:
+                        - MAIL
+                        - VOICE
+                      occurredAt:
+                        type: string
+                        format: ISO 8601
+                        description: Timestamp when the action occurred
+                        example: '2019-07-03T04:30:12.07Z'
+              - title: Agent Changed Active Reason
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: AGENT_STATUS/CHANGED_ACTIVE_REASON
+                    enum:
+                    - AGENT_STATUS/CHANGED_ACTIVE_REASON
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - agentId
+                    - occurredAt
+                    properties:
+                      agentId:
+                        type: string
+                        description: ID of the agent who changed active reason
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      occurredAt:
+                        type: string
+                        format: ISO 8601
+                        description: Timestamp when the action occurred
+                        example: '2019-07-03T04:30:12.07Z'
+                      activeReason:
+                        title: Active Reason
+                        description: Working states used by Agents to indicate what they are currently doing. The system sets a configurable default value upon login or return from away. The agent can subsequently update their active status.
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: string
+                            description: ID of the active reason
+                            example: eRaHXjD4li-moMR8LbULXc
+                          name:
+                            type: string
+                            description: Name of the active reason
+                            example: Triaging Customer
+              - title: Agent Logged In
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: zGaHXjD4SR-moMR9LbULDa
+                  type:
+                    type: string
+                    example: AGENT_STATUS/LOGGED_IN
+                    enum:
+                    - AGENT_STATUS/LOGGED_IN
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - agentId
+                    - occurredAt
+                    properties:
+                      agentId:
+                        type: string
+                        description: ID of the agent who logged in.
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      occurredAt:
+                        type: string
+                        format: ISO 8601
+                        description: Timestamp when the action occurred
+                        example: '2019-07-03T04:30:12.07Z'
+                      activeReason:
+                        title: Active Reason
+                        description: Working states used by Agents to indicate what they are currently doing. The system sets a configurable default value upon login or return from away. The agent can subsequently update their active status.
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: string
+                            description: ID of the active reason
+                            example: bHaHXjD4li-moMR8LbULZc
+                          name:
+                            type: string
+                            description: Name of the active reason
+                            example: Triaging Inbox (Default)
+              - title: Agent Logged Out
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: zGaHXjD4SR-moMR9LbULDa
+                  type:
+                    type: string
+                    example: AGENT_STATUS/LOGGED_OUT
+                    enum:
+                    - AGENT_STATUS/LOGGED_OUT
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - agentId
+                    - occurredAt
+                    properties:
+                      agentId:
+                        type: string
+                        description: ID of the agent who logged out.
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      occurredAt:
+                        type: string
+                        format: ISO 8601
+                        description: Timestamp when the action occurred
+                        example: '2019-07-03T04:30:12.07Z'
+              - title: Agent Returned From Away
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: zGaHXjD4SR-moMR9LbULDa
+                  type:
+                    type: string
+                    example: AGENT_STATUS/RETURNED_FROM_AWAY
+                    enum:
+                    - AGENT_STATUS/RETURNED_FROM_AWAY
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - agentId
+                    - awayAt
+                    - occurredAt
+                    properties:
+                      agentId:
+                        type: string
+                        description: ID of the agent who returned from away.
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      awayAt:
+                        type: string
+                        format: ISO 8601
+                        description: Timestamp when the agent previously went away
+                        example: '2019-07-03T04:30:12.07Z'
+                      activeReason:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/2/properties/content/properties/activeReason'
+                      awayReason:
+                        title: Away Reason
+                        description: The reason the Agent went away. Reason will not be provided if Agent is auto-Away after the configured idle period. Agents can also be auto-logged out after an idle period, in which case that Away period will not have a corresponding AGENT_STATUS/RETURNED_FROM_AWAY event.
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: string
+                            description: ID of the away reason
+                            example: aGaHXjD4li-moMR8LbULZb
+                          name:
+                            type: string
+                            description: name of the away reason
+                            example: coffee break
+                      occurredAt:
+                        type: string
+                        format: ISO 8601
+                        description: Timestamp when the action occurred
+                        example: '2019-07-03T04:30:12.07Z'
+              - title: Agent Went Away
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: zGaHXjD4SR-moMR9LbULDa
+                  type:
+                    type: string
+                    example: AGENT_STATUS/WENT_AWAY
+                    enum:
+                    - AGENT_STATUS/WENT_AWAY
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - agentId
+                    - occurredAt
+                    properties:
+                      agentId:
+                        type: string
+                        description: ID of the agent who went away.
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      awayReason:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/4/properties/content/properties/awayReason'
+                      occurredAt:
+                        type: string
+                        format: ISO 8601
+                        description: Timestamp when the action occurred
+                        example: '2019-07-03T04:30:12.07Z'
+              - title: Contact Ended
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/ENDED
+                    enum:
+                    - CONTACT/ENDED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - status
+                    - context
+                    properties:
+                      channel:
+                        type: string
+                        description: The channel of the contact.
+                        enum:
+                        - CHAT
+                        - EMAIL
+                        - FB_MESSENGER
+                        - INSTAGRAM_DIRECT
+                        - PHONE_CALL
+                        - SMS
+                        - VOICEMAIL
+                        - WHATSAPP
+                        example: SMS
+                      contactId:
+                        type: string
+                        description: The ID of the contact.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation to which the contact is associated.
+                        example: K98jhf874HjDFkA1457K86
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the contact is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      reason:
+                        type: string
+                        enum:
+                        - AGENT_ENDED
+                        - CONVERSATION_CLOSED
+                        - CUSTOMER_ABANDONED
+                        - CUSTOMER_DELETED
+                        - CUSTOMER_NO_REPLY
+                        - MERGED
+                        - NO_REPLY_NEEDED
+                        - STARTED_NEW
+                        description: The reason why the contact was ended.
+                        example: MERGED
+                      status:
+                        type: string
+                        enum:
+                        - ABANDONED
+                        - ANSWERED
+                        - UNANSWERED
+                        - UNKNOWN
+                        description: The status of the contact.
+                        example: ANSWERED
+                      context:
+                        title: Contact Context
+                        description: The state of the contact immediately before the event occurred.
+                        required:
+                        - assignee
+                        properties:
+                          assignee:
+                            title: Assignee
+                            description: Inbox and agent assignee of the contact just before the event was triggered.
+                            required:
+                            - inboxId
+                            properties:
+                              inboxId:
+                                type: string
+                                description: ID of the inbox the contact was assigned to just before the event was triggered. You can look up the id in the Gladly UI.
+                                example: NFpDZtfqhk2pI6fjaVDlFf
+                              agentId:
+                                type: string
+                                description: ID of the agent the contact was assigned to just before the event was triggered. You can look up the id in the Gladly UI.
+                                example: zGaHXjD4SR-moMR9LbULDa
+              - title: Contact Fulfilled
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/FULFILLED
+                    enum:
+                    - CONTACT/FULFILLED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - fulfilledType
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      fulfilledType:
+                        type: string
+                        enum:
+                        - CANCELED
+                        - RESPONDED
+                        description: The type of fulfillment.
+                        example: CANCELED
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Hold Ended
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/HOLD_ENDED
+                    enum:
+                    - CONTACT/HOLD_ENDED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - reason
+                    - context
+                    properties:
+                      channel:
+                        type: string
+                        description: The only channel for contact holds is PHONE_CALL.
+                        enum:
+                        - PHONE_CALL
+                        example: PHONE_CALL
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                        description: The ID of the contact.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      reason:
+                        type: string
+                        enum:
+                        - COLD_TRANSFER
+                        - CONFERENCE
+                        - MANUAL
+                        - WARM_TRANSFER
+                        description: The reason the phone call contact was put on hold
+                        example: CONFERENCE
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Hold Started
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/HOLD_STARTED
+                    enum:
+                    - CONTACT/HOLD_STARTED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - reason
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/8/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      reason:
+                        type: string
+                        enum:
+                        - COLD_TRANSFER
+                        - CONFERENCE
+                        - MANUAL
+                        - WARM_TRANSFER
+                        description: The reason the phone call contact was put on hold
+                        example: CONFERENCE
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Joined
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/JOINED
+                    enum:
+                    - CONTACT/JOINED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - messageId
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Message Received
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/MESSAGE_RECEIVED
+                    enum:
+                    - CONTACT/MESSAGE_RECEIVED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - messageId
+                    - context
+                    properties:
+                      channel:
+                        type: string
+                        description: The channel of the contact.
+                        enum:
+                        - CHAT
+                        - EMAIL
+                        - FB_MESSENGER
+                        - INSTAGRAM_DIRECT
+                        - SMS
+                        - VOICEMAIL
+                        - WHATSAPP
+                        example: SMS
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      messageId:
+                        type: string
+                        description: The ID of the message that was received. This message can be retreived using the Gladly Conversations API (`/api/v1/conversation-items/{itemId}`)
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Message Sent
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/MESSAGE_SENT
+                    enum:
+                    - CONTACT/MESSAGE_SENT
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - messageId
+                    - context
+                    properties:
+                      channel:
+                        type: string
+                        description: The channel of the contact.
+                        enum:
+                        - CHAT
+                        - EMAIL
+                        - FB_MESSENGER
+                        - INSTAGRAM_DIRECT
+                        - SMS
+                        - WHATSAPP
+                        example: SMS
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      messageId:
+                        type: string
+                        description: The ID of the message that was sent
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Offer Accepted
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/OFFER_ACCEPTED
+                    enum:
+                    - CONTACT/OFFER_ACCEPTED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - agentId
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      agentId:
+                        type: string
+                        description: The ID of the assigned agent after the offer was accepted.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Offer Rejected
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/OFFER_REJECTED
+                    enum:
+                    - CONTACT/OFFER_REJECTED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - agentId
+                    - reason
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      agentId:
+                        type: string
+                        description: The ID of the agent who was offered the contact.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      reason:
+                        enum:
+                        - DECLINED
+                        - MISSED
+                        - DEVICE ERROR
+                        description: The reason the offer was rejected by the system or by an agent.
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Offered
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/OFFERED
+                    enum:
+                    - CONTACT/OFFERED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - agentId
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      agentId:
+                        type: string
+                        description: The ID of the agent being offered the contact.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      matchReasons:
+                        type: array
+                        description: 'The names of the People Match Priority Boosts that boosted the score for the contact offer.
+
+                          '
+                        example:
+                        - Transfer
+                        - Receipt Request
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Contact Started
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/STARTED
+                    enum:
+                    - CONTACT/STARTED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      dueAt:
+                        format: ISO 8601
+                        description: The due date of the contact
+                        example: '2019-07-03T04:30:12.07Z'
+                      entryPoint:
+                        type: string
+                        description: The “To” address (e.g. phone number, email address) that the customer reached out to
+                        example: endpoint-1
+                      finalIVRSelection:
+                        type: string
+                        description: Final selection made in the IVR before the contact is queued
+                        example: __billing
+                      context:
+                        description: The state of the contact immediately before the event occurred.
+                        required:
+                        - assignee
+                        properties:
+                          assignee:
+                            description: Inbox and agent assignee of the contact when the event was triggered.
+                            required:
+                            - inboxId
+                            properties:
+                              inboxId:
+                                type: string
+                                description: ID of the inbox the contact was assigned to when the event was triggered. You can look up the id in the Gladly UI.
+                                example: NFpDZtfqhk2pI6fjaVDlFf
+                              agentId:
+                                type: string
+                                description: ID of the agent the contact was assigned to when the event was triggered. You can look up the id in the Gladly UI.
+                                example: zGaHXjD4SR-moMR9LbULDa
+              - title: Contact Transferred
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONTACT/TRANSFERRED
+                    enum:
+                    - CONTACT/TRANSFERRED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - channel
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - reason
+                    - transferType
+                    - assignee
+                    - context
+                    properties:
+                      channel:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/channel'
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      transferType:
+                        type: string
+                        enum:
+                        - COLD
+                        - WARM
+                        description: The type of transfer.
+                        example: COLD
+                      reason:
+                        enum:
+                        - AUTOMATION
+                        - MANUAL
+                        - MERGE
+                        - UNKNOWN
+                        description: The reason the contact was transferred
+                        example: MANUAL
+                      assignee:
+                        type: object
+                        description: The new assignee after the contact was transferred
+                        required:
+                        - inboxId
+                        properties:
+                          inboxId:
+                            type: string
+                            description: ID of the inbox the contact was assigned to after the event occurred. You can look up the id in the Gladly UI.
+                            example: NFpDZtfqhk2pI6fjaVDlFf
+                          agentId:
+                            type: string
+                            description: ID of the agent the contact was assigned to after the event occurred. You can look up the id in the Gladly UI.
+                            example: zGaHXjD4SR-moMR9LbULDa
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/context'
+              - title: Conversation Assignee Updated
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION_ASSIGNEE/UPDATED
+                    enum:
+                    - CONVERSATION_ASSIGNEE/UPDATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for the event
+                    required:
+                    - customerId
+                    - conversationId
+                    - reason
+                    - assignee
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the conversation is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      reason:
+                        type: string
+                        description: The reason for the assignee update
+                        enum:
+                        - AUTOMATED_ASSIGNMENT
+                        - CONTACT_DECLINED
+                        - CONTACT_INBOUND
+                        - CONTACT_MISSED
+                        - CONTACT_OFFERED
+                        - CUSTOMER_CONVERSATION_MERGE
+                        - DEDICATED_HERO_ASSIGN
+                        - DEDICATED_HERO_CHANGE
+                        - DEVICE_ERROR
+                        - MANUAL
+                        - MESSAGE_OUTBOUND
+                        - CONTACT_OFFER_CONFLICT
+                        - PHONE_CALL_TRANSFER
+                        - QUEUE_IVR_TRANSFER
+                        - REROUTED_UNASSIGN
+                        - USER_DEACTIVATION
+                      assignee:
+                        title: Assignee
+                        description: Inbox and agent assignee being assigned the conversation.
+                        required:
+                        - inboxId
+                        properties:
+                          inboxId:
+                            type: string
+                            description: ID of the inbox the conversation is being assigned. You can look up the id in the Gladly UI.
+                            example: NFpDZtfqhk2pI6fjaVDlFf
+                          agentId:
+                            type: string
+                            description: ID of the agent the conversation is being assigned. You can look up the id in the Gladly UI.
+                            example: zGaHXjD4SR-moMR9LbULDa
+                      context:
+                        title: Conversation Context
+                        description: The state of the conversation immediately before the event occurred.
+                        required:
+                        - assignee
+                        properties:
+                          assignee:
+                            description: Inbox and agent assignee of the conversation when the event was triggered.
+                            required:
+                            - inboxId
+                            properties:
+                              inboxId:
+                                type: string
+                                description: ID of the inbox the conversation was assigned to when the event was triggered. You can look up the id in the Gladly UI.
+                                example: NFpDZtfqhk2pI6fjaVDlFf
+                              agentId:
+                                type: string
+                                description: ID of the agent the conversation was assigned to when the event was triggered. You can look up the id in the Gladly UI.
+                                example: zGaHXjD4SR-moMR9LbULDa
+              - title: Conversation Closed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/CLOSED
+                    enum:
+                    - CONVERSATION/CLOSED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Conversation
+                    description: ''
+                    required:
+                    - customerId
+                    - conversationId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the conversation is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/18/properties/content/properties/context'
+              - title: Conversation Created
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/CREATED
+                    enum:
+                    - CONVERSATION/CREATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/19/properties/content'
+              - title: Conversation Custom Attribute Added
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/CUSTOM_ATTRIBUTE_ADDED
+                    enum:
+                    - CONVERSATION/CUSTOM_ATTRIBUTE_ADDED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: ConversationCustomAttribute
+                    description: Content for the event
+                    required:
+                    - customerId
+                    - conversationId
+                    - customAttributeId
+                    - customAttributeKey
+                    - customAttributeValue
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the conversation is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      customAttributeId:
+                        type: string
+                        description: The ID of the custom attribute.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      customAttributeKey:
+                        type: string
+                        description: The Key of the custom attribute.
+                        example: orderId
+                      customAttributeValue:
+                        type: string
+                        description: The Value of the custom attribute.
+                        example: '1232424890'
+              - title: Conversation Custom Attribute Removed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/CUSTOM_ATTRIBUTE_REMOVED
+                    enum:
+                    - CONVERSATION/CUSTOM_ATTRIBUTE_REMOVED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/21/properties/content'
+              - title: Conversation Note Created
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/NOTE_CREATED
+                    enum:
+                    - CONVERSATION/NOTE_CREATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for the event
+                    required:
+                    - noteId
+                    - customerId
+                    - conversationId
+                    properties:
+                      noteId:
+                        type: string
+                        description: The ID of the note being created
+                        example: UAAAlBdOQwGl7mzqQUfVow
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the conversation is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation.
+                        example: aGaHXjD4li-moMR8LbULZb
+              - title: Conversation Reopened
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/REOPENED
+                    enum:
+                    - CONVERSATION/REOPENED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/19/properties/content'
+              - title: Conversation Status Updated
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: zGaHXjD4SR-moMR9LbULDa
+                  type:
+                    type: string
+                    example: CONVERSATION_STATUS/UPDATED
+                    enum:
+                    - CONVERSATION_STATUS/UPDATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  content:
+                    title: CONVERSATION_STATUS/UPDATED
+                    properties:
+                      conversationId:
+                        type: string
+                        description: id of the conversation for which the status was updated
+                        example: IBBcbj2ARXWwvUGV_LbfEQ
+                      customerId:
+                        type: string
+                        description: id of the customer whose conversation's status was updated
+                        example: qJaE0di0SdOWNnq5dT13Aw
+              - title: Conversation Topic Added
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/TOPIC_ADDED
+                    enum:
+                    - CONVERSATION/TOPIC_ADDED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for the event
+                    required:
+                    - customerId
+                    - conversationId
+                    - topicId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the conversation is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      topicId:
+                        type: string
+                        description: The ID of the topic being added to the conversation.
+                        example: 0f2oNq7sR6CJpKq0WDbTbg
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/18/properties/content/properties/context'
+              - title: Conversation Topic Removed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CONVERSATION/TOPIC_REMOVED
+                    enum:
+                    - CONVERSATION/TOPIC_REMOVED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for the event
+                    required:
+                    - customerId
+                    - conversationId
+                    - topicId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the conversation is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      topicId:
+                        type: string
+                        description: The ID of the topic removed from the conversation.
+                        example: 0f2oNq7sR6CJpKq0WDbTbg
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/18/properties/content/properties/context'
+              - title: Customer Merged
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CUSTOMER/MERGED
+                    enum:
+                    - CUSTOMER/MERGED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for the event
+                    required:
+                    - destinationCustomerId
+                    - destinationConversationId
+                    - sourceCustomerId
+                    - sourceConversationId
+                    properties:
+                      destinationCustomerId:
+                        type: string
+                        description: The ID of the combined customer profile that remains after the merge.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      destinationConversationId:
+                        type: string
+                        description: The ID of the combined open conversation (if applicable) that remains after the merge.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      sourceCustomerId:
+                        type: string
+                        description: The ID of the customer profile that is being merged into another customer profile.
+                        example: 0f2oNq7sR6CJpKq0WDbTbg
+                      sourceConversationId:
+                        type: string
+                        description: The ID of the open conversation (if applicable) that is being merged into another open conversation.
+                        example: fjsSrGvhv83-k1hjfoz742
+              - title: Customer Profile Created
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CUSTOMER_PROFILE/CREATED
+                    enum:
+                    - CUSTOMER_PROFILE/CREATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Customer Profile Created
+                    description: Content for the event
+                    required:
+                    - customerId
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile that was created.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+              - title: Customer Profile Deleted
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CUSTOMER_PROFILE/DELETED
+                    enum:
+                    - CUSTOMER_PROFILE/DELETED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Customer Profile Deleted
+                    description: Content for the event
+                    required:
+                    - customerId
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile that was deleted.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+              - title: Customer Profile Merged (deprecated)
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - content
+                properties:
+                  id:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/25/properties/id'
+                  type:
+                    type: string
+                    example: CUSTOMER_PROFILE/MERGED
+                    enum:
+                    - CUSTOMER_PROFILE/MERGED
+                  timestamp:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/25/properties/timestamp'
+                  content:
+                    title: CUSTOMER_PROFILE/MERGED (deprecated)
+                    properties:
+                      sourceCustomerId:
+                        type: string
+                        description: id of the customer that was merged
+                        example: qJaE0di0SdOWNnq5dT13Aw
+                      destinationCustomerId:
+                        type: string
+                        description: id of the customer that the source customer was merged into
+                        example: qJaE0di0SdOWNnq5dT13Aw
+              - title: Customer Profile Updated
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: CUSTOMER_PROFILE/UPDATED
+                    enum:
+                    - CUSTOMER_PROFILE/UPDATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Customer Profile Updated
+                    description: Content for the event
+                    required:
+                    - customerId
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile that was updated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+              - title: Export Job Completed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - content
+                properties:
+                  id:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/25/properties/id'
+                  type:
+                    type: string
+                    example: EXPORT_JOB/COMPLETED
+                    enum:
+                    - EXPORT_JOB/COMPLETED
+                  timestamp:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/25/properties/timestamp'
+                  content:
+                    title: EXPORT_JOB/COMPLETED
+                    properties:
+                      jobId:
+                        type: string
+                        description: id of the export job that has completed
+              - title: Export Job Failed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - content
+                properties:
+                  id:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/25/properties/id'
+                  type:
+                    type: string
+                    example: EXPORT_JOB/FAILED
+                    enum:
+                    - EXPORT_JOB/FAILED
+                  timestamp:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/25/properties/timestamp'
+                  content:
+                    title: EXPORT_JOB/FAILED
+                    properties:
+                      jobId:
+                        type: string
+                        description: id of the export job that has failed
+              - title: PING
+                description: a special event that is sent when webhooks are created or updated. See [Ping Event](#section/Ping-Event) for more information.
+              - title: Payment Request Created
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: PAYMENT_REQUEST/CREATED
+                    enum:
+                    - PAYMENT_REQUEST/CREATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Payment Request Created
+                    description: Content for the event
+                    required:
+                    - contactId
+                    - customerId
+                    - conversationId
+                    - paymentRequestId
+                    - context
+                    properties:
+                      contactId:
+                        type: string
+                        description: The ID of the contact to which the payment request is associated.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the payment request is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation to which the payment request is associated.
+                        example: pJpmy-qjazfzJh1K8gc1BR
+                      paymentRequestId:
+                        type: string
+                        description: The ID of the payment request
+                        example: aGaHXjD4li-moMR8LbULZb
+                      context:
+                        title: Context
+                        description: Context for Payment Request
+                        required:
+                        - currency
+                        - monetaryUnit
+                        properties:
+                          currency:
+                            type: string
+                            description: Currency of the payment request
+                          monetaryUnit:
+                            type: number
+                            description: Amount of the payment request
+              - title: Payment Status Changed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: PAYMENT_REQUEST/STATUS_CHANGED
+                    enum:
+                    - PAYMENT_REQUEST/STATUS_CHANGED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for Payment Status Changed
+                    required:
+                    - contactId
+                    - conversationId
+                    - customerId
+                    - paymentRequestId
+                    - oldStatus
+                    - newStatus
+                    - context
+                    properties:
+                      contactId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/contactId'
+                      conversationId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/conversationId'
+                      customerId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/6/properties/content/properties/customerId'
+                      paymentRequestId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/36/properties/content/properties/paymentRequestId'
+                      oldStatus:
+                        type: string
+                        description: Previous status of the payment request
+                        example: REQUESTING
+                        enum:
+                        - COMPLETED
+                        - DECLINED
+                        - ERROR
+                        - REQUESTING
+                        - SUBMITTED
+                        - TIMED_OUT
+                      newStatus:
+                        type: string
+                        description: New status of the payment request
+                        example: COMPLETED
+                        enum:
+                        - COMPLETED
+                        - DECLINED
+                        - ERROR
+                        - REQUESTING
+                        - SUBMITTED
+                        - TIMED_OUT
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/36/properties/content/properties/context'
+              - title: Payment Request Viewed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: PAYMENT_REQUEST/VIEWED
+                    enum:
+                    - PAYMENT_REQUEST/VIEWED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Payment Request Viewed
+                    description: Content for the event
+                    required:
+                    - contactId
+                    - customerId
+                    - conversationId
+                    - paymentRequestId
+                    - context
+                    properties:
+                      contactId:
+                        type: string
+                        description: The ID of the contact to which the payment request is associated.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the payment request is associated.
+                        example: THx8Z8y-ScuMoqBH8Awtng
+                      conversationId:
+                        type: string
+                        description: The ID of the conversation to which the payment request is associated.
+                        example: aGaHXjD4li-moMR8LbULZb
+                      paymentRequestId:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/36/properties/content/properties/paymentRequestId'
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/36/properties/content/properties/context'
+              - title: Task Assignee Updated
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/ASSIGNEE_UPDATED
+                    enum:
+                    - TASK/ASSIGNEE_UPDATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - assignee
+                    - customerId
+                    - taskId
+                    - context
+                    properties:
+                      assignee:
+                        type: object
+                        description: The new assignee for the task.
+                        required:
+                        - inboxId
+                        properties:
+                          inboxId:
+                            type: string
+                            description: ID of the inbox the task is now assigned to. You can look up the id in the Gladly UI.
+                            example: NFpDZtfqhk2pI6fjaVDlFf
+                          agentId:
+                            type: string
+                            description: ID of the agent the task is now assigned to. You can look up the id in the Gladly UI.
+                            example: zGaHXjD4SR-moMR9LbULDa
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        title: Task Context
+                        description: The state of the task immediately before the event occurred.
+                        required:
+                        - createdAt
+                        properties:
+                          assignee:
+                            title: Assignee
+                            description: Inbox and agent assignee of the task just before the event was triggered.
+                            required:
+                            - inboxId
+                            properties:
+                              inboxId:
+                                type: string
+                                description: ID of the inbox the task is assigned to. You can look up the id in the Gladly UI.
+                                example: NFpDZtfqhk2pI6fjaVDlFf
+                              agentId:
+                                type: string
+                                description: ID of the agent the task is assigned to. You can look up the id in the Gladly UI.
+                                example: zGaHXjD4SR-moMR9LbULDa
+                          dueAt:
+                            description: Time when the task will be due.
+                            type: string
+                            format: RFC3339
+                            example: '2020-03-15T06:13:00.125Z'
+                          createdAt:
+                            type: string
+                            format: RFC3339
+                            description: Timestamp when the action occurred.
+                            example: '2019-07-03T04:30:12.07Z'
+              - title: Task Closed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/CLOSED
+                    enum:
+                    - TASK/CLOSED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+              - title: Task Comment Added
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/COMMENT_ADDED
+                    enum:
+                    - TASK/COMMENT_ADDED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - commentId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      commentId:
+                        type: string
+                        description: The ID of the comment that was added to the task.
+                        example: pOVVdzweSumI4bFxjlT8LA
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+              - title: Task Content Updated
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/CONTENT_UPDATED
+                    enum:
+                    - TASK/CONTENT_UPDATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - dueAt
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+              - title: Task Created
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/CREATED
+                    enum:
+                    - TASK/CREATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+              - title: Task Due Date Updated
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/DUE_DATE_UPDATED
+                    enum:
+                    - TASK/DUE_DATE_UPDATED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      dueAt:
+                        description: New time when the task will be due.
+                        type: string
+                        format: RFC3339
+                        example: '2020-03-15T06:13:00.125Z'
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+              - title: Task Follower Added
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/FOLLOWER_ADDED
+                    enum:
+                    - TASK/FOLLOWER_ADDED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - agentId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      agentId:
+                        type: string
+                        description: ID of the agent who was added as a follower
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+              - title: Task Follower Removed
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/FOLLOWER_REMOVED
+                    enum:
+                    - TASK/FOLLOWER_REMOVED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - agentId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      agentId:
+                        type: string
+                        description: ID of the agent who was removed as a follower
+                        example: zGaHXjD4SR-moMR9LbULDa
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+              - title: Task Reopened
+                type: object
+                required:
+                - id
+                - type
+                - timestamp
+                - initiator
+                - content
+                properties:
+                  id:
+                    type: string
+                    description: Unique event ID
+                    example: yHaHXjD4SR-moMR9LbULDb
+                  type:
+                    type: string
+                    example: TASK/REOPENED
+                    enum:
+                    - TASK/REOPENED
+                  timestamp:
+                    type: string
+                    format: ISO 8601
+                    description: Time the event was recorded
+                    example: '2019-07-03T04:30:12.07Z'
+                  initiator:
+                    $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/0/properties/initiator'
+                  content:
+                    title: Content
+                    description: Content for event
+                    required:
+                    - customerId
+                    - taskId
+                    - context
+                    properties:
+                      customerId:
+                        type: string
+                        description: The ID of the customer profile to which the task is associated.
+                        example: gHufx-U3QqOmhvFuViceTw
+                      taskId:
+                        type: string
+                        description: The ID of the task.
+                        example: dzweSumI4bFxjlT8LApOVV
+                      context:
+                        $ref: '#/paths/~1gladly~1webhook/post/requestBody/content/application~1json/schema/oneOf/39/properties/content/properties/context'
+      responses:
+        '200':
+          description: Success
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Gladly API uses token-based **Basic Authentication**. API tokens are associated with designated Gladly users.
+
+        To create and use an API token, your user must have the API User permission. An API token can be used to perform any API request without restriction.
+
+
+        | user name   | password  |
+
+        | ----------- | --------- |
+
+        | agent email | API token |
+
+
+        The credentials must be passed via an `Authorization` HTTP header. All requests must be made over HTTPS.
+
+
+        ```shell
+
+        curl -u user@organization.com:$GLADLY_API_TOKEN \
+
+        https://organization.gladly.com/api/v1/organization
+
+        ```
+
+        '
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth — username is the API user email; password is the API token. Requires the "API User" permission.
+x-tagGroups:
+- name: REST API
+  tags:
+  - Agents
+  - Public Answer
+  - Answer Management
+  - Audiences
+  - Business Hours
+  - Communications
+  - Conversations
+  - Customers
+  - Events
+  - Export
+  - Freeform Topics
+  - Inboxes
+  - Organization
+  - Proactive Conversations
+  - Reports
+  - Tasks
+  - Teams
+  - User Identity
+  - Topics
+  - Webhooks
+- name: Webhooks
+  tags:
+  - Summary
+  - Payloads
+- name: Lookup API
+  tags:
+  - Customer Lookup
+- name: Resources
+  tags:
+  - Versioning
+  - Error Handling
+  - Rate Limit
+  - Rich Content
+  - Launching Soon

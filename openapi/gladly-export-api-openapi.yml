@@ -1,0 +1,707 @@
+openapi: 3.0.1
+info:
+  title: Gladly Agents Export API
+  version: '1.0'
+  description: '# Introducing the Gladly API
+
+
+    At Gladly, we believe that customer service is best when it''s a conversation.
+
+    That means more than just helping customers with one-off questions or issues: it''s about making them feel known, valued, and respected for the individuals they are.
+
+
+    The Gladly API was built to help facilitate those relationships, providing agents with the rich customer context
+
+    they need to deliver seamless experiences that make customers feel like they''re more than just a number in a sea of others.
+
+
+    # Overview
+
+
+    You can integrate easily with Gladly by calling Gladly''s [REST API](#section/Overview/REST-API)
+
+    and implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.
+
+
+    Some examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer''s timeline,
+
+    providing the latest information about a customer''s orders, and more.
+
+
+    ## REST API
+
+
+    Clients can access the **REST API** via HTTPS at your organization''s Gladly domain (e.g. `https://{organization}.gladly.com`).
+
+
+    Resources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.
+
+    In addition, all responses and payloads are in JSON with consistent error codes and formats.
+
+
+    ## Lookup API
+
+
+    The Gladly **Lookup API** allows your organization to provide data services to power the agent''s experience with a complete view of your customers''
+
+    information, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.
+
+
+    Like the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.
+
+
+    Gladly will perform lookups when certain activities occur within Gladly, such as when a customer''s profile is loaded.
+
+
+    A detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).
+
+
+    ## Testing
+
+
+    Test the myriad possibilities of the Gladly API in a safe, secure space. We''ll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).
+
+
+    Your sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.
+
+
+    # Getting Started
+
+
+    Think of this section as getting the keys to unlocking your access to the Gladly APIs.
+
+    First, you''ll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).
+
+    With these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly''s API [resources](#section/Overview/Resources).
+
+
+    ## Permissions
+
+
+    Gladly Administrators can set API permissions on an agent-by-agent basis.
+
+    We''ll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.
+
+
+    To allow a user to create API tokens and access the API:
+
+    1. Log in to your Gladly instance.
+
+    2. Open the menu on the top left-hand corner of the page.
+
+    3. Navigate to **Settings** > **Users*
+
+    4. Search and click the user profile you wish to give access to.
+
+    5. You''ll see a permission called **API User**. Select it, while making sure to keep the user''s **Agent** role intact.
+
+    6. Hit **Save** to give access.
+
+
+    ![Agent profile screen](assets/permissions-agent.png)
+
+
+    We recommend creating a dedicated user to make API calls, whose account won''t be used for agent and organization management.
+
+    This will help you with any future audits of API activity vs. agent activity.
+
+
+    ## Creating API Tokens
+
+
+    You must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).
+
+    If your profile already has access to the **API User** permission, you''ll see a menu item titled **More settings**. Click **More settings**:
+
+
+    ![API Token Menu](assets/permissions-token-nav.png)
+
+
+    Click **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:
+
+
+    ![API Token Add](assets/permissions-token-add.png)
+
+
+    A token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).
+
+    You can rename the token to something more easily referenceable by clicking the name to edit.
+
+
+    This token will be associated with your agent profile, which we refer to as the API User in this document.
+
+
+    ![API Token View](assets/permissions-token-view.png)
+
+
+    For security purposes, you''ll only see a new token once before you navigate away from the page.
+
+
+    ## Replacing/Rotating API Tokens
+
+
+    Should you lose this token, or wish to rotate your application keys, you can do the following:
+
+
+    1. Generate a new token.
+
+    2. Store the new token in a secure location.
+
+    3. Delete the old token.
+
+    4. Update your applications/scripts with the new token.
+
+
+    # Authentication
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->'
+servers:
+- url: https://{organization}.gladly.com/api/v1
+  description: Production
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly organization subdomain
+- url: https://{organization}.gladly.qa/api/v1
+  description: Sandbox
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly QA organization subdomain
+security:
+- basicAuth: []
+tags:
+- name: Export
+  description: 'Export API is a simple, comprehensive, file-based data export. You can export the lifetime of your customers'' conversations in Gladly to a central data repository such as your data warehouse or data lake. You can export all communications successfully delivered within a specified date range.  The export date range could be the past hour, the past 24 hours, or a custom data range. Please note, for one-time exports covering a period greater than six months, a service fee may apply.
+
+
+    Job results can be deleted once downloaded.  Delete will remove all result files along with the job metadata.  Files older than 14 days are removed from Gladly and jobs older than 14 days are not available from the API.  If you discover that you need the deleted files later, please contact Gladly Support to regenerate them for you.
+
+
+    ### SCHEDULING EXPORT JOBS
+
+
+    You can schedule a one-time or repeating - hourly or daily - data export job.  By default, each organization has a daily export job configured.  To schedule a one-time job or change the job frequency, please contact Gladly Support.
+
+    '
+paths:
+  /api/v1/export/schedules:
+    get:
+      tags:
+      - Export
+      summary: List Schedules
+      description: 'List all schedules. Currently, only one schedule can be configured per organization. The schedule will generate recurring data export jobs with an hourly or daily frequency. By default, each organization has a daily export job configured. To change the job frequency, please contact Gladly Support.
+
+
+        Hourly schedules generate new jobs on a roughly two hour lag after the `nextStartAt` time. For example, for an hourly schedule with a `nextStartAt` equal to `2019-01-21T08:00:00.00Z`, the next job will be created at approximately `2019-01-21T10:00:00.00Z`. Daily schedules will run jobs during the night (UTC time).
+
+        '
+      operationId: findSchedules
+      responses:
+        '200':
+          description: found jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  title: Schedule
+                  description: schedule
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique schedule id
+                      example: vZgCEQlDR6aQz_0HeWZ9_Q
+                    frequency:
+                      type: string
+                      description: Frequency for running export jobs
+                      example: HOURLY
+                      enum:
+                      - HOURLY
+                      - DAILY
+                    type:
+                      type: string
+                      description: Type of export schedule
+                      example: CONVERSATIONS
+                      enum:
+                      - CONVERSATIONS
+                    nextStartAt:
+                      type: string
+                      format: RFC3339
+                      description: Start time for the next export job
+                      example: '2019-01-21T08:00:00.00Z'
+                    updatedAt:
+                      type: string
+                      format: RFC3339
+                      description: Time the schedule was last updated
+                      example: '2019-01-21T07:15:18.07272933Z'
+  /api/v1/export/jobs:
+    get:
+      tags:
+      - Export
+      summary: List Jobs
+      description: "List all jobs for the organization in any status for the last 14 days. \n```\n/api/v1/export/jobs\n```\n\nYou can further filter the results by including query parameters for `status`, `startAt`, and `endAt`.\n```\n/api/v1/export/jobs?status=COMPLETED&startAt=2024-09-15T00:00:00.000Z&endAt=2024-09-16T00:00:00.000Z\n```\n"
+      operationId: findJobs
+      parameters:
+      - name: status
+        in: query
+        description: export job status to search on.
+        schema:
+          type: string
+          example: COMPLETED
+          enum:
+          - PENDING
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+      - name: startAt
+        in: query
+        description: 'Starting time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be more than 14 days ago. Default is 14 days ago.
+
+
+          The date should be in ISO 8601 format.
+
+          '
+        schema:
+          type: string
+          format: ISO 8601
+          example: '2024-09-15T00:00:00.000Z'
+      - name: endAt
+        in: query
+        description: 'Ending time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be before ''startAt'' or in the future. Default is now.
+
+
+          The date should be in ISO 8601 format.
+
+          '
+        schema:
+          type: string
+          format: ISO 8601
+          example: '2024-09-16T00:00:00.000Z'
+      responses:
+        '200':
+          description: found jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1api~1v1~1export~1jobs~1%7BjobId%7D/get/responses/200/content/application~1json/schema'
+  /api/v1/export/jobs/{jobId}:
+    parameters:
+    - name: jobId
+      in: path
+      description: id of the job
+      required: true
+      schema:
+        type: string
+        example: OOrlNMXeS72gs_WEX2TtMg
+    get:
+      tags:
+      - Export
+      summary: Get Job
+      description: 'Get a job by unique id.
+
+        '
+      operationId: getJob
+      responses:
+        '200':
+          description: fetched job
+          content:
+            application/json:
+              schema:
+                title: Export Job
+                description: Export job
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique job id
+                    example: vZgCEQlDR6aQz_0HeWZ9_Q
+                  scheduleId:
+                    type: string
+                    description: Schedule id the job belongs to
+                    example: OOrlNMXeS72gs_WEX2TtMg
+                  status:
+                    type: string
+                    description: Current status of the job
+                    example: COMPLETED
+                    enum:
+                    - PENDING
+                    - IN_PROGRESS
+                    - COMPLETED
+                    - FAILED
+                  updatedAt:
+                    type: string
+                    format: RFC3339
+                    description: Time the job was updated
+                    example: '2019-02-21T07:15:19.07272933Z'
+                  parameters:
+                    title: JobParameters
+                    description: Export job parameters
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: Type of export job
+                        example: CONVERSATIONS
+                        enum:
+                        - CONVERSATIONS
+                      startAt:
+                        type: string
+                        format: RFC3339
+                        description: Start time for the export query
+                        example: '2019-01-21T07:15:18.07272933Z'
+                      endAt:
+                        type: string
+                        format: RFC3339
+                        description: End time for the export query
+                        example: '2019-01-22T07:15:18.07272933Z'
+                  files:
+                    type: array
+                    items:
+                      type: string
+                    default: []
+                    description: An array of filenames associated with the job
+                    example:
+                    - agents.jsonl
+                    - conversation_items.jsonl
+                    - customers.jsonl
+                    - topics.jsonl
+          links:
+            GetFilename:
+              operationId: getFile
+              parameters:
+                filename: $response.body#/id
+              description: 'The entries in `filenames` returned in the response can be used as the the `filename` parameter in `GET /api/v1/export/jobs/{jobId}/files/{filename}`
+
+                '
+        '404':
+          description: job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrors'
+    delete:
+      tags:
+      - Export
+      summary: Delete Job
+      description: 'Delete a job and all associated files. *Note*: job status must be `COMPLETED` or `FAILED` to be deleted.
+
+        '
+      operationId: deleteJob
+      responses:
+        '204':
+          description: the job was deleted
+        '400':
+          description: unable to delete job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+              - attr: status
+                code: temporary_failure
+                detail: unable to delete job with status [IN_PROGRESS]. Please try again after it has finished
+        '404':
+          description: job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrors'
+  /api/v1/export/jobs/{jobId}/files/{filename}:
+    get:
+      operationId: getFile
+      tags:
+      - Export
+      summary: Get File
+      parameters:
+      - name: jobId
+        in: path
+        description: id of the job
+        required: true
+        schema:
+          type: string
+          example: OOrlNMXeS72gs_WEX2TtMg
+      - name: filename
+        in: path
+        description: name of the file
+        required: true
+        schema:
+          type: string
+          example: agents.jsonl
+      description: 'Download a file generated by a data export job.
+
+        Filenames can be found from an export [job''s](index.html#operation/getJob) `files` field.
+
+
+        Files are returned in `.jsonl` format where each line is a `json` object representing an element from the array of data. Please note that, in rare cases, conversation items with invalid attributes may be excluded from the data export. For example:
+
+        - An email message that was undelivered due to an invalid recipient email address
+
+        - EMAIL / SMS auto-replies sent by Gladly to the customer via a Rule
+
+
+        Examples are as follows with schema below.
+
+
+
+        **agents.jsonl**
+
+        ```
+
+        {"id": "WmeA3Y51Q5ayCAaZ1AotIA","name": "Amy Agent","emailAddress": "amy.agent@company.com"}
+
+        ```
+
+
+        **conversation_items.jsonl**
+
+        ```
+
+        {"id": "ybP4szYCSy6LdV4DNwEd6g","conversationId": "9BcE2O0DQ2ynGHRmk9FeoA","customerId": "OOrlNMXeS72gs_WEX2TtMg","timestamp": "2019-07-01T11:46:45.010Z","initiator": {"id": "OOrlNMXeS72gs_WEX2TtMg","type": "CUSTOMER"},"content": {"type": "CHAT_MESSAGE","sessionId": "5k04bYuTRGqyT6uoSQfWVA","content": "Hi! I know it''s after hours but can someone help upgrade my account?"}}
+
+        {"id": "9lQDrx-HTz-JMoP2T4CtZA","conversationId": "9BcE2O0DQ2ynGHRmk9FeoA","customerId": "OOrlNMXeS72gs_WEX2TtMg","timestamp": "2019-07-02T06:30:12.070Z","initiator": {"id": "WmeA3Y51Q5ayCAaZ1AotIA","type": "AGENT"},"content": {"type": "EMAIL","from": "amy.agent@company.com","to": ["martha.williams@gmail.com"],"subject": "Account upgrade","content": "I would be happy to help you! We need a few details, so please give us a call this morning."}}
+
+        {"id": "QN1nURRuRne_eAEhW45UMA","conversationId": "9BcE2O0DQ2ynGHRmk9FeoA","customerId": "KgnVOMc2TbiA3zad6iVlWA","timestamp": "2020-04-21T00:44:33.690Z","initiator": {"type":"AGENT","id":"VjeJI9_GRUS_LUjKLcNlBw"},"responder":{"type":"CUSTOMER","id":"KgnVOMc2TbiA3zad6iVlWA"},"content":{"startedAt":"2020-04-21T00:44:34.604Z","answeredAt":"2020-04-21T00:44:45.515Z","completedAt":"2020-04-21T00:44:57.130Z","from":"+12096248260","to":"+14155335980","recordingUrl":"/api/v1/conversation-items/QN1nURRuRne_eAEhW45UMA/media/recording","recordingStatus":"AVAILABLE","recordingDuration":11,"type":"PHONE_CALL"}}
+
+        {"id": "K0UGL3n6S4uPpvtMvItqHA","conversationId": "9BcE2O0DQ2ynGHRmk9FeoA","customerId": "OOrlNMXeS72gs_WEX2TtMg","timestamp": "2019-07-02T08:12:55.870Z","initiator": {"id": "WmeA3Y51Q5ayCAaZ1AotIA","type": "AGENT"},"content": {"type": "TOPIC_CHANGE","addedTopicIds": ["uu4t00vITaKQ3bVjU2UrGQ"]}}
+
+        {"id": "VMn_5L1iTPmcM5DBP1U8oQ","conversationId": "9BcE2O0DQ2ynGHRmk9FeoA","customerId": "KgnVOMc2TbiA3zad6iVlWA","timestamp": "2020-04-21T00:56:03.712Z","initiator": {"type":"CUSTOMER","id":"KgnVOMc2TbiA3zad6iVlWA"}, "content":{"startedAt":"2020-04-21T00:55:50.703Z","recordingUrl":"/api/v1/conversation-items/VMn_5L1iTPmcM5DBP1U8oQ/media/recording","recordingStatus":"AVAILABLE","recordingDuration":13,"type":"VOICEMAIL"}}
+
+        {"id": "SShWgSCHSHy6EO5TiL7rNw","conversationId": "gHuxLQNXSAmmWuNePSyVTw","customerId": "0EphnSIJR0ycjMWFTf-GXA","timestamp": "2020-04-20T23:58:51.941Z","initiator": {"type":"AGENT","id":"LsFXSnO6Ty6gdnyH6y8yug"},"content":{"type":"CONVERSATION_STATUS_CHANGE","status":"CLOSED"}}
+
+        {"id": "DnaU23pZSIqOixATlII1vA","conversationId": "HXRqKC5GSV-jAlq0-sxYTA","customerId": "o2sg-TMTSD2rTwMuxzewbA","timestamp": "2020-04-24T23:42:57.780Z","initiator": {"type":"AGENT","id":"zGaHXjD4SR-moMR9LbULDA"},"content":{"type":"CONVERSATION_NOTE","body":"Customer has requested more information about our loyalty program."}}
+
+        ```
+
+
+        **customers.jsonl**
+
+        ```
+
+        {"id": "OOrlNMXeS72gs_WEX2TtMg","name": "Martha J Williams","address": "563 Rigoberto Station Apt. 197","emailAddresses": ["Martha.Williams@gmail.com"],"phoneNumbers": ["+17244895501"],"externalCustomerId": "a21c1636-c622-48b7-bf6a-d9032645aa55"}
+
+        ```
+
+
+        **topics.jsonl**
+
+        ```
+
+        {"id": "uu4t00vITaKQ3bVjU2UrGQ","name": "Order Returns","disabled": false}
+
+        ```
+
+        '
+      responses:
+        '200':
+          description: returns a file
+          content:
+            application/x-ndjson:
+              schema:
+                oneOf:
+                - title: agents.jsonl
+                  type: array
+                  items:
+                    $ref: '#/paths/~1api~1v1~1agents~1%7BagentId%7D/get/responses/200/content/application~1json/schema'
+                - title: conversation_items.jsonl
+                  allOf:
+                  - title: Conversation Items
+                    type: array
+                    items:
+                      title: Conversation Item
+                      type: object
+                      required:
+                      - id
+                      - customerId
+                      - content
+                      - timestamp
+                      properties:
+                        id:
+                          type: string
+                          description: the id of the item
+                          example: pOVVdzweSumI4bFxjlT8LA
+                        customerId:
+                          type: string
+                          description: the id of the profile that this item belongs to
+                          example: gHufx-U3QqOmhvFuViceTw
+                        conversationId:
+                          type: string
+                          description: id of the conversation the item is part of if it is within one
+                          example: PmDVUfWfRjKuwb4VgA2zEA
+                        timestamp:
+                          type: string
+                          format: RFC3339
+                          description: Time the item occurred
+                          example: '2019-07-03T04:30:12.07Z'
+                        initiator:
+                          $ref: '#/paths/~1api~1v1~1tasks~1%7BtaskId%7D/get/responses/200/content/application~1json/schema/properties/createdBy'
+                        responder:
+                          $ref: '#/paths/~1api~1v1~1conversation-items/post/responses/200/content/application~1json/schema/properties/responder'
+                        content:
+                          title: Conversation Item Content
+                          oneOf:
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/0'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/1'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items/post/requestBody/content/application~1json/schema/properties/content/oneOf/0'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/3'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/4'
+                          - $ref: '#/paths/~1api~1v1~1conversations~1%7BconversationId%7D~1notes~1%7BnoteId%7D/get/responses/200/content/application~1json/schema/properties/content'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/6'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/7'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/8'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/10'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/12'
+                          - $ref: '#/paths/~1api~1v1~1conversation-items~1%7BitemId%7D/get/responses/200/content/application~1json/schema/properties/content/oneOf/11'
+                - title: customers.jsonl
+                  type: array
+                  items:
+                    title: Customer Profile
+                    description: Customer profile
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Customer's name
+                      address:
+                        type: string
+                        description: Customer's street address
+                      emailAddresses:
+                        type: array
+                        title: email addresses
+                        description: Customer's email addresses
+                        items:
+                          type: string
+                      phoneNumbers:
+                        type: array
+                        title: phone numbers
+                        description: Customer's phone numbers
+                        items:
+                          type: string
+                      externalCustomerId:
+                        type: string
+                        description: CCustomer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field will not exist.
+                      externalCustomerIds:
+                        type: object
+                        description: 'Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed after 05/12/21. If Customer Profile is linked to a Lookup Adaptor built prior to 05/12/21, this field will not exist.
+
+                          '
+                        example:
+                          ABC12345: '54321'
+                - title: topics.jsonl
+                  allOf:
+                  - $ref: '#/paths/~1api~1v1~1topics/get/responses/200/content/application~1json/schema'
+              examples: null
+        '404':
+          description: file not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrors'
+components:
+  schemas:
+    NotFoundErrors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - code: not_exist
+            detail: entity does not exist
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Gladly API uses token-based **Basic Authentication**. API tokens are associated with designated Gladly users.
+
+        To create and use an API token, your user must have the API User permission. An API token can be used to perform any API request without restriction.
+
+
+        | user name   | password  |
+
+        | ----------- | --------- |
+
+        | agent email | API token |
+
+
+        The credentials must be passed via an `Authorization` HTTP header. All requests must be made over HTTPS.
+
+
+        ```shell
+
+        curl -u user@organization.com:$GLADLY_API_TOKEN \
+
+        https://organization.gladly.com/api/v1/organization
+
+        ```
+
+        '
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth — username is the API user email; password is the API token. Requires the "API User" permission.
+x-tagGroups:
+- name: REST API
+  tags:
+  - Agents
+  - Public Answer
+  - Answer Management
+  - Audiences
+  - Business Hours
+  - Communications
+  - Conversations
+  - Customers
+  - Events
+  - Export
+  - Freeform Topics
+  - Inboxes
+  - Organization
+  - Proactive Conversations
+  - Reports
+  - Tasks
+  - Teams
+  - User Identity
+  - Topics
+  - Webhooks
+- name: Webhooks
+  tags:
+  - Summary
+  - Payloads
+- name: Lookup API
+  tags:
+  - Customer Lookup
+- name: Resources
+  tags:
+  - Versioning
+  - Error Handling
+  - Rate Limit
+  - Rich Content
+  - Launching Soon

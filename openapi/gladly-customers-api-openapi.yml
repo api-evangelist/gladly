@@ -1,0 +1,655 @@
+openapi: 3.0.1
+info:
+  title: Gladly Agents Customers API
+  version: '1.0'
+  description: '# Introducing the Gladly API
+
+
+    At Gladly, we believe that customer service is best when it''s a conversation.
+
+    That means more than just helping customers with one-off questions or issues: it''s about making them feel known, valued, and respected for the individuals they are.
+
+
+    The Gladly API was built to help facilitate those relationships, providing agents with the rich customer context
+
+    they need to deliver seamless experiences that make customers feel like they''re more than just a number in a sea of others.
+
+
+    # Overview
+
+
+    You can integrate easily with Gladly by calling Gladly''s [REST API](#section/Overview/REST-API)
+
+    and implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.
+
+
+    Some examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer''s timeline,
+
+    providing the latest information about a customer''s orders, and more.
+
+
+    ## REST API
+
+
+    Clients can access the **REST API** via HTTPS at your organization''s Gladly domain (e.g. `https://{organization}.gladly.com`).
+
+
+    Resources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.
+
+    In addition, all responses and payloads are in JSON with consistent error codes and formats.
+
+
+    ## Lookup API
+
+
+    The Gladly **Lookup API** allows your organization to provide data services to power the agent''s experience with a complete view of your customers''
+
+    information, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.
+
+
+    Like the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.
+
+
+    Gladly will perform lookups when certain activities occur within Gladly, such as when a customer''s profile is loaded.
+
+
+    A detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).
+
+
+    ## Testing
+
+
+    Test the myriad possibilities of the Gladly API in a safe, secure space. We''ll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).
+
+
+    Your sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.
+
+
+    # Getting Started
+
+
+    Think of this section as getting the keys to unlocking your access to the Gladly APIs.
+
+    First, you''ll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).
+
+    With these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly''s API [resources](#section/Overview/Resources).
+
+
+    ## Permissions
+
+
+    Gladly Administrators can set API permissions on an agent-by-agent basis.
+
+    We''ll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.
+
+
+    To allow a user to create API tokens and access the API:
+
+    1. Log in to your Gladly instance.
+
+    2. Open the menu on the top left-hand corner of the page.
+
+    3. Navigate to **Settings** > **Users*
+
+    4. Search and click the user profile you wish to give access to.
+
+    5. You''ll see a permission called **API User**. Select it, while making sure to keep the user''s **Agent** role intact.
+
+    6. Hit **Save** to give access.
+
+
+    ![Agent profile screen](assets/permissions-agent.png)
+
+
+    We recommend creating a dedicated user to make API calls, whose account won''t be used for agent and organization management.
+
+    This will help you with any future audits of API activity vs. agent activity.
+
+
+    ## Creating API Tokens
+
+
+    You must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).
+
+    If your profile already has access to the **API User** permission, you''ll see a menu item titled **More settings**. Click **More settings**:
+
+
+    ![API Token Menu](assets/permissions-token-nav.png)
+
+
+    Click **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:
+
+
+    ![API Token Add](assets/permissions-token-add.png)
+
+
+    A token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).
+
+    You can rename the token to something more easily referenceable by clicking the name to edit.
+
+
+    This token will be associated with your agent profile, which we refer to as the API User in this document.
+
+
+    ![API Token View](assets/permissions-token-view.png)
+
+
+    For security purposes, you''ll only see a new token once before you navigate away from the page.
+
+
+    ## Replacing/Rotating API Tokens
+
+
+    Should you lose this token, or wish to rotate your application keys, you can do the following:
+
+
+    1. Generate a new token.
+
+    2. Store the new token in a secure location.
+
+    3. Delete the old token.
+
+    4. Update your applications/scripts with the new token.
+
+
+    # Authentication
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->'
+servers:
+- url: https://{organization}.gladly.com/api/v1
+  description: Production
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly organization subdomain
+- url: https://{organization}.gladly.qa/api/v1
+  description: Sandbox
+  variables:
+    organization:
+      default: organization
+      description: Your Gladly QA organization subdomain
+security:
+- basicAuth: []
+tags:
+- name: Customers
+  description: 'A **Customer** in Gladly represents information about a customer of your organization including their profile, contact information,
+
+    notes, and transactions.
+
+
+    Customers API allows you to add, update, and get customer profile data.
+
+
+    ### Error Handling
+
+    Id, mobile phone number, and email address must be unique across customer records. 409 errors returned will
+
+    include details on any conflicts, such as a field being taken.
+
+
+    Additionally, errors may be returned due to customer profiles being merged. If a customer has been merged into
+
+    another, requests to get a customer by id will return 301 errors specifying the new id of the customer,
+
+    and requests to update a customer by id will return 404 errors.
+
+    '
+paths:
+  /api/v1/customer-profiles:
+    post:
+      tags:
+      - Customers
+      summary: Create Customer
+      description: 'Create a new customer with the supplied profile data.
+
+        '
+      operationId: createCustomer
+      requestBody:
+        required: true
+        description: Customer record to add.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/paths/~1api~1v1~1customer-profiles~1%7BcustomerId%7D/patch/requestBody/content/application~1json/schema'
+              - type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique customer id. Must be URL safe and under 50 characters. An id will be automatically generated if one is not included
+                    example: OOrlNMXeS72gs_WEX2TtMg
+            example:
+              id: OOrlNMXeS72gs_WEX2TtMg
+              name: Francis Avallone
+              address: 4303 Spring Forest Ln, Westlake Village, CA 91362-5605
+              emails:
+              - original: existing@francisavallone.com
+              phones:
+              - original: '+17192662837'
+                type: HOME
+              externalCustomerId: a21c1636-c622-48b7-bf6a-d9032645aa55
+              customAttributes:
+                albums: '6'
+                singles: '40'
+      responses:
+        '201':
+          description: customer created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: location of the created customer
+                example: /api/v1/customer-profiles/OOrlNMXeS72gs_WEX2TtMg
+        '400':
+          description: error creating customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: Specified id is in use or a uniqueness constraint failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                errors:
+                - attr: id
+                  code: taken
+                  detail: customer ID exists
+    get:
+      tags:
+      - Customers
+      summary: Find Customers
+      description: "Find customers by searching by choosing **one** of the following identifiers as query parameters:\n\n```\n/api/v1/customer-profiles?phoneNumber=%2B14151234567\n```\n\nMax limit of 50 profiles returned, sorted by most recently updatedAt date descending. \n"
+      operationId: findCustomers
+      parameters:
+      - name: email
+        in: query
+        description: customer email address to search on.
+        schema:
+          type: string
+          example: customer@email.net
+      - name: externalCustomerId
+        in: query
+        description: Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field is not searchable.
+        schema:
+          type: string
+          example: a21c1636-c622-48b7-bf6a-d9032645aa55
+      - name: phoneNumber
+        in: query
+        description: 'Phone number in E.164 format. The value should be URL escaped where `+` becomes `%2B`.
+
+          '
+        schema:
+          type: string
+          example: '+16505551987'
+      responses:
+        '200':
+          description: found customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1api~1v1~1customer-profiles~1%7BcustomerId%7D/get/responses/200/content/application~1json/schema'
+        '400':
+          description: error finding customers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /api/v1/customer-profiles/{customerId}:
+    parameters:
+    - name: customerId
+      in: path
+      description: id of the customer
+      required: true
+      schema:
+        type: string
+        example: OOrlNMXeS72gs_WEX2TtMg
+    get:
+      tags:
+      - Customers
+      summary: Get Customer
+      description: 'Get a customer by unique id.
+
+        If a customer has been merged into another, an error will be returned specifying the new id of the customer.
+
+        '
+      operationId: getCustomer
+      responses:
+        '200':
+          description: fetched customer
+          content:
+            application/json:
+              schema:
+                title: Customer
+                allOf:
+                - $ref: '#/paths/~1api~1v1~1customer-profiles/post/requestBody/content/application~1json/schema'
+                - type: object
+                  properties:
+                    createdAt:
+                      type: string
+                      format: RFC3339
+                      description: Time the customer was created
+                      example: '2019-02-21T07:15:18.07272933Z'
+                    updatedAt:
+                      type: string
+                      format: RFC3339
+                      description: Time of last update
+                      example: '2019-02-21T19:50:23.486566336Z'
+                - type: object
+                  properties:
+                    externalCustomerIds:
+                      type: object
+                      description: 'Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed after 05/12/21. If Customer Profile is linked to a Lookup Adaptor built prior to 05/12/21, this field will not exist.
+
+                        '
+                      example:
+                        ABC12345: '54321'
+        '301':
+          description: customer id no longer exists and has been changed due to a merge with another customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                errors:
+                - attr: customerId
+                  code: moved
+                  detail: customer id has changed
+                  meta:
+                    old: OOrlNMXeS72gs_WEX2TtMg
+                    new: rVamfZHvQuORFnsk-3mNuw
+        '404':
+          description: customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                errors:
+                  code: not_exist
+                  detail: customer profile [OOrlNMXeS72gs_WEX2TtMg] does not exist
+    patch:
+      tags:
+      - Customers
+      summary: Update Customer
+      description: 'Update a customer by unique id with the supplied JSON patch.
+
+
+        You may supply only the properties which you want to update or insert into the profile.
+
+        When updating arrays, such as `phones` and `emails` you must provide the entire list of values
+
+        since it is not possible to add or delete a single value.
+
+
+        If a customer has been merged into another, an error will be returned specifying the new id of the customer.
+
+        '
+      operationId: updateCustomer
+      requestBody:
+        required: true
+        description: JSON patch of customer profiles properties to insert or update.
+        content:
+          application/json:
+            schema:
+              title: Customer Profile
+              description: Customer profile
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Customer's name
+                  example: Martha J Williams
+                image:
+                  type: string
+                  description: URL for an image that will appear as the customer's avatar
+                  example: https://www.gladly.com/your-image.jpg
+                address:
+                  type: string
+                  description: Customer's street address
+                  example: 563 Rigoberto Station Apt. 197
+                emails:
+                  type: array
+                  title: email addresses
+                  description: Customer's email addresses
+                  items:
+                    type: object
+                    required:
+                    - original
+                    properties:
+                      normalized:
+                        type: string
+                        description: 'Customer''s email address in normalized form.
+
+                          '
+                        example: martha.williams@gmail.com
+                      original:
+                        type: string
+                        description: 'Customer''s email address as entered or imported, only the addr-spec (per RFC8228) is retained.
+
+                          '
+                        example: Martha.Williams@gmail.com
+                      primary:
+                        type: boolean
+                        description: marks the customer's preferred email. at most one per customer.
+                        default: false
+                        example: false
+                phones:
+                  type: array
+                  title: phone numbers
+                  description: Customer's phone numbers
+                  items:
+                    type: object
+                    required:
+                    - original
+                    properties:
+                      normalized:
+                        type: string
+                        format: E.164
+                        description: normalized E.164 value for the phone number.
+                        example: '+17244895501'
+                      extension:
+                        type: string
+                        description: phone number extension.
+                        example: '123'
+                      original:
+                        type: string
+                        description: phone number as entered or imported.
+                        example: '7244895501'
+                      regionCode:
+                        type: string
+                        description: 'If set, the original is intepreted as a national number in this region.
+
+                          If NOT set, the original must contian an E.164 number or it will be interpreted as a US number.
+
+                          '
+                        default: US
+                      primary:
+                        type: boolean
+                        description: marks the customer's preferred phone.
+                        default: false
+                      smsPreference:
+                        type: string
+                        description: Enables sending SMS to a customer.
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                        - FORBIDDEN
+                        example: 'OFF'
+                      type:
+                        type: string
+                        description: 'Describes the usage of the device. Non-presense indicates unknown or non-specific OTHER type.
+
+                          '
+                        enum:
+                        - HOME
+                        - MOBILE
+                        - OFFICE
+                        example: OFFICE
+                externalCustomerId:
+                  type: string
+                  description: Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field will not exist and cannot be set.
+                  example: a21c1636-c622-48b7-bf6a-d9032645aa55
+                customAttributes:
+                  type: object
+                  description: 'Organization-specific attributes from Customer system of record.
+
+                    The shape of customAttributes is defined by the Customer Profile Definition. These are specific to a customer and different from the Custom Attribute entity.
+
+                    '
+                  example:
+                    membershipNumber: RQ564555333
+                    membershipTier: gold
+            example:
+              name: Frankie Avalon
+              emails:
+              - original: existing@francisavallone.com
+              - original: new@frankieavalon.com
+              customAttributes:
+                albums: '7'
+                singles: '41'
+      responses:
+        '204':
+          description: updated customer
+        '400':
+          description: error updating customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+    delete:
+      tags:
+      - Customers
+      summary: Delete Customer
+      description: 'Delete a customer and all associated conversations.
+
+
+        All conversations associated with the customer must be closed before the customer can be deleted.
+
+
+        This operation is irreversible.
+
+
+        The user associated with the API token must have both Compliance Admin and API User roles.
+
+        '
+      operationId: deleteCustomer
+      responses:
+        '204':
+          description: customer was deleted
+        '400':
+          description: error deleting customer with open or waiting conversation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                errors:
+                  attr: conversation
+                  code: invalid_state
+                  detail: Unable to delete the profile. Please close any open or waiting conversations.
+components:
+  schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Gladly API uses token-based **Basic Authentication**. API tokens are associated with designated Gladly users.
+
+        To create and use an API token, your user must have the API User permission. An API token can be used to perform any API request without restriction.
+
+
+        | user name   | password  |
+
+        | ----------- | --------- |
+
+        | agent email | API token |
+
+
+        The credentials must be passed via an `Authorization` HTTP header. All requests must be made over HTTPS.
+
+
+        ```shell
+
+        curl -u user@organization.com:$GLADLY_API_TOKEN \
+
+        https://organization.gladly.com/api/v1/organization
+
+        ```
+
+        '
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth — username is the API user email; password is the API token. Requires the "API User" permission.
+x-tagGroups:
+- name: REST API
+  tags:
+  - Agents
+  - Public Answer
+  - Answer Management
+  - Audiences
+  - Business Hours
+  - Communications
+  - Conversations
+  - Customers
+  - Events
+  - Export
+  - Freeform Topics
+  - Inboxes
+  - Organization
+  - Proactive Conversations
+  - Reports
+  - Tasks
+  - Teams
+  - User Identity
+  - Topics
+  - Webhooks
+- name: Webhooks
+  tags:
+  - Summary
+  - Payloads
+- name: Lookup API
+  tags:
+  - Customer Lookup
+- name: Resources
+  tags:
+  - Versioning
+  - Error Handling
+  - Rate Limit
+  - Rich Content
+  - Launching Soon
