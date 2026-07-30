@@ -1,199 +1,1457 @@
 aid: gladly
 url: https://raw.githubusercontent.com/api-evangelist/gladly/refs/heads/main/apis.yml
 apis:
-  - aid: gladly:gladly-rest-api
-    name: Gladly REST API
-    tags:
-      - Customer Service
-      - CX
-      - Contact Center
-      - Conversations
-      - Customers
-      - Tasks
-      - Answers
-      - Webhooks
-    humanURL: https://developer.gladly.com/rest/
-    baseURL: https://organization.gladly.com/api/v1
-    properties:
-      - url: https://developer.gladly.com/rest/
-        type: Documentation
-      - url: https://developer.gladly.com/rest/
-        type: APIReference
-      - url: https://help.gladly.com/developer-tutorials/docs
-        type: GettingStarted
-      - url: https://developer.gladly.com/rest/
-        type: Authentication
-      - url: openapi/gladly-rest-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/gladly-customer-schema.json
-        type: JSONSchema
-      - url: json-schema/gladly-conversation-schema.json
-        type: JSONSchema
-      - url: json-schema/gladly-task-schema.json
-        type: JSONSchema
-      - url: json-schema/gladly-answer-schema.json
-        type: JSONSchema
-      - url: json-schema/gladly-webhook-schema.json
-        type: JSONSchema
-      - url: json-structure/gladly-customer-structure.json
-        type: JSONStructure
-      - url: json-structure/gladly-conversation-structure.json
-        type: JSONStructure
-      - url: json-structure/gladly-task-structure.json
-        type: JSONStructure
-      - url: json-structure/gladly-answer-structure.json
-        type: JSONStructure
-      - url: json-structure/gladly-webhook-structure.json
-        type: JSONStructure
-      - url: json-ld/gladly-context.jsonld
-        type: JSONLD
-      - url: examples/gladly-customer-create-example.json
-        type: Examples
-      - url: examples/gladly-conversation-list-example.json
-        type: Examples
-      - url: examples/gladly-task-create-example.json
-        type: Examples
-      - url: examples/gladly-webhook-create-example.json
-        type: Examples
-    description: >-
-      Gladly's unified REST API for the people-centered customer service platform. Exposes Customers, Conversations,
-      Messages, Tasks, Answers (knowledge base), Topics, Teams, Inboxes, Audiences, Business Hours, Communications
-      (outbound SMS/email), Webhooks, Events, Export jobs, Reports, Agents, Organization, Public Answers (Help Center),
-      Proactive Conversations, and User Identity (JWT for authenticated chat). HTTP Basic auth with an agent email + API
-      token. Default 10 req/sec per organization. Mounted at `https://{organization}.gladly.com/api/v1`.
-  - aid: gladly:gladly-lookup-api
-    name: Gladly Lookup API
-    tags:
-      - Customer Service
-      - Customer Data
-      - Webhooks
-      - Integrations
-    humanURL: https://developer.gladly.com/rest/
-    properties:
-      - url: https://developer.gladly.com/rest/
-        type: Documentation
-      - url: https://github.com/gladly/lookup-practice
-        type: SampleSource
-    description: >-
-      Brand-hosted "Lookup" endpoint that Gladly calls outbound to enrich a conversation with first-party customer data.
-      Lets brands keep system-of-record customer data in their own services while presenting a unified profile inside
-      the Gladly Hero agent workspace and to Sidekick AI.
-  - aid: gladly:gladly-chat-sdk
-    name: Gladly Chat SDK
-    tags:
-      - Customer Service
-      - Chat
-      - SDK
-      - Web
-    humanURL: https://developer.gladly.com/chat/
-    properties:
-      - url: https://developer.gladly.com/chat/
-        type: Documentation
-      - url: https://cdn.gladly.com/chat-sdk/widget.js
-        type: SDKs
-    description: >-
-      JavaScript chat widget loaded from the Gladly CDN. Exposes `Gladly.init`, `show`, `close`, `setUser`,
-      `startConversation`, `navigate`, `applyCampaign`, `getAvailability`, plus a full event system (availability,
-      conversation lifecycle, messages, campaigns). Supports JWT-authenticated user identity issued by the User Identity
-      REST endpoint.
-  - aid: gladly:gladly-sidekick-ios-sdk
-    name: Gladly Sidekick iOS SDK
-    tags:
-      - Customer Service
-      - Chat
-      - SDK
-      - iOS
-      - Mobile
-    humanURL: https://developer.gladly.com/ios-sdk/
-    properties:
-      - url: https://developer.gladly.com/ios-sdk/
-        type: Documentation
-      - url: https://github.com/gladly/sidekick-ios-sdk
-        type: SourceCode
-      - url: https://github.com/gladly/sidekick-ios-sdk
-        type: SDKs
-    description: >-
-      Swift SDK (v1.2.5, iOS 11+) for embedding the Gladly Sidekick chat experience in iOS apps. Ships `Gladly`,
-      `GladlySettings`, `GladlyUser`, `UIConfiguration`, `UIHeaderConfiguration`, and delegate protocols for chat
-      display, notifications, and unread counts.
-  - aid: gladly:gladly-sidekick-android-sdk
-    name: Gladly Sidekick Android SDK
-    tags:
-      - Customer Service
-      - Chat
-      - SDK
-      - Android
-      - Mobile
-    humanURL: https://developer.gladly.com/android-sdk/
-    properties:
-      - url: https://developer.gladly.com/android-sdk/
-        type: Documentation
-      - url: https://github.com/gladly/sidekick-android-sdk
-        type: SourceCode
-      - url: https://github.com/gladly/sidekick-android-sdk
-        type: SDKs
-    description: >-
-      Kotlin SDK (Android Q / API 29+) for embedding the Gladly Sidekick chat experience in Android apps. Provides
-      `Gladly.initialize`, `setUser`, `showChat`, `handleMessageReceived`, `getUnreadCount`,
-      `registerPushToken`/`unregisterPushToken` plus EventInterface for events and errors.
-  - aid: gladly:gladly-help-center
-    name: Gladly Help Center
-    tags:
-      - Customer Service
-      - Help Center
-      - Self-Service
-      - Web
-    humanURL: https://developer.gladly.com/help-center/
-    properties:
-      - url: https://developer.gladly.com/help-center/
-        type: Documentation
-    description: >-
-      Embeddable Help Center widget that builds an FAQ/help page on a brand's website powered by Public Answers from
-      Gladly's Answers knowledge base. Exposes a `.gladlyHC` CSS class hierarchy for fully custom styling. SPA support
-      is limited (Next.js not supported); best run from a single non-SPA HTML page.
-  - aid: gladly:gladly-app-platform
-    name: Gladly App Platform
-    tags:
-      - Customer Service
-      - Apps
-      - Integrations
-      - Embedded
-    humanURL: https://help.gladly.com/developer-tutorials/docs
-    properties:
-      - url: https://help.gladly.com/developer-tutorials/docs
-        type: Documentation
-      - url: https://github.com/gladly/app-platform-examples
-        type: SampleSource
-      - url: https://github.com/gladly/app-platform-appcfg-cli
-        type: CLI
-      - url: https://github.com/gladly/gladly-getting-started
-        type: SampleSource
-      - url: https://github.com/gladly/gladapp-examples
-        type: SampleSource
-    description: >-
-      Framework for building embedded "Apps" inside the Gladly Hero agent workspace. Apps surface third-party data
-      (orders, loyalty, returns, CDP profiles) alongside the customer timeline. Authored as JavaScript/Groovy bundles
-      and managed via the `app-platform-appcfg-cli`.
-  - aid: gladly:gladly-webhooks
-    name: Gladly Webhooks
-    tags:
-      - Customer Service
-      - Webhooks
-      - Events
-    humanURL: https://developer.gladly.com/rest/
-    properties:
-      - url: https://developer.gladly.com/rest/
-        type: Documentation
-      - url: https://github.com/gladly/webhook-examples
-        type: SampleSource
-      - url: json-schema/gladly-webhook-schema.json
-        type: JSONSchema
-      - url: examples/gladly-webhook-create-example.json
-        type: Examples
-    description: >-
-      Event-driven push channel that delivers Gladly platform events (conversation created/updated/closed, message
-      created, task created/updated/closed, customer created/updated, agent state changes) to a brand-supplied HTTPS
-      endpoint. Managed through the Webhooks REST endpoints. Includes retry policy and logging.
+- aid: gladly:gladly-lookup-api
+  name: Gladly Lookup API
+  tags:
+  - Customer Service
+  - Customer Data
+  - Webhooks
+  - Integrations
+  humanURL: https://developer.gladly.com/rest/
+  properties:
+  - url: https://developer.gladly.com/rest/
+    type: Documentation
+  - url: https://github.com/gladly/lookup-practice
+    type: SampleSource
+  description: >-
+    Brand-hosted "Lookup" endpoint that Gladly calls outbound to enrich a conversation with first-party
+    customer data. Lets brands keep system-of-record customer data in their own services while presenting
+    a unified profile inside the Gladly Hero agent workspace and to Sidekick AI.
+- aid: gladly:gladly-chat-sdk
+  name: Gladly Chat SDK
+  tags:
+  - Customer Service
+  - Chat
+  - SDK
+  - Web
+  humanURL: https://developer.gladly.com/chat/
+  properties:
+  - url: https://developer.gladly.com/chat/
+    type: Documentation
+  - url: https://cdn.gladly.com/chat-sdk/widget.js
+    type: SDKs
+  description: >-
+    JavaScript chat widget loaded from the Gladly CDN. Exposes `Gladly.init`, `show`, `close`, `setUser`,
+    `startConversation`, `navigate`, `applyCampaign`, `getAvailability`, plus a full event system (availability,
+    conversation lifecycle, messages, campaigns). Supports JWT-authenticated user identity issued by the
+    User Identity REST endpoint.
+- aid: gladly:gladly-sidekick-ios-sdk
+  name: Gladly Sidekick iOS SDK
+  tags:
+  - Customer Service
+  - Chat
+  - SDK
+  - iOS
+  - Mobile
+  humanURL: https://developer.gladly.com/ios-sdk/
+  properties:
+  - url: https://developer.gladly.com/ios-sdk/
+    type: Documentation
+  - url: https://github.com/gladly/sidekick-ios-sdk
+    type: SourceCode
+  - url: https://github.com/gladly/sidekick-ios-sdk
+    type: SDKs
+  description: >-
+    Swift SDK (v1.2.5, iOS 11+) for embedding the Gladly Sidekick chat experience in iOS apps. Ships `Gladly`,
+    `GladlySettings`, `GladlyUser`, `UIConfiguration`, `UIHeaderConfiguration`, and delegate protocols
+    for chat display, notifications, and unread counts.
+- aid: gladly:gladly-sidekick-android-sdk
+  name: Gladly Sidekick Android SDK
+  tags:
+  - Customer Service
+  - Chat
+  - SDK
+  - Android
+  - Mobile
+  humanURL: https://developer.gladly.com/android-sdk/
+  properties:
+  - url: https://developer.gladly.com/android-sdk/
+    type: Documentation
+  - url: https://github.com/gladly/sidekick-android-sdk
+    type: SourceCode
+  - url: https://github.com/gladly/sidekick-android-sdk
+    type: SDKs
+  description: >-
+    Kotlin SDK (Android Q / API 29+) for embedding the Gladly Sidekick chat experience in Android apps.
+    Provides `Gladly.initialize`, `setUser`, `showChat`, `handleMessageReceived`, `getUnreadCount`, `registerPushToken`/`unregisterPushToken`
+    plus EventInterface for events and errors.
+- aid: gladly:gladly-help-center
+  name: Gladly Help Center
+  tags:
+  - Customer Service
+  - Help Center
+  - Self-Service
+  - Web
+  humanURL: https://developer.gladly.com/help-center/
+  properties:
+  - url: https://developer.gladly.com/help-center/
+    type: Documentation
+  description: >-
+    Embeddable Help Center widget that builds an FAQ/help page on a brand's website powered by Public
+    Answers from Gladly's Answers knowledge base. Exposes a `.gladlyHC` CSS class hierarchy for fully
+    custom styling. SPA support is limited (Next.js not supported); best run from a single non-SPA HTML
+    page.
+- aid: gladly:gladly-app-platform
+  name: Gladly App Platform
+  tags:
+  - Customer Service
+  - Apps
+  - Integrations
+  - Embedded
+  humanURL: https://help.gladly.com/developer-tutorials/docs
+  properties:
+  - url: https://help.gladly.com/developer-tutorials/docs
+    type: Documentation
+  - url: https://github.com/gladly/app-platform-examples
+    type: SampleSource
+  - url: https://github.com/gladly/app-platform-appcfg-cli
+    type: CLI
+  - url: https://github.com/gladly/gladly-getting-started
+    type: SampleSource
+  - url: https://github.com/gladly/gladapp-examples
+    type: SampleSource
+  description: >-
+    Framework for building embedded "Apps" inside the Gladly Hero agent workspace. Apps surface third-party
+    data (orders, loyalty, returns, CDP profiles) alongside the customer timeline. Authored as JavaScript/Groovy
+    bundles and managed via the `app-platform-appcfg-cli`.
+- aid: gladly:gladly-webhooks
+  name: Gladly Webhooks
+  tags:
+  - Customer Service
+  - Webhooks
+  - Events
+  humanURL: https://developer.gladly.com/rest/
+  properties:
+  - url: https://developer.gladly.com/rest/
+    type: Documentation
+  - url: https://github.com/gladly/webhook-examples
+    type: SampleSource
+  - url: json-schema/gladly-webhook-schema.json
+    type: JSONSchema
+  - url: examples/gladly-webhook-create-example.json
+    type: Examples
+  description: >-
+    Event-driven push channel that delivers Gladly platform events (conversation created/updated/closed,
+    message created, task created/updated/closed, customer created/updated, agent state changes) to a
+    brand-supplied HTTPS endpoint. Managed through the Webhooks REST endpoints. Includes retry policy
+    and logging.
+- aid: gladly:gladly-agents-api
+  name: Gladly Agents API
+  description: >-
+    An **Agent** represents the user profile of a person who helps customers in Gladly.
+
+    The API allows you to lookup Agents who participated in conversations with customers.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-agents-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-answer-management-api
+  name: Gladly Answer Management API
+  description: "The **Answer Management API** allows you to create, update, and delete Answers in Gladly.\
+    \ To create an Answer with content, two calls would be needed. \nOne call to create an Answer and\
+    \ subsequent call(s) to add content(s)"
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Answer Management
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-answer-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-audiences-api
+  name: Gladly Audiences API
+  description: >-
+    An **Audience** represents a brand (or segment) specially for a multi-brand company. They are used
+    to categorize Answers, Help Centers and Chats for the specific brands.
+
+    The API allows you to lookup the audiences that have been created for the organization.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Audiences
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-audiences-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-business-hours-api
+  name: Gladly Business Hours API
+  description: >-
+    **Business Hours** define the operating schedule for your organization. They determine when your organization
+    is available to handle customer communications and can be used to control routing, auto-responses,
+    and other time-sensitive workflows.
+
+
+    Business hours configurations include:
+
+    - **Schedule blocks** for each day of the week specifying start and end times
+
+    - **Timezone** in IANA format (e.g., America/Los_Angeles)
+
+    - **Exceptions** for holidays or special dates
+
+
+    One business hours configuration is marked as **primary** and serves as the default schedule for your
+    organization. The primary business hours cannot be deleted.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Business Hours
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-business-hours-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-communications-api
+  name: Gladly Communications API
+  description: >-
+    Communications API enables you to programmatically send messages to your customers. These messages
+    are non-routable and non-searchable.
+
+
+    ### Agent View
+
+    ![Agent View](assets/agent-sms.png)
+
+
+    ### Consumer View
+
+    ![Customer View](assets/consumer-sms.png)
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Communications
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-communications-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-conversations-api
+  name: Gladly Conversations API
+  description: >-
+    ## Conversation
+
+
+    A **Conversation** in Gladly contains the timeline of activity for a customer including communications
+    to and from your organization along with other internal and external activity.
+
+    Conversations API enables you to interact with the customer conversation timeline.
+
+
+    ## Conversation Items
+
+
+    A number of different types of items may appear in a customer's timeline. Each is described below.
+
+
+    | Item Type                     | Item Definition | Create | Read | Update | Delete | Media  |
+
+    |-------------------------------|----------------|--------|------|--------|--------|--------|
+
+    | Chat Message                  | A message sent/received via the [Chat](https://help.gladly.com/docs/add-and-configure-chat-entry-points#)
+    channel | Yes    | Yes  | No     | No     | No     |
+
+    | Conversation Status Change    | Conversation status changed (e.g.: from OPEN to WAITING, or OPEN
+    to CLOSED) | Yes    | Yes  | Yes    | No     | No     |
+
+    | Customer Activity             | Non-routable customer activity added to customer timeline via API
+    | Yes    | Yes  | No     | Yes    | No     |
+
+    | Email                         | A message sent/received via the [Email](https://help.gladly.com/docs/add-and-configure-email-entry-point)
+    channel | Yes    | Yes  | No     | No     | No     |
+
+    | Facebook Messenger Message    | A message sent/received via the [Facebook Messenger](https://help.gladly.com/docs/set-up-and-configure-facebook-messenger)
+    channel | Yes    | Yes  | No     | No     | No     |
+
+    | Instagram Direct              | A message sent/received via the [Instagram](https://help.gladly.com/docs/set-up-and-configure-instagram-messaging)
+    channel | No     | Yes  | No     | No     | No     |
+
+    | Note                          | An internal [Note](https://help.gladly.com/docs/add-a-note-to-a-conversation)
+    on the Customer conversation | Yes    | Yes  | No     | No     | No     |
+
+    | Phone Call                    | A [Phone Call](https://help.gladly.com/docs/add-and-configure-voice-entry-points)
+    placed/received on Gladly | No     | Yes  | No     | No     | Yes    |
+
+    | SMS Message                   | A message sent/received via the [SMS](https://help.gladly.com/docs/add-and-configure-sms-entry-points)
+    channel | Yes    | Yes  | No     | No     | No     |
+
+    | Task                          | A [Task](https://help.gladly.com/docs/what-is-a-task) on a Customer's
+    profile | Yes    | Yes  | Yes    | No     | No     |
+
+    | Topic Change                  | A [Topic](https://help.gladly.com/docs/what-are-topics) added or
+    removed on a Conversation | Yes    | Yes  | No     | Yes    | No     |
+
+    | Twitter (decommissioned as of 04/20/23)                       | A message sent/received via the
+    [Twitter](https://help.gladly.com/docs/setup-and-configure-twitter-direct-messages) channel | No     |
+    Yes  | No     | Yes    | No     |
+
+    | Voice AI Message              | A spoken message exchanged with Gladly's voice AI during a voice
+    AI session | No     | Yes  | No     | No     | No     |
+
+    | Voicemail                     | A Voicemail received | No     | Yes  | No     | No     | Yes    |
+
+    | WhatsApp                      | A message sent/received via the WhatsApp channel | No     | Yes  |
+    No     | No     | No     |
+
+
+
+    ### Chat Message
+
+
+    Content of messages sent between Gladly and customers through Gladly Chat.
+
+
+    ### Conversation Status Change
+
+
+    Record of a change in the status of a conversation.
+
+
+    ### Customer Activity
+
+
+    Information about activities customers participated in, for example, emails they received, issues
+    in another system, or customer satisfaction surveys they answered.
+
+    These can be created through the API to bring in information from other systems.
+
+    Adding an activity to the customer timeline is not customer facing.
+
+    For example, posting an email activity to the timeline does not send an email to the customer.
+
+    ![Customer Activity](assets/customer-activity.png)
+
+
+    ### Email
+
+
+    Content of emails sent between Gladly and customers.
+
+
+    ###  Facebook Messenger Message
+
+
+    Content of messages sent between Gladly and customers on Facebook Messenger.
+
+
+    ### Instagram Direct
+
+
+    Content of messages sent between Gladly and customers on Instagram Direct.
+
+
+    ###  Note
+
+
+    Content of the note recorded in Gladly.
+
+
+    ### Phone Call
+
+
+    Information about phone calls that took place between Gladly and customers.
+
+
+    ### SMS Message
+
+
+    Content of SMS text messages sent between Gladly and customers.
+
+    To send SMS messages to customers through the API, see [Send SMS](#operation/sendSMS).
+
+
+    ### Task
+
+
+    Interacting with tasks through the conversations API is deprecated. Use [Tasks API](#tag/Tasks) instead.
+
+
+    ### Topic Change
+
+
+    Record of an agent adding or removing a topic from a conversation in Gladly.
+
+
+    ### Twitter (decommissioned as of 04/20/23)
+
+
+    Content of messages sent between Gladly and customers on Twitter.
+
+
+    ### Voice AI Message
+
+
+    A spoken message exchanged between a customer and Gladly's voice AI during a voice AI session.
+
+
+    ### Voicemail
+
+
+    Information about voicemail left by customers in Gladly.
+
+
+    ### WhatsApp
+
+
+    Content of messages sent between Gladly and customers on WhatsApp.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-conversations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-customers-api
+  name: Gladly Customers API
+  description: >-
+    A **Customer** in Gladly represents information about a customer of your organization including their
+    profile, contact information,
+
+    notes, and transactions.
+
+
+    Customers API allows you to add, update, and get customer profile data.
+
+
+    ### Error Handling
+
+    Id, mobile phone number, and email address must be unique across customer records. 409 errors returned
+    will
+
+    include details on any conflicts, such as a field being taken.
+
+
+    Additionally, errors may be returned due to customer profiles being merged. If a customer has been
+    merged into
+
+    another, requests to get a customer by id will return 301 errors specifying the new id of the customer,
+
+    and requests to update a customer by id will return 404 errors.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-events-api
+  name: Gladly Events API
+  description: >-
+    An **Event** is something that has happened in Gladly. The Events API allows you to extract event
+    details from the past 24 hours.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-export-api
+  name: Gladly Export API
+  description: >-
+    Export API is a simple, comprehensive, file-based data export. You can export the lifetime of your
+    customers' conversations in Gladly to a central data repository such as your data warehouse or data
+    lake. You can export all communications successfully delivered within a specified date range.  The
+    export date range could be the past hour, the past 24 hours, or a custom data range. Please note,
+    for one-time exports covering a period greater than six months, a service fee may apply.
+
+
+    Job results can be deleted once downloaded.  Delete will remove all result files along with the job
+    metadata.  Files older than 14 days are removed from Gladly and jobs older than 14 days are not available
+    from the API.  If you discover that you need the deleted files later, please contact Gladly Support
+    to regenerate them for you.
+
+
+    ### SCHEDULING EXPORT JOBS
+
+
+    You can schedule a one-time or repeating - hourly or daily - data export job.  By default, each organization
+    has a daily export job configured.  To schedule a one-time job or change the job frequency, please
+    contact Gladly Support.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Export
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-export-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-freeform-topics-api
+  name: Gladly Freeform Topics API
+  description: "Freeform Topics allow you to associate granular data like Order Number to a Conversation.\
+    \ This data can be accessed for analysis via APIs, Webhooks, and AWS EventBridge. They are powered\
+    \ by custom attributes as you will see throughout this API, the Conversations API, the Events API\
+    \ and events used in Webhooks. \n\nNote: These attributes are currently associated to the Conversation\
+    \ entity only and are therefore different from customAttributes listed under the Customer entity.\
+    \ See the Customer API for more information on Customer custom attributes."
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Freeform Topics
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-freeform-topics-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-inboxes-api
+  name: Gladly Inboxes API
+  description: >-
+    An **Inbox** receives customer communications in Gladly. The communications route to the inbox according
+    to channel and destination endpoint configuration.
+
+    For example, all calls to a specific phone number or emails to a specific address may go to an inbox.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Inboxes
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-inboxes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-organization-api
+  name: Gladly Organization API
+  description: An **Organization** contains metadata about your company that Gladly is configured with.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-organization-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-payloads-api
+  name: Gladly Payloads API
+  description: The Payloads API from Gladly — 1 operation(s) for payloads.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Payloads
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-payloads-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-proactive-conversations-api
+  name: Gladly Proactive Conversations API
+  description: >-
+    A proactive conversation consists of a **campaign** and **recipients**. This APIs intended use-case
+    would be to provide status updates to a customer and not for marketing purposes.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Proactive Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-proactive-conversations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-public-answer-api
+  name: Gladly Public Answer API
+  description: >-
+    A **Public Answer** in Gladly represents a consumer-facing Answer.
+
+
+    The Public Answers API allows you to search and retrieve Public Answers (created
+
+    directly in the Gladly UI), which you can display in the Chat
+
+    web widget, use to build your website's help center/FAQ page, or publish
+
+    on any page on your website.
+
+
+    This API can be used without an API token because it only provides access to
+
+    public content. You may also work with Gladly Support to
+
+    enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+
+    access so the API can be used directly from client-side javascript.
+
+
+    ### How a user creates a public answer in Gladly
+
+
+    ![](assets/create-public-answer.png)
+
+
+    ### How that answer is searched and displayed on the Chat Web widget
+
+
+    ![](assets/sidekick-answer-search.png)
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Public Answer
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-public-answer-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-reports-api
+  name: Gladly Reports API
+  description: >-
+    A **Report** in Gladly contains metrics that you need to run the contact center. Reports API allows
+    you to access Gladly's reports programatically.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-tasks-api
+  name: Gladly Tasks API
+  description: >-
+    A task is a way to create and do internal follow-up work for a customer within Gladly. Tasks have
+    a due date, an assignee, a description of what is needed for a customer, and can be commented on.
+    These can be created through the API to assign items to work within Gladly.
+
+    ![Task](assets/task.png)
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-teams-api
+  name: Gladly Teams API
+  description: >-
+    A **Team** represents a group of Agents. They may handle particular **Inboxes** or types of work within
+    Gladly.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-teams-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-topics-api
+  name: Gladly Topics API
+  description: >-
+    A **Topic** is a way of labeling a conversation in Gladly for specific business purposes. For example,
+    an agent may apply the topic "Return" to a conversation where a customer returns merchandise.
+
+    Topics are used for reporting and to control various workflows.
+
+
+    Topics can be configured to have a nested hierarchy. For instance, the topic "Return" could be a parent
+    of "Size" and "Color" child topics. Visit our [Help Pages](https://help.gladly.com/docs/principles-of-hierarchical-topics)
+    to learn more about Hierarchical Topics.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Topics
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-topics-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-user-identity-api
+  name: Gladly User Identity API
+  description: The User Identity API from Gladly — 1 operation(s) for user identity.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - User Identity
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-user-identity-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
+- aid: gladly:gladly-webhooks-api
+  name: Gladly Webhooks API
+  description: >-
+    A **Webhook** is a way to send notifications about Gladly events as a POST request to the endpoint
+    of your choice.
+  humanURL: https://developer.gladly.com/rest/
+  baseURL: https://organization.gladly.com/api/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/gladly-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gladly.com/rest/
+  - type: APIReference
+    url: https://developer.gladly.com/rest/
+  - type: GettingStarted
+    url: https://help.gladly.com/developer-tutorials/docs
+  - type: Authentication
+    url: https://developer.gladly.com/rest/
+  - type: JSONSchema
+    url: json-schema/gladly-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-conversation-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-task-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-answer-schema.json
+  - type: JSONSchema
+    url: json-schema/gladly-webhook-schema.json
+  - type: JSONStructure
+    url: json-structure/gladly-customer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-conversation-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-task-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-answer-structure.json
+  - type: JSONStructure
+    url: json-structure/gladly-webhook-structure.json
+  - type: JSONLD
+    url: json-ld/gladly-context.jsonld
+  - type: Examples
+    url: examples/gladly-customer-create-example.json
+  - type: Examples
+    url: examples/gladly-conversation-list-example.json
+  - type: Examples
+    url: examples/gladly-task-create-example.json
+  - type: Examples
+    url: examples/gladly-webhook-create-example.json
 name: Gladly
 tags:
   - Customer Service
@@ -211,7 +1469,20 @@ tags:
   - Webhooks
   - Knowledge Base
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gladly.png
 access: 3rd-Party
 created: '2026-05-24'
 modified: '2026-05-24'
@@ -227,6 +1498,8 @@ maintainers:
     email: info@apievangelist.com
 specificationVersion: '0.20'
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/gladly/overview
   - type: AgenticAccess
     url: agentic-access/gladly-agentic-access.yml
   - type: DomainSecurity
