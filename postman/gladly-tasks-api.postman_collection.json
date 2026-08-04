@@ -1,0 +1,1765 @@
+{
+  "info": {
+    "_postman_id": "b388c324-875d-4215-abca-890d43b32362",
+    "name": "Gladly Agents Tasks API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:45:07.000Z",
+    "updatedAt": "2026-07-28T01:45:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b388c324-875d-4215-abca-890d43b32362"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "tasks",
+              "item": [
+                {
+                  "name": "{taskId}",
+                  "item": [
+                    {
+                      "name": "comments",
+                      "item": [
+                        {
+                          "name": "{commentId}",
+                          "item": [
+                            {
+                              "name": "Get Task Comment",
+                              "id": "dc57b6cf-5eb8-4093-a76d-e7fbc9662b5b",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments/:commentId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskId",
+                                    "comments",
+                                    ":commentId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5dae2acd-0dbe-47d3-aca2-7d3ad6088b05",
+                                      "key": "taskId",
+                                      "value": "<string>",
+                                      "description": "(Required) Task id\n"
+                                    },
+                                    {
+                                      "id": "9fcbf5bb-f4be-4ee5-82cc-9a85c8c09447",
+                                      "key": "commentId",
+                                      "value": "<string>",
+                                      "description": "(Required) Comment id\n"
+                                    }
+                                  ]
+                                },
+                                "description": "Get task comment.\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "5b80f60c-b5dd-4123-898f-4be6dfbece32",
+                                  "name": "Returns task comment",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments/:commentId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "tasks",
+                                        ":taskId",
+                                        "comments",
+                                        ":commentId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "taskId"
+                                        },
+                                        {
+                                          "key": "commentId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"agentId\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"createdAt\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T01:45:08.000Z",
+                                  "updatedAt": "2026-07-28T01:45:08.000Z",
+                                  "uid": "35240-5b80f60c-b5dd-4123-898f-4be6dfbece32"
+                                },
+                                {
+                                  "id": "45de9324-bcbb-40a4-b749-b7648d13868f",
+                                  "name": "Comment with commentId does not exist",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments/:commentId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "tasks",
+                                        ":taskId",
+                                        "comments",
+                                        ":commentId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "taskId"
+                                        },
+                                        {
+                                          "key": "commentId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T01:45:08.000Z",
+                                  "updatedAt": "2026-07-28T01:45:08.000Z",
+                                  "uid": "35240-45de9324-bcbb-40a4-b749-b7648d13868f"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-dc57b6cf-5eb8-4093-a76d-e7fbc9662b5b"
+                            }
+                          ],
+                          "id": "fa25010b-f4d7-47f6-a585-31e4b6a6a8be",
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-fa25010b-f4d7-47f6-a585-31e4b6a6a8be"
+                        },
+                        {
+                          "name": "Add Task Comment",
+                          "id": "20aeb287-7bed-46d1-9a3b-2dd2253ef0d2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"agentId\": \"<string>\",\n  \"id\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskId",
+                                "comments"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "57d76330-4a67-4bd0-b765-3e045a4ccf0a",
+                                  "key": "taskId",
+                                  "value": "<string>",
+                                  "description": "(Required) Id of the task that will be commented on.\n"
+                                }
+                              ]
+                            },
+                            "description": "Create a comment on a task.  Note that you can\u2019t create comments on closed tasks.\n![Task Comment](assets/task-comment.png)\n"
+                          },
+                          "response": [
+                            {
+                              "id": "35b8b104-aba4-477d-9c60-c824ae8c0b40",
+                              "name": "comment added",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"agentId\": \"<string>\",\n  \"id\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskId",
+                                    "comments"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "disabled": false,
+                                  "description": {
+                                    "content": "",
+                                    "type": "text/plain"
+                                  },
+                                  "key": "Location",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-35b8b104-aba4-477d-9c60-c824ae8c0b40"
+                            },
+                            {
+                              "id": "e7b6f13a-eadd-4547-b969-923aac6cea7c",
+                              "name": "Invalid field(s) in request body",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"agentId\": \"<string>\",\n  \"id\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskId",
+                                    "comments"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-e7b6f13a-eadd-4547-b969-923aac6cea7c"
+                            },
+                            {
+                              "id": "46723c09-4df9-49f5-9af0-1159445a17e2",
+                              "name": "Task with taskId does not exist",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"agentId\": \"<string>\",\n  \"id\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskId",
+                                    "comments"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-46723c09-4df9-49f5-9af0-1159445a17e2"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-20aeb287-7bed-46d1-9a3b-2dd2253ef0d2"
+                        },
+                        {
+                          "name": "Get Task Comments",
+                          "id": "d2ac7077-3287-4527-a1c9-a723148c8ce4",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskId",
+                                "comments"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "62b93a51-3694-4c21-81e0-a11f4b26a9e3",
+                                  "key": "taskId",
+                                  "value": "<string>",
+                                  "description": "(Required) Id of the task comments are requested for.\n"
+                                }
+                              ]
+                            },
+                            "description": "The comments are returned in ascending order by createdAt timestamp. The list is not paginated and will return at most 1000 task comments. The `Gladly-Limited-Data` header flag in the response will indicate if the task has more comments than returned.\n\nTo see and act on any newly created task comments, webhooks can be used to listen to any task comment related events.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "3033cfd6-03d1-4953-88ea-4c5a4273cfe6",
+                              "name": "All comments that belong to task",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskId",
+                                    "comments"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"agentId\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"taskId\": \"<string>\",\n    \"createdAt\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"agentId\": \"<string>\",\n    \"comment\": \"<string>\",\n    \"taskId\": \"<string>\",\n    \"createdAt\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-3033cfd6-03d1-4953-88ea-4c5a4273cfe6"
+                            },
+                            {
+                              "id": "18e32789-2a8a-4607-97c4-f94d28ad1659",
+                              "name": "Task with taskId does not exist",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/tasks/:taskId/comments",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "tasks",
+                                    ":taskId",
+                                    "comments"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "taskId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-18e32789-2a8a-4607-97c4-f94d28ad1659"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-d2ac7077-3287-4527-a1c9-a723148c8ce4"
+                        }
+                      ],
+                      "id": "9f32f5d1-ed5e-45cd-b195-668ec77f3260",
+                      "createdAt": "2026-07-28T01:45:08.000Z",
+                      "updatedAt": "2026-07-28T01:45:08.000Z",
+                      "uid": "35240-9f32f5d1-ed5e-45cd-b195-668ec77f3260"
+                    },
+                    {
+                      "name": "Update Task",
+                      "id": "13888aae-a615-456b-999e-41d6318f0c88",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"status\": \"CLOSED\",\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/tasks/:taskId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "tasks",
+                            ":taskId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9235cd47-d1e3-4c66-b39c-90a584bfa7e6",
+                              "key": "taskId",
+                              "value": "<string>",
+                              "description": "(Required) Id of the task that is to be updated\n"
+                            }
+                          ]
+                        },
+                        "description": "Update an existing task\n"
+                      },
+                      "response": [
+                        {
+                          "id": "85428489-eba4-49a5-b875-97dcfbf8bae8",
+                          "name": "The task was created task",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"status\": \"CLOSED\",\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "taskId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-85428489-eba4-49a5-b875-97dcfbf8bae8"
+                        },
+                        {
+                          "id": "cdf6c58b-cbf3-4eba-a5bd-3eaed486cbd9",
+                          "name": "Invalid field(s) in request body",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"status\": \"CLOSED\",\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "taskId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-cdf6c58b-cbf3-4eba-a5bd-3eaed486cbd9"
+                        },
+                        {
+                          "id": "f95639ae-5e8f-4884-9f1c-d93685f3eca2",
+                          "name": "Task with taskId does not exist.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"status\": \"CLOSED\",\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "taskId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-f95639ae-5e8f-4884-9f1c-d93685f3eca2"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:45:08.000Z",
+                      "updatedAt": "2026-07-28T01:45:08.000Z",
+                      "uid": "35240-13888aae-a615-456b-999e-41d6318f0c88"
+                    },
+                    {
+                      "name": "Get Task",
+                      "id": "c9836c75-ec5a-4de1-85f1-9fd5b5ad29ff",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/tasks/:taskId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "tasks",
+                            ":taskId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "021f50fa-b34b-43e3-815a-5f91dad5a3ae",
+                              "key": "taskId",
+                              "value": "<string>",
+                              "description": "(Required) Id of the task requested\n"
+                            }
+                          ]
+                        },
+                        "description": "Get task\n"
+                      },
+                      "response": [
+                        {
+                          "id": "b68fe4cf-d5d2-4fdc-964b-89a9a4853081",
+                          "name": "Returns requested task",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "taskId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "null",
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-b68fe4cf-d5d2-4fdc-964b-89a9a4853081"
+                        },
+                        {
+                          "id": "4b6d9aed-824e-41b4-8fdd-956019bac5ad",
+                          "name": "Given task id does not exist",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/tasks/:taskId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "tasks",
+                                ":taskId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "taskId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-4b6d9aed-824e-41b4-8fdd-956019bac5ad"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:45:08.000Z",
+                      "updatedAt": "2026-07-28T01:45:08.000Z",
+                      "uid": "35240-c9836c75-ec5a-4de1-85f1-9fd5b5ad29ff"
+                    }
+                  ],
+                  "id": "1a2f3063-83fe-4883-8910-ebe91b4aa86d",
+                  "createdAt": "2026-07-28T01:45:08.000Z",
+                  "updatedAt": "2026-07-28T01:45:08.000Z",
+                  "uid": "35240-1a2f3063-83fe-4883-8910-ebe91b4aa86d"
+                },
+                {
+                  "name": "Create Task",
+                  "id": "06174cac-b6fc-4b44-a1ed-a340cc7679ff",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"customer\": {\n    \"emailAddress\": \"<string>\",\n    \"mobilePhone\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/tasks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "tasks"
+                      ]
+                    },
+                    "description": "To add tasks to the timeline for a customer specified by identifying information. If the customer doesn't exist, a new customer profile is created.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "5a4c3923-c19f-411c-9629-4c01d85021ab",
+                      "name": "task created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"customer\": {\n    \"emailAddress\": \"<string>\",\n    \"mobilePhone\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/tasks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "tasks"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "",
+                            "type": "text/plain"
+                          },
+                          "key": "Location",
+                          "value": "<string>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:45:08.000Z",
+                      "updatedAt": "2026-07-28T01:45:08.000Z",
+                      "uid": "35240-5a4c3923-c19f-411c-9629-4c01d85021ab"
+                    },
+                    {
+                      "id": "69619d8f-90be-477c-8967-1ec224b56d34",
+                      "name": "Invalid field(s) in request body",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"customer\": {\n    \"emailAddress\": \"<string>\",\n    \"mobilePhone\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/tasks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "tasks"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:45:08.000Z",
+                      "updatedAt": "2026-07-28T01:45:08.000Z",
+                      "uid": "35240-69619d8f-90be-477c-8967-1ec224b56d34"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:45:08.000Z",
+                  "updatedAt": "2026-07-28T01:45:08.000Z",
+                  "uid": "35240-06174cac-b6fc-4b44-a1ed-a340cc7679ff"
+                }
+              ],
+              "id": "153556f9-afb0-4f71-880d-f626eca0c8da",
+              "createdAt": "2026-07-28T01:45:08.000Z",
+              "updatedAt": "2026-07-28T01:45:08.000Z",
+              "uid": "35240-153556f9-afb0-4f71-880d-f626eca0c8da"
+            },
+            {
+              "name": "customers",
+              "item": [
+                {
+                  "name": "{customerId}",
+                  "item": [
+                    {
+                      "name": "tasks",
+                      "item": [
+                        {
+                          "name": "Create Task for Customer",
+                          "id": "03258f79-c6b3-4630-91a8-63ca744a893f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customers",
+                                ":customerId",
+                                "tasks"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "187c246b-001c-4211-86b6-013775494d40",
+                                  "key": "customerId",
+                                  "value": "<string>",
+                                  "description": "(Required) Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                                }
+                              ]
+                            },
+                            "description": "Add a task to an existing customer's conversation timeline\n"
+                          },
+                          "response": [
+                            {
+                              "id": "2b32b17b-2c62-487d-8408-f3a96144e481",
+                              "name": "task created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "customers",
+                                    ":customerId",
+                                    "tasks"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "disabled": false,
+                                  "description": {
+                                    "content": "",
+                                    "type": "text/plain"
+                                  },
+                                  "key": "Location",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-2b32b17b-2c62-487d-8408-f3a96144e481"
+                            },
+                            {
+                              "id": "5dda4af5-3652-42a8-ba9f-a06acd7c757f",
+                              "name": "Invalid field(s) in request body",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "customers",
+                                    ":customerId",
+                                    "tasks"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-5dda4af5-3652-42a8-ba9f-a06acd7c757f"
+                            },
+                            {
+                              "id": "9aaf21a0-3045-4a64-892d-2facb7a40cdd",
+                              "name": "Customer with customerId does not exist",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "customers",
+                                    ":customerId",
+                                    "tasks"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-9aaf21a0-3045-4a64-892d-2facb7a40cdd"
+                            },
+                            {
+                              "id": "742bb32c-1cf9-4921-a530-7620996ddaf9",
+                              "name": "Specified id is in use",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<string>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "customers",
+                                    ":customerId",
+                                    "tasks"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Conflict",
+                              "code": 409,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-742bb32c-1cf9-4921-a530-7620996ddaf9"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-03258f79-c6b3-4630-91a8-63ca744a893f"
+                        },
+                        {
+                          "name": "List Tasks",
+                          "id": "12b3ed71-a803-438c-8c17-10bdfdcb0cd3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks?status=CLOSED",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customers",
+                                ":customerId",
+                                "tasks"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Fetch tasks with the provided status.\n",
+                                  "key": "status",
+                                  "value": "CLOSED"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e93f6009-0e63-4372-9663-46636dfafe99",
+                                  "key": "customerId",
+                                  "value": "<string>",
+                                  "description": "(Required) Id of the customer whose tasks you'd like to view.\n"
+                                }
+                              ]
+                            },
+                            "description": "Fetch all tasks for a customer.\n\nThe list is not paginated and will return at most 2000 tasks. The tasks are returned in descending order by timestamp. \nThe `Gladly-Limited-Data` header flag in the response will indicate if the customer has more tasks than returned.        \n\nTo see and act on any newly created tasks, webhooks can be used to listen for task related events.\nTasks older than the limit can be viewed using the Task Export.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "4edaf51b-342a-4dcd-9620-68711afd4e9f",
+                              "name": "Array of tasks",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks?status=CLOSED",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "customers",
+                                    ":customerId",
+                                    "tasks"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Fetch tasks with the provided status.\n",
+                                      "key": "status",
+                                      "value": "CLOSED"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "null",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-4edaf51b-342a-4dcd-9620-68711afd4e9f"
+                            },
+                            {
+                              "id": "320b7d26-6c94-42f4-808c-8fe700793612",
+                              "name": "Invalid input",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks?status=CLOSED",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "customers",
+                                    ":customerId",
+                                    "tasks"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Fetch tasks with the provided status.\n",
+                                      "key": "status",
+                                      "value": "CLOSED"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-320b7d26-6c94-42f4-808c-8fe700793612"
+                            },
+                            {
+                              "id": "e1fe8f50-eaa9-4056-b11a-ce739b10f9c0",
+                              "name": "A customer with the given id does not exist",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/customers/:customerId/tasks?status=CLOSED",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "customers",
+                                    ":customerId",
+                                    "tasks"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Fetch tasks with the provided status.\n",
+                                      "key": "status",
+                                      "value": "CLOSED"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "customerId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:45:08.000Z",
+                              "updatedAt": "2026-07-28T01:45:08.000Z",
+                              "uid": "35240-e1fe8f50-eaa9-4056-b11a-ce739b10f9c0"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:45:08.000Z",
+                          "updatedAt": "2026-07-28T01:45:08.000Z",
+                          "uid": "35240-12b3ed71-a803-438c-8c17-10bdfdcb0cd3"
+                        }
+                      ],
+                      "id": "8c46ea91-47d1-4d5b-b0f2-0702fabf669c",
+                      "createdAt": "2026-07-28T01:45:08.000Z",
+                      "updatedAt": "2026-07-28T01:45:08.000Z",
+                      "uid": "35240-8c46ea91-47d1-4d5b-b0f2-0702fabf669c"
+                    }
+                  ],
+                  "id": "9f270ddf-44a7-4eff-9c08-9d7c233e9fbf",
+                  "createdAt": "2026-07-28T01:45:08.000Z",
+                  "updatedAt": "2026-07-28T01:45:08.000Z",
+                  "uid": "35240-9f270ddf-44a7-4eff-9c08-9d7c233e9fbf"
+                }
+              ],
+              "id": "332ac05d-f53a-4958-9296-b44e0f011ca6",
+              "createdAt": "2026-07-28T01:45:08.000Z",
+              "updatedAt": "2026-07-28T01:45:08.000Z",
+              "uid": "35240-332ac05d-f53a-4958-9296-b44e0f011ca6"
+            }
+          ],
+          "id": "e985a0f2-5571-4be0-8005-2f65453616c7",
+          "createdAt": "2026-07-28T01:45:08.000Z",
+          "updatedAt": "2026-07-28T01:45:08.000Z",
+          "uid": "35240-e985a0f2-5571-4be0-8005-2f65453616c7"
+        }
+      ],
+      "id": "7b323000-198a-475d-a198-04698b34eb4b",
+      "createdAt": "2026-07-28T01:45:08.000Z",
+      "updatedAt": "2026-07-28T01:45:08.000Z",
+      "uid": "35240-7b323000-198a-475d-a198-04698b34eb4b"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}

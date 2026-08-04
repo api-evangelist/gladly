@@ -1,0 +1,826 @@
+{
+  "info": {
+    "_postman_id": "653eed56-346d-48f2-936c-034007a0d71f",
+    "name": "Gladly Agents Webhooks API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:45:11.000Z",
+    "updatedAt": "2026-07-28T01:45:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-653eed56-346d-48f2-936c-034007a0d71f"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "webhooks",
+              "item": [
+                {
+                  "name": "{webhookId}",
+                  "item": [
+                    {
+                      "name": "Update Webhook",
+                      "id": "8794d381-111d-4576-8b67-56a99220d8d3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/DELETED\",\n    \"TASK/CREATED\"\n  ],\n  \"url\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"deserunt_1e\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "webhooks",
+                            ":webhookId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "73e2ddd8-4792-4af4-87c1-ec68bd57f537",
+                              "key": "webhookId",
+                              "value": "<string>",
+                              "description": "(Required) id of the webhook"
+                            }
+                          ]
+                        },
+                        "description": "Update webhook by id.\n\nIf enabling a webhook or updating a webhook's URL, your service is expected to respond to a [Ping Event](#section/Ping-Event).\n"
+                      },
+                      "response": [
+                        {
+                          "id": "b42dd301-9a9d-4ba1-af40-267c32b4fdee",
+                          "name": "Updated webhook",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/DELETED\",\n    \"TASK/CREATED\"\n  ],\n  \"url\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"deserunt_1e\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-b42dd301-9a9d-4ba1-af40-267c32b4fdee"
+                        },
+                        {
+                          "id": "47f6d520-ca28-42c9-a1d5-b776668b29f5",
+                          "name": "Invalid field(s) in request body",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/DELETED\",\n    \"TASK/CREATED\"\n  ],\n  \"url\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"deserunt_1e\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-47f6d520-ca28-42c9-a1d5-b776668b29f5"
+                        },
+                        {
+                          "id": "1b8f7745-4254-4cba-9dd1-274f1f091948",
+                          "name": "Webhook with id does not exist",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/DELETED\",\n    \"TASK/CREATED\"\n  ],\n  \"url\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"deserunt_1e\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-1b8f7745-4254-4cba-9dd1-274f1f091948"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:45:12.000Z",
+                      "updatedAt": "2026-07-28T01:45:12.000Z",
+                      "uid": "35240-8794d381-111d-4576-8b67-56a99220d8d3"
+                    },
+                    {
+                      "name": "Delete Webhook",
+                      "id": "534915a3-96e5-49cd-ad72-1e59e72ee462",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "webhooks",
+                            ":webhookId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9ccad9ea-941d-4162-8a12-169373008547",
+                              "key": "webhookId",
+                              "value": "<string>",
+                              "description": "(Required) id of the webhook"
+                            }
+                          ]
+                        },
+                        "description": "Delete a webhook by ID\n"
+                      },
+                      "response": [
+                        {
+                          "id": "6186becc-09ab-4053-b458-df09e2289106",
+                          "name": "Webhook deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-6186becc-09ab-4053-b458-df09e2289106"
+                        },
+                        {
+                          "id": "c0851ccb-adcf-4418-a9e9-a21bafe21a47",
+                          "name": "Webhook must be disabled to be deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-c0851ccb-adcf-4418-a9e9-a21bafe21a47"
+                        },
+                        {
+                          "id": "05089ad0-f886-4d25-bceb-2b49c0df345d",
+                          "name": "Webhook with id does not exist",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-05089ad0-f886-4d25-bceb-2b49c0df345d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:45:12.000Z",
+                      "updatedAt": "2026-07-28T01:45:12.000Z",
+                      "uid": "35240-534915a3-96e5-49cd-ad72-1e59e72ee462"
+                    },
+                    {
+                      "name": "Get Webhook",
+                      "id": "4eaa5c1e-0847-473a-8677-bc4efde623c3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "webhooks",
+                            ":webhookId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "cbc3b232-72c1-4e08-9376-b3c061598d10",
+                              "key": "webhookId",
+                              "value": "<string>",
+                              "description": "(Required) id of the webhook"
+                            }
+                          ]
+                        },
+                        "description": "Get a webhook by ID\n"
+                      },
+                      "response": [
+                        {
+                          "id": "f4dbf24c-8d56-4994-be9a-bd965d7888ef",
+                          "name": "Webhook",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/DELETED\",\n    \"TASK/CREATED\"\n  ],\n  \"url\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"deserunt_1e\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-f4dbf24c-8d56-4994-be9a-bd965d7888ef"
+                        },
+                        {
+                          "id": "0a7ecb0d-8d93-4353-9929-18fd60ad3c66",
+                          "name": "Webhook with id does not exist",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/webhooks/:webhookId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "webhooks",
+                                ":webhookId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhookId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:45:12.000Z",
+                          "updatedAt": "2026-07-28T01:45:12.000Z",
+                          "uid": "35240-0a7ecb0d-8d93-4353-9929-18fd60ad3c66"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:45:12.000Z",
+                      "updatedAt": "2026-07-28T01:45:12.000Z",
+                      "uid": "35240-4eaa5c1e-0847-473a-8677-bc4efde623c3"
+                    }
+                  ],
+                  "id": "4fe0afc7-ee5d-456f-b696-3d13211ea736",
+                  "createdAt": "2026-07-28T01:45:12.000Z",
+                  "updatedAt": "2026-07-28T01:45:12.000Z",
+                  "uid": "35240-4fe0afc7-ee5d-456f-b696-3d13211ea736"
+                },
+                {
+                  "name": "Create Webhook",
+                  "id": "57cbaee7-a6f8-455b-a775-8beade4efadb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"url\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/UPDATED\",\n    \"AGENT_AVAILABILITY/FOCUS_ENTERED\"\n  ],\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"enima4c\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/webhooks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "webhooks"
+                      ]
+                    },
+                    "description": "Create a new webhook with the supplied data. The webhook will be in disabled state by default.\n\nIf creating a new enabled webhook, your service is expected to respond to a [Ping Event](#section/Ping-Event).\n\nYou are limited to 20 webhooks for your organization.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "f55a3f78-ca5f-4471-bcd9-868f26dbfef4",
+                      "name": "Created webhook",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"url\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/UPDATED\",\n    \"AGENT_AVAILABILITY/FOCUS_ENTERED\"\n  ],\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"enima4c\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "webhooks"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Location of the created webhook",
+                            "type": "text/plain"
+                          },
+                          "key": "Location",
+                          "value": "<string>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:45:12.000Z",
+                      "updatedAt": "2026-07-28T01:45:12.000Z",
+                      "uid": "35240-f55a3f78-ca5f-4471-bcd9-868f26dbfef4"
+                    },
+                    {
+                      "id": "d305feab-0ccc-4df9-ae8a-568df250161b",
+                      "name": "Invalid field(s) in request body",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"url\": \"<string>\",\n  \"events\": [\n    \"CUSTOMER_PROFILE/UPDATED\",\n    \"AGENT_AVAILABILITY/FOCUS_ENTERED\"\n  ],\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"realm\": \"<string>\"\n  },\n  \"headers\": {\n    \"enima4c\": \"<string>\"\n  },\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"hasCredentials\": \"<boolean>\",\n  \"headerKeys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enabled\": false,\n  \"disabledAtDueToRetryLimit\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "webhooks"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:45:12.000Z",
+                      "updatedAt": "2026-07-28T01:45:12.000Z",
+                      "uid": "35240-d305feab-0ccc-4df9-ae8a-568df250161b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:45:12.000Z",
+                  "updatedAt": "2026-07-28T01:45:12.000Z",
+                  "uid": "35240-57cbaee7-a6f8-455b-a775-8beade4efadb"
+                },
+                {
+                  "name": "List Webhooks",
+                  "id": "381f879b-1a2a-4107-a8b6-15ec09ff24e5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/webhooks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "webhooks"
+                      ]
+                    },
+                    "description": "Returns a list of webhooks.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "7778d70c-b899-49d9-8957-9c0be906d4a6",
+                      "name": "Webhook",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "webhooks"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"events\": [\n      \"PAYMENT_REQUEST/STATUS_CHANGED\",\n      \"TASK/DUE_DATE_UPDATED\"\n    ],\n    \"url\": \"<string>\",\n    \"credentials\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\",\n      \"realm\": \"<string>\"\n    },\n    \"headers\": {\n      \"esse25\": \"<string>\",\n      \"id_3\": \"<string>\"\n    },\n    \"createdAt\": \"<string>\",\n    \"updatedAt\": \"<string>\",\n    \"hasCredentials\": \"<boolean>\",\n    \"headerKeys\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": false,\n    \"disabledAtDueToRetryLimit\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"events\": [\n      \"AGENT_AVAILABILITY/FOCUS_EXITED\",\n      \"AGENT_STATUS/LOGGED_IN\"\n    ],\n    \"url\": \"<string>\",\n    \"credentials\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\",\n      \"realm\": \"<string>\"\n    },\n    \"headers\": {\n      \"cupidatat_a9b\": \"<string>\",\n      \"esse_d2\": \"<string>\"\n    },\n    \"createdAt\": \"<string>\",\n    \"updatedAt\": \"<string>\",\n    \"hasCredentials\": \"<boolean>\",\n    \"headerKeys\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": false,\n    \"disabledAtDueToRetryLimit\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-07-28T01:45:12.000Z",
+                      "updatedAt": "2026-07-28T01:45:12.000Z",
+                      "uid": "35240-7778d70c-b899-49d9-8957-9c0be906d4a6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:45:12.000Z",
+                  "updatedAt": "2026-07-28T01:45:12.000Z",
+                  "uid": "35240-381f879b-1a2a-4107-a8b6-15ec09ff24e5"
+                }
+              ],
+              "id": "41c5b56b-007e-4873-bffc-e8ce907a5a19",
+              "createdAt": "2026-07-28T01:45:12.000Z",
+              "updatedAt": "2026-07-28T01:45:12.000Z",
+              "uid": "35240-41c5b56b-007e-4873-bffc-e8ce907a5a19"
+            }
+          ],
+          "id": "aa5d2c19-9233-423b-bd35-0e48efea3279",
+          "createdAt": "2026-07-28T01:45:12.000Z",
+          "updatedAt": "2026-07-28T01:45:12.000Z",
+          "uid": "35240-aa5d2c19-9233-423b-bd35-0e48efea3279"
+        }
+      ],
+      "id": "39812a58-1d4d-4442-9a04-792898e0fffc",
+      "createdAt": "2026-07-28T01:45:12.000Z",
+      "updatedAt": "2026-07-28T01:45:12.000Z",
+      "uid": "35240-39812a58-1d4d-4442-9a04-792898e0fffc"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}

@@ -1,0 +1,1657 @@
+{
+  "info": {
+    "_postman_id": "82384954-c2d6-400a-b8ad-553a2a280137",
+    "name": "Gladly Agents Answer Management API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:44:46.000Z",
+    "updatedAt": "2026-07-28T01:44:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-82384954-c2d6-400a-b8ad-553a2a280137"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "answers",
+              "item": [
+                {
+                  "name": "{answerId}",
+                  "item": [
+                    {
+                      "name": "languages",
+                      "item": [
+                        {
+                          "name": "{language}",
+                          "item": [
+                            {
+                              "name": "type",
+                              "item": [
+                                {
+                                  "name": "{type}",
+                                  "item": [
+                                    {
+                                      "name": "Get Answer Content",
+                                      "id": "8fb82b2f-361f-45c7-ab4e-bf8c6b935482",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "answers",
+                                            ":answerId",
+                                            "languages",
+                                            ":language",
+                                            "type",
+                                            ":type"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "fe603a54-bfff-4d20-8953-488cc1b718f2",
+                                              "key": "answerId",
+                                              "value": "<string>",
+                                              "description": "(Required) id of the answer"
+                                            },
+                                            {
+                                              "id": "b875fd55-eb3e-4c97-a81a-121ba1ce062a",
+                                              "key": "language",
+                                              "value": "<string>",
+                                              "description": "(Required) Language code according to ISO 639 format. The specified language must also be configured for the org."
+                                            },
+                                            {
+                                              "id": "0cdfbe54-85cb-47de-bbec-c9118c9a103b",
+                                              "key": "type",
+                                              "value": "<string>",
+                                              "description": "(Required) Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Returns the answer content requested by language and type.\n"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "6ebf1f36-2e0e-45a7-a3b9-4ff466e3268a",
+                                          "name": "answerContent",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"answerId\": \"<string>\",\n  \"language\": \"<string>\",\n  \"type\": \"<string>\",\n  \"bodyHtml\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"internal\": \"<boolean>\"\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-6ebf1f36-2e0e-45a7-a3b9-4ff466e3268a"
+                                        },
+                                        {
+                                          "id": "e9481d16-4f28-49c5-9e59-dbed508ac6bb",
+                                          "name": "Bad Request",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"attr\": \"<string>\",\n  \"code\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-e9481d16-4f28-49c5-9e59-dbed508ac6bb"
+                                        },
+                                        {
+                                          "id": "e9c64a77-a838-4cf7-a98d-0795e566e776",
+                                          "name": "Answer content does not exist",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-e9c64a77-a838-4cf7-a98d-0795e566e776"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T01:44:47.000Z",
+                                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                                      "uid": "35240-8fb82b2f-361f-45c7-ab4e-bf8c6b935482"
+                                    },
+                                    {
+                                      "name": "Add or Update Answer Content",
+                                      "id": "d5877b81-dbf8-4657-9b5b-0dc01edd2fdc",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"bodyHtml\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"internal\": \"<boolean>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "answers",
+                                            ":answerId",
+                                            "languages",
+                                            ":language",
+                                            "type",
+                                            ":type"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "1933c76c-f44e-46e9-a7d6-4a4ffa52d6b0",
+                                              "key": "answerId",
+                                              "value": "<string>",
+                                              "description": "(Required) id of the answer"
+                                            },
+                                            {
+                                              "id": "858d29bb-51ae-458f-86c5-d5b1d094a39e",
+                                              "key": "language",
+                                              "value": "<string>",
+                                              "description": "(Required) Language code according to ISO 639 format. The specified language must also be configured for the org."
+                                            },
+                                            {
+                                              "id": "c9680671-859c-4da0-a05b-acd5aff4332d",
+                                              "key": "type",
+                                              "value": "reference",
+                                              "description": "(Required) Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Adds or Updates the answer content for the specified answer by language and type.\n"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "1eda0f3e-0b10-41ae-8586-64c708cf5e4b",
+                                          "name": "Added/Updated answer content",
+                                          "originalRequest": {
+                                            "method": "PUT",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"bodyHtml\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"internal\": \"<boolean>\"\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"answerId\": \"<string>\",\n  \"language\": \"<string>\",\n  \"type\": \"<string>\",\n  \"bodyHtml\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"internal\": \"<boolean>\"\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-1eda0f3e-0b10-41ae-8586-64c708cf5e4b"
+                                        },
+                                        {
+                                          "id": "33491102-3fda-482e-8edd-bb14ad8f650d",
+                                          "name": "Bad Request",
+                                          "originalRequest": {
+                                            "method": "PUT",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"bodyHtml\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"internal\": \"<boolean>\"\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-33491102-3fda-482e-8edd-bb14ad8f650d"
+                                        },
+                                        {
+                                          "id": "484ce0af-8268-4c13-bb33-74012d01bd0f",
+                                          "name": "Answer does not exist",
+                                          "originalRequest": {
+                                            "method": "PUT",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"bodyHtml\": \"<string>\",\n  \"title\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"internal\": \"<boolean>\"\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-484ce0af-8268-4c13-bb33-74012d01bd0f"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T01:44:47.000Z",
+                                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                                      "uid": "35240-d5877b81-dbf8-4657-9b5b-0dc01edd2fdc"
+                                    },
+                                    {
+                                      "name": "Delete Answer Content",
+                                      "id": "be907fa9-8385-4418-b393-6edacd398423",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "answers",
+                                            ":answerId",
+                                            "languages",
+                                            ":language",
+                                            "type",
+                                            ":type"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "bebddc41-6aed-42f9-844d-24543f1f7c10",
+                                              "key": "answerId",
+                                              "value": "<string>",
+                                              "description": "(Required) id of the answer"
+                                            },
+                                            {
+                                              "id": "629a5627-91e6-4369-8171-967c417bc4d8",
+                                              "key": "language",
+                                              "value": "<string>",
+                                              "description": "(Required) Language code according to ISO 639 format. The specified language must also be configured for the org."
+                                            },
+                                            {
+                                              "id": "dab47f25-7950-4ba8-853c-09307dd0781d",
+                                              "key": "type",
+                                              "value": "<string>",
+                                              "description": "(Required) Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+                                            }
+                                          ]
+                                        },
+                                        "description": "Deletes the answer content for the specified answer by language and type.\n"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "e2643511-a372-41a9-8f11-af7af1eccf57",
+                                          "name": "Answer content deleted",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "No Content",
+                                          "code": 204,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-e2643511-a372-41a9-8f11-af7af1eccf57"
+                                        },
+                                        {
+                                          "id": "0b9733a2-612f-499f-b26f-e7f37de05d57",
+                                          "name": "Bad Request",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"attr\": \"<string>\",\n  \"code\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-0b9733a2-612f-499f-b26f-e7f37de05d57"
+                                        },
+                                        {
+                                          "id": "099b9c1a-6408-40f5-9b67-2699a57f011d",
+                                          "name": "Does not exist",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: basic",
+                                                "key": "Authorization",
+                                                "value": "Basic <credentials>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/api/v1/answers/:answerId/languages/:language/type/:type",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "api",
+                                                "v1",
+                                                "answers",
+                                                ":answerId",
+                                                "languages",
+                                                ":language",
+                                                "type",
+                                                ":type"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "answerId"
+                                                },
+                                                {
+                                                  "key": "language"
+                                                },
+                                                {
+                                                  "key": "type"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T01:44:47.000Z",
+                                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                                          "uid": "35240-099b9c1a-6408-40f5-9b67-2699a57f011d"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T01:44:47.000Z",
+                                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                                      "uid": "35240-be907fa9-8385-4418-b393-6edacd398423"
+                                    }
+                                  ],
+                                  "id": "0305c2b4-8fef-4d1f-8db8-df0c3332cc29",
+                                  "createdAt": "2026-07-28T01:44:46.000Z",
+                                  "updatedAt": "2026-07-28T01:44:46.000Z",
+                                  "uid": "35240-0305c2b4-8fef-4d1f-8db8-df0c3332cc29"
+                                }
+                              ],
+                              "id": "5af56db4-b7bc-4b03-a811-7ad0661c57e7",
+                              "createdAt": "2026-07-28T01:44:46.000Z",
+                              "updatedAt": "2026-07-28T01:44:46.000Z",
+                              "uid": "35240-5af56db4-b7bc-4b03-a811-7ad0661c57e7"
+                            }
+                          ],
+                          "id": "3c00a02a-5548-43c3-a5d2-529012d7ee4d",
+                          "createdAt": "2026-07-28T01:44:46.000Z",
+                          "updatedAt": "2026-07-28T01:44:46.000Z",
+                          "uid": "35240-3c00a02a-5548-43c3-a5d2-529012d7ee4d"
+                        }
+                      ],
+                      "id": "b6788fb3-5619-4ff0-aced-d0088b976939",
+                      "createdAt": "2026-07-28T01:44:46.000Z",
+                      "updatedAt": "2026-07-28T01:44:46.000Z",
+                      "uid": "35240-b6788fb3-5619-4ff0-aced-d0088b976939"
+                    },
+                    {
+                      "name": "Get Answer",
+                      "id": "187bb0c3-8244-4c0f-a114-d42a393d305e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "answers",
+                            ":answerId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8ae1b73b-70b2-4927-a306-9e335dfc9af6",
+                              "key": "answerId",
+                              "value": "<string>",
+                              "description": "(Required) id of the answer"
+                            }
+                          ]
+                        },
+                        "description": "Returns the answer requested.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "22417082-d6ce-475f-9de9-1bd453e9d535",
+                          "name": "answer",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updatedAt\": \"<string>\",\n  \"createdAt\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-22417082-d6ce-475f-9de9-1bd453e9d535"
+                        },
+                        {
+                          "id": "42fd4a48-a6e5-49f2-8089-76c8f7fb025b",
+                          "name": "Answer does not exist",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-42fd4a48-a6e5-49f2-8089-76c8f7fb025b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:47.000Z",
+                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                      "uid": "35240-187bb0c3-8244-4c0f-a114-d42a393d305e"
+                    },
+                    {
+                      "name": "Update Answer",
+                      "id": "9aff731d-b7da-40cb-bf4d-042b788f2aa7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "answers",
+                            ":answerId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "87154134-b9e6-4f78-b0ec-ddceba77307d",
+                              "key": "answerId",
+                              "value": "<string>",
+                              "description": "(Required) id of the answer"
+                            }
+                          ]
+                        },
+                        "description": "Updates the answer with the provided id.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "09e3f642-9f24-4f82-80cb-b306d7ed2f41",
+                          "name": "Answer updated",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-09e3f642-9f24-4f82-80cb-b306d7ed2f41"
+                        },
+                        {
+                          "id": "4dcb3163-1635-4a0c-bfcb-f979fb18cf25",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-4dcb3163-1635-4a0c-bfcb-f979fb18cf25"
+                        },
+                        {
+                          "id": "7e3f5a26-cdce-4e0c-8ce0-906e0d034f2d",
+                          "name": "Answer does not exist",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-7e3f5a26-cdce-4e0c-8ce0-906e0d034f2d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:47.000Z",
+                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                      "uid": "35240-9aff731d-b7da-40cb-bf4d-042b788f2aa7"
+                    },
+                    {
+                      "name": "Delete Answer",
+                      "id": "fe1fb412-a24d-47d6-85de-086d1cb6417a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "answers",
+                            ":answerId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5554c653-a61e-4681-9de0-cfe4baa957ed",
+                              "key": "answerId",
+                              "value": "<string>",
+                              "description": "(Required) id of the answer"
+                            }
+                          ]
+                        },
+                        "description": "Deletes the answer with the provided id.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "b10dd0bd-1ee4-4666-ab79-be94968218f0",
+                          "name": "Answer deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-b10dd0bd-1ee4-4666-ab79-be94968218f0"
+                        },
+                        {
+                          "id": "315a936c-424f-4450-be96-8a7409bd8a35",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\",\n      \"meta\": {\n        \"commodo_bc2\": false,\n        \"cupidatat_df\": -42823253.72234661\n      }\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\",\n      \"meta\": {\n        \"tempor_6cc\": -71389180\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-315a936c-424f-4450-be96-8a7409bd8a35"
+                        },
+                        {
+                          "id": "9bdf6ddb-e55a-4bfe-8ea1-50f2487026af",
+                          "name": "Answer does not exist",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/answers/:answerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "answers",
+                                ":answerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "answerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:47.000Z",
+                          "updatedAt": "2026-07-28T01:44:47.000Z",
+                          "uid": "35240-9bdf6ddb-e55a-4bfe-8ea1-50f2487026af"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:47.000Z",
+                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                      "uid": "35240-fe1fb412-a24d-47d6-85de-086d1cb6417a"
+                    }
+                  ],
+                  "id": "8e501719-83e8-468e-87a9-fcbd0a3832e7",
+                  "createdAt": "2026-07-28T01:44:46.000Z",
+                  "updatedAt": "2026-07-28T01:44:46.000Z",
+                  "uid": "35240-8e501719-83e8-468e-87a9-fcbd0a3832e7"
+                },
+                {
+                  "name": "Add Answer",
+                  "id": "0de264c0-4f40-4c26-9d70-3cd9a9a297c1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/answers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "answers"
+                      ]
+                    },
+                    "description": "Adds an answer to the list of answers.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "da9aff20-6fd4-48d7-ac7d-253ca52d7f57",
+                      "name": "Added answer",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/answers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "answers"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdAt\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:44:47.000Z",
+                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                      "uid": "35240-da9aff20-6fd4-48d7-ac7d-253ca52d7f57"
+                    },
+                    {
+                      "id": "1575e888-89b0-49d8-986d-c995bb835595",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/answers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "answers"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"attr\": \"<string>\",\n  \"code\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:44:47.000Z",
+                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                      "uid": "35240-1575e888-89b0-49d8-986d-c995bb835595"
+                    },
+                    {
+                      "id": "883adf86-0b8c-4b42-aa81-9b1de6e536f6",
+                      "name": "Specified id is in use",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"audienceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/answers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "answers"
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"attr\": \"<string>\",\n  \"code\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:44:47.000Z",
+                      "updatedAt": "2026-07-28T01:44:47.000Z",
+                      "uid": "35240-883adf86-0b8c-4b42-aa81-9b1de6e536f6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:44:47.000Z",
+                  "updatedAt": "2026-07-28T01:44:47.000Z",
+                  "uid": "35240-0de264c0-4f40-4c26-9d70-3cd9a9a297c1"
+                }
+              ],
+              "id": "1978619d-b99a-4ad1-9b7c-16d6dbae7275",
+              "createdAt": "2026-07-28T01:44:46.000Z",
+              "updatedAt": "2026-07-28T01:44:46.000Z",
+              "uid": "35240-1978619d-b99a-4ad1-9b7c-16d6dbae7275"
+            }
+          ],
+          "id": "1b2f8e35-1a6b-409b-b94b-1b0eb41b8147",
+          "createdAt": "2026-07-28T01:44:46.000Z",
+          "updatedAt": "2026-07-28T01:44:46.000Z",
+          "uid": "35240-1b2f8e35-1a6b-409b-b94b-1b0eb41b8147"
+        }
+      ],
+      "id": "fc46259d-dbca-4ec2-a6e5-c6c36c3aa866",
+      "createdAt": "2026-07-28T01:44:46.000Z",
+      "updatedAt": "2026-07-28T01:44:46.000Z",
+      "uid": "35240-fc46259d-dbca-4ec2-a6e5-c6c36c3aa866"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}

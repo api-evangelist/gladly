@@ -1,0 +1,1033 @@
+{
+  "info": {
+    "_postman_id": "84ad1205-8537-4a92-a9eb-36ef8ea97ab2",
+    "name": "Gladly Agents Customers API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:44:55.000Z",
+    "updatedAt": "2026-07-28T01:44:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-84ad1205-8537-4a92-a9eb-36ef8ea97ab2"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "customer-profiles",
+              "item": [
+                {
+                  "name": "{customerId}",
+                  "item": [
+                    {
+                      "name": "Get Customer",
+                      "id": "4a582d40-a1b4-4446-b61f-b2bc4b604184",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles",
+                            ":customerId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5dcfaeb8-e383-4116-b171-045a38faab93",
+                              "key": "customerId",
+                              "value": "<string>",
+                              "description": "(Required) id of the customer"
+                            }
+                          ]
+                        },
+                        "description": "Get a customer by unique id.\nIf a customer has been merged into another, an error will be returned specifying the new id of the customer.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "8022d8d0-f62f-4b13-907c-d0a3e4aab714",
+                          "name": "fetched customer",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"HOME\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"HOME\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {},\n  \"id\": \"<string>\",\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"externalCustomerIds\": {}\n}",
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-8022d8d0-f62f-4b13-907c-d0a3e4aab714"
+                        },
+                        {
+                          "id": "b5b4530f-4ff6-400c-b2ae-9a5ae71c0ee0",
+                          "name": "customer id no longer exists and has been changed due to a merge with another customer",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Moved Permanently",
+                          "code": 301,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-b5b4530f-4ff6-400c-b2ae-9a5ae71c0ee0"
+                        },
+                        {
+                          "id": "982eab24-5fe5-41e7-bd42-b5258dff0d73",
+                          "name": "customer not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-982eab24-5fe5-41e7-bd42-b5258dff0d73"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-4a582d40-a1b4-4446-b61f-b2bc4b604184"
+                    },
+                    {
+                      "name": "Update Customer",
+                      "id": "f78e7c93-b13d-4558-be16-1d575e27f27f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"OFFICE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {}\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles",
+                            ":customerId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2b0d84e2-ca73-4247-8f49-a192161c7772",
+                              "key": "customerId",
+                              "value": "<string>",
+                              "description": "(Required) id of the customer"
+                            }
+                          ]
+                        },
+                        "description": "Update a customer by unique id with the supplied JSON patch.\n\nYou may supply only the properties which you want to update or insert into the profile.\nWhen updating arrays, such as `phones` and `emails` you must provide the entire list of values\nsince it is not possible to add or delete a single value.\n\nIf a customer has been merged into another, an error will be returned specifying the new id of the customer.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "b08510b6-a822-4602-96a2-e624a03462f6",
+                          "name": "updated customer",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"OFFICE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-b08510b6-a822-4602-96a2-e624a03462f6"
+                        },
+                        {
+                          "id": "bc5d4367-405c-4e2b-8b77-abefc69bd7b4",
+                          "name": "error updating customer",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"OFFICE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-bc5d4367-405c-4e2b-8b77-abefc69bd7b4"
+                        },
+                        {
+                          "id": "66bbe3e9-d07f-40cd-a1b7-5d351460526b",
+                          "name": "customer not found",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"OFFICE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-66bbe3e9-d07f-40cd-a1b7-5d351460526b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-f78e7c93-b13d-4558-be16-1d575e27f27f"
+                    },
+                    {
+                      "name": "Delete Customer",
+                      "id": "773a45fa-664a-49a3-9946-a858bcfd29b9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles",
+                            ":customerId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "14e15ac9-4075-415f-9632-ad7788ec3f74",
+                              "key": "customerId",
+                              "value": "<string>",
+                              "description": "(Required) id of the customer"
+                            }
+                          ]
+                        },
+                        "description": "Delete a customer and all associated conversations.\n\nAll conversations associated with the customer must be closed before the customer can be deleted.\n\nThis operation is irreversible.\n\nThe user associated with the API token must have both Compliance Admin and API User roles.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "f7e5a108-f7d3-455b-b188-fbb2c09ae59b",
+                          "name": "customer was deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-f7e5a108-f7d3-455b-b188-fbb2c09ae59b"
+                        },
+                        {
+                          "id": "cdbaecce-f621-4801-a939-725783c41521",
+                          "name": "error deleting customer with open or waiting conversation",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/customer-profiles/:customerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "customer-profiles",
+                                ":customerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "customerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:44:55.000Z",
+                          "updatedAt": "2026-07-28T01:44:55.000Z",
+                          "uid": "35240-cdbaecce-f621-4801-a939-725783c41521"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-773a45fa-664a-49a3-9946-a858bcfd29b9"
+                    }
+                  ],
+                  "id": "f983dda7-a749-48a3-8816-bc78df44a6d5",
+                  "createdAt": "2026-07-28T01:44:55.000Z",
+                  "updatedAt": "2026-07-28T01:44:55.000Z",
+                  "uid": "35240-f983dda7-a749-48a3-8816-bc78df44a6d5"
+                },
+                {
+                  "name": "Create Customer",
+                  "id": "963eb721-f777-4ec1-81ab-1769e085f3dd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"MOBILE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {},\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/customer-profiles",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "customer-profiles"
+                      ]
+                    },
+                    "description": "Create a new customer with the supplied profile data.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "77a86211-eb8c-4e0b-8eff-cf5a55a974ed",
+                      "name": "customer created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"MOBILE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {},\n  \"id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "",
+                            "type": "text/plain"
+                          },
+                          "key": "Location",
+                          "value": "<string>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-77a86211-eb8c-4e0b-8eff-cf5a55a974ed"
+                    },
+                    {
+                      "id": "7ccc3a32-022b-4cdc-944d-e3cc5979cf19",
+                      "name": "error creating customer",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"MOBILE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {},\n  \"id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-7ccc3a32-022b-4cdc-944d-e3cc5979cf19"
+                    },
+                    {
+                      "id": "cb90d0eb-b72a-4e55-afd5-71ace6ff7b04",
+                      "name": "Specified id is in use or a uniqueness constraint failed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"address\": \"<string>\",\n  \"emails\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"primary\": false\n    }\n  ],\n  \"phones\": [\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"FORBIDDEN\",\n      \"type\": \"OFFICE\"\n    },\n    {\n      \"original\": \"<string>\",\n      \"normalized\": \"<string>\",\n      \"extension\": \"<string>\",\n      \"regionCode\": \"US\",\n      \"primary\": false,\n      \"smsPreference\": \"OFF\",\n      \"type\": \"MOBILE\"\n    }\n  ],\n  \"externalCustomerId\": \"<string>\",\n  \"customAttributes\": {},\n  \"id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles"
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-cb90d0eb-b72a-4e55-afd5-71ace6ff7b04"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:44:55.000Z",
+                  "updatedAt": "2026-07-28T01:44:55.000Z",
+                  "uid": "35240-963eb721-f777-4ec1-81ab-1769e085f3dd"
+                },
+                {
+                  "name": "Find Customers",
+                  "id": "863739c9-e9dd-46a4-95ad-99a90c3a00f5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/customer-profiles?email=<string>&externalCustomerId=<string>&phoneNumber=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "customer-profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "customer email address to search on.",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field is not searchable.",
+                          "key": "externalCustomerId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Phone number in E.164 format. The value should be URL escaped where `+` becomes `%2B`.\n",
+                          "key": "phoneNumber",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Find customers by searching by choosing **one** of the following identifiers as query parameters:\n\n```\n/api/v1/customer-profiles?phoneNumber=%2B14151234567\n```\n\nMax limit of 50 profiles returned, sorted by most recently updatedAt date descending. \n"
+                  },
+                  "response": [
+                    {
+                      "id": "e6b97591-b82a-449e-8e66-87167b16d5d7",
+                      "name": "found customers",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles?email=<string>&externalCustomerId=<string>&phoneNumber=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles"
+                          ],
+                          "query": [
+                            {
+                              "description": "customer email address to search on.",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field is not searchable.",
+                              "key": "externalCustomerId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Phone number in E.164 format. The value should be URL escaped where `+` becomes `%2B`.\n",
+                              "key": "phoneNumber",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"<string>\",\n    \"image\": \"<string>\",\n    \"address\": \"<string>\",\n    \"emails\": [\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"primary\": false\n      },\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"primary\": false\n      }\n    ],\n    \"phones\": [\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"extension\": \"<string>\",\n        \"regionCode\": \"US\",\n        \"primary\": false,\n        \"smsPreference\": \"OFF\",\n        \"type\": \"HOME\"\n      },\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"extension\": \"<string>\",\n        \"regionCode\": \"US\",\n        \"primary\": false,\n        \"smsPreference\": \"ON\",\n        \"type\": \"OFFICE\"\n      }\n    ],\n    \"externalCustomerId\": \"<string>\",\n    \"customAttributes\": {},\n    \"id\": \"<string>\",\n    \"createdAt\": \"<string>\",\n    \"updatedAt\": \"<string>\",\n    \"externalCustomerIds\": {}\n  },\n  {\n    \"name\": \"<string>\",\n    \"image\": \"<string>\",\n    \"address\": \"<string>\",\n    \"emails\": [\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"primary\": false\n      },\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"primary\": false\n      }\n    ],\n    \"phones\": [\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"extension\": \"<string>\",\n        \"regionCode\": \"US\",\n        \"primary\": false,\n        \"smsPreference\": \"ON\",\n        \"type\": \"HOME\"\n      },\n      {\n        \"original\": \"<string>\",\n        \"normalized\": \"<string>\",\n        \"extension\": \"<string>\",\n        \"regionCode\": \"US\",\n        \"primary\": false,\n        \"smsPreference\": \"OFF\",\n        \"type\": \"HOME\"\n      }\n    ],\n    \"externalCustomerId\": \"<string>\",\n    \"customAttributes\": {},\n    \"id\": \"<string>\",\n    \"createdAt\": \"<string>\",\n    \"updatedAt\": \"<string>\",\n    \"externalCustomerIds\": {}\n  }\n]",
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-e6b97591-b82a-449e-8e66-87167b16d5d7"
+                    },
+                    {
+                      "id": "86f98254-5eb4-4571-90af-045714a4a3d7",
+                      "name": "error finding customers",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/customer-profiles?email=<string>&externalCustomerId=<string>&phoneNumber=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "customer-profiles"
+                          ],
+                          "query": [
+                            {
+                              "description": "customer email address to search on.",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field is not searchable.",
+                              "key": "externalCustomerId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Phone number in E.164 format. The value should be URL escaped where `+` becomes `%2B`.\n",
+                              "key": "phoneNumber",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:44:55.000Z",
+                      "updatedAt": "2026-07-28T01:44:55.000Z",
+                      "uid": "35240-86f98254-5eb4-4571-90af-045714a4a3d7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:44:55.000Z",
+                  "updatedAt": "2026-07-28T01:44:55.000Z",
+                  "uid": "35240-863739c9-e9dd-46a4-95ad-99a90c3a00f5"
+                }
+              ],
+              "id": "4d5e6ec4-7b49-4562-afbd-4e078450712a",
+              "createdAt": "2026-07-28T01:44:55.000Z",
+              "updatedAt": "2026-07-28T01:44:55.000Z",
+              "uid": "35240-4d5e6ec4-7b49-4562-afbd-4e078450712a"
+            }
+          ],
+          "id": "6da66d12-17f3-49cf-b887-d04afdabe54f",
+          "createdAt": "2026-07-28T01:44:55.000Z",
+          "updatedAt": "2026-07-28T01:44:55.000Z",
+          "uid": "35240-6da66d12-17f3-49cf-b887-d04afdabe54f"
+        }
+      ],
+      "id": "a1c1c644-b472-4db8-a944-d3840b6cf661",
+      "createdAt": "2026-07-28T01:44:55.000Z",
+      "updatedAt": "2026-07-28T01:44:55.000Z",
+      "uid": "35240-a1c1c644-b472-4db8-a944-d3840b6cf661"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}

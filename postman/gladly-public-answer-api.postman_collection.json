@@ -1,0 +1,654 @@
+{
+  "info": {
+    "_postman_id": "31868e03-c80d-42b5-acce-556b4a4a5aa3",
+    "name": "Gladly Agents Public Answer API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:45:05.000Z",
+    "updatedAt": "2026-07-28T01:45:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-31868e03-c80d-42b5-acce-556b4a4a5aa3"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "orgs",
+              "item": [
+                {
+                  "name": "{orgId}",
+                  "item": [
+                    {
+                      "name": "answers-search?q=search+terms",
+                      "item": [
+                        {
+                          "name": "Search Public Answers",
+                          "id": "1a1a4196-8390-4090-aaf0-3113e7a9124b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/orgs/:orgId/answers-search?q=search+terms&q=<string>&lng=<string>&audienceId=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "orgs",
+                                ":orgId",
+                                "answers-search"
+                              ],
+                              "query": [
+                                {
+                                  "key": "q",
+                                  "value": "search+terms"
+                                },
+                                {
+                                  "description": "search term",
+                                  "key": "q",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "language code",
+                                  "key": "lng",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Audience ID. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.",
+                                  "key": "audienceId",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "fdbb7a48-cf80-4100-84f5-ef6e2ae5bd77",
+                                  "key": "orgId",
+                                  "value": "<string>",
+                                  "description": "(Required) id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+                                }
+                              ]
+                            },
+                            "description": "Returns a list of answers that match the provided query string.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "20315792-db0a-4462-b74f-cc04ef2c03db",
+                              "name": "found answers",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/orgs/:orgId/answers-search?q=<string>&lng=<string>&audienceId=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "orgs",
+                                    ":orgId",
+                                    "answers-search"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "search term",
+                                      "key": "q",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "language code",
+                                      "key": "lng",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Audience ID. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.",
+                                      "key": "audienceId",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "orgId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-07-28T01:45:06.000Z",
+                              "updatedAt": "2026-07-28T01:45:06.000Z",
+                              "uid": "35240-20315792-db0a-4462-b74f-cc04ef2c03db"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:45:06.000Z",
+                          "updatedAt": "2026-07-28T01:45:06.000Z",
+                          "uid": "35240-1a1a4196-8390-4090-aaf0-3113e7a9124b"
+                        }
+                      ],
+                      "id": "b0fc6645-e845-4392-8538-9fb2db7d2133",
+                      "createdAt": "2026-07-28T01:45:06.000Z",
+                      "updatedAt": "2026-07-28T01:45:06.000Z",
+                      "uid": "35240-b0fc6645-e845-4392-8538-9fb2db7d2133"
+                    },
+                    {
+                      "name": "answers?lng={lng}&audienceId={audienceId}",
+                      "item": [
+                        {
+                          "name": "List Public Answers",
+                          "id": "3a8bf03c-a7ad-4248-a5bc-6853e8eba15a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/orgs/:orgId/answers?lng={{lng}}&audienceId={{audienceId}}&lng=<string>&audienceId=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "orgs",
+                                ":orgId",
+                                "answers"
+                              ],
+                              "query": [
+                                {
+                                  "key": "lng",
+                                  "value": "{{lng}}"
+                                },
+                                {
+                                  "key": "audienceId",
+                                  "value": "{{audienceId}}"
+                                },
+                                {
+                                  "description": "Language of the answers returned\n\nDefaults to `en-us`\n",
+                                  "key": "lng",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n",
+                                  "key": "audienceId",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d6946465-6dd4-456b-997b-3e9d6fbd9cef",
+                                  "key": "orgId",
+                                  "value": "<string>",
+                                  "description": "(Required) id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+                                }
+                              ]
+                            },
+                            "description": "Returns the first 1000 public answers sorted alphabetically by name.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "466e8961-9cb7-491e-b337-0b7fef45ed25",
+                              "name": "answers",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/orgs/:orgId/answers?lng=<string>&audienceId=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "orgs",
+                                    ":orgId",
+                                    "answers"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Language of the answers returned\n\nDefaults to `en-us`\n",
+                                      "key": "lng",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n",
+                                      "key": "audienceId",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "orgId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"bodyHtml\": \"<string>\",\n    \"language\": \"<string>\",\n    \"updatedAt\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"bodyHtml\": \"<string>\",\n    \"language\": \"<string>\",\n    \"updatedAt\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-07-28T01:45:06.000Z",
+                              "updatedAt": "2026-07-28T01:45:06.000Z",
+                              "uid": "35240-466e8961-9cb7-491e-b337-0b7fef45ed25"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:45:06.000Z",
+                          "updatedAt": "2026-07-28T01:45:06.000Z",
+                          "uid": "35240-3a8bf03c-a7ad-4248-a5bc-6853e8eba15a"
+                        }
+                      ],
+                      "id": "53869cc1-d2c9-4b6c-8f8f-d47b299f7e34",
+                      "createdAt": "2026-07-28T01:45:06.000Z",
+                      "updatedAt": "2026-07-28T01:45:06.000Z",
+                      "uid": "35240-53869cc1-d2c9-4b6c-8f8f-d47b299f7e34"
+                    },
+                    {
+                      "name": "help-center",
+                      "item": [
+                        {
+                          "name": "{helpCenterId}",
+                          "item": [
+                            {
+                              "name": "answer-titles?lng={lng}&audienceId={audienceId}",
+                              "item": [
+                                {
+                                  "name": "List Help Center Answer Titles",
+                                  "id": "6c5ec8b7-a98d-48db-8518-298e3d121acf",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/orgs/:orgId/help-center/:helpCenterId/answer-titles?lng={{lng}}&audienceId={{audienceId}}&lng=<string>&audienceId=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "orgs",
+                                        ":orgId",
+                                        "help-center",
+                                        ":helpCenterId",
+                                        "answer-titles"
+                                      ],
+                                      "query": [
+                                        {
+                                          "key": "lng",
+                                          "value": "{{lng}}"
+                                        },
+                                        {
+                                          "key": "audienceId",
+                                          "value": "{{audienceId}}"
+                                        },
+                                        {
+                                          "description": "Language of the answers returned\n\nDefaults to `en-us`\n",
+                                          "key": "lng",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n",
+                                          "key": "audienceId",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "e9a18f7d-7b34-49c6-9af5-8e6e2377f0dc",
+                                          "key": "orgId",
+                                          "value": "<string>",
+                                          "description": "(Required) id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+                                        },
+                                        {
+                                          "id": "703c54fd-1a50-4044-a8ea-f33f5b751850",
+                                          "key": "helpCenterId",
+                                          "value": "<string>",
+                                          "description": "(Required) Help Center ID\n\nYou can look up the ID by going to Settings > Help Center in Gladly, then clicking on the 3 dots next to the Help Center and selecting Configure. Help Center ID will be in the URL\n"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Returns an array of answers configured in Help Center sections with their ID and name\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "64d02ca9-c033-4ea4-b425-373e4eb0fb90",
+                                      "name": "answers",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: basic",
+                                            "key": "Authorization",
+                                            "value": "Basic <credentials>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/orgs/:orgId/help-center/:helpCenterId/answer-titles?lng=<string>&audienceId=<string>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "orgs",
+                                            ":orgId",
+                                            "help-center",
+                                            ":helpCenterId",
+                                            "answer-titles"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Language of the answers returned\n\nDefaults to `en-us`\n",
+                                              "key": "lng",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n",
+                                              "key": "audienceId",
+                                              "value": "<string>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "orgId"
+                                            },
+                                            {
+                                              "key": "helpCenterId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n]",
+                                      "createdAt": "2026-07-28T01:45:06.000Z",
+                                      "updatedAt": "2026-07-28T01:45:06.000Z",
+                                      "uid": "35240-64d02ca9-c033-4ea4-b425-373e4eb0fb90"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:45:06.000Z",
+                                  "updatedAt": "2026-07-28T01:45:06.000Z",
+                                  "uid": "35240-6c5ec8b7-a98d-48db-8518-298e3d121acf"
+                                }
+                              ],
+                              "id": "2bb45461-35c1-43ed-bd07-2a4aaa54a7cd",
+                              "createdAt": "2026-07-28T01:45:06.000Z",
+                              "updatedAt": "2026-07-28T01:45:06.000Z",
+                              "uid": "35240-2bb45461-35c1-43ed-bd07-2a4aaa54a7cd"
+                            }
+                          ],
+                          "id": "0e0c62f3-a446-48dc-bd16-d97782b7d6ec",
+                          "createdAt": "2026-07-28T01:45:06.000Z",
+                          "updatedAt": "2026-07-28T01:45:06.000Z",
+                          "uid": "35240-0e0c62f3-a446-48dc-bd16-d97782b7d6ec"
+                        }
+                      ],
+                      "id": "4d5cb5a8-0613-44bf-9307-7e0055574292",
+                      "createdAt": "2026-07-28T01:45:06.000Z",
+                      "updatedAt": "2026-07-28T01:45:06.000Z",
+                      "uid": "35240-4d5cb5a8-0613-44bf-9307-7e0055574292"
+                    },
+                    {
+                      "name": "answers",
+                      "item": [
+                        {
+                          "name": "{answerId}",
+                          "item": [
+                            {
+                              "name": "Get Public Answer",
+                              "id": "cf767a8d-316b-4184-9e5f-f96be68eb50d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/orgs/:orgId/answers/:answerId?lng=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "orgs",
+                                    ":orgId",
+                                    "answers",
+                                    ":answerId"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "language code",
+                                      "key": "lng",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "532d65fb-f76c-4878-958a-099163f47cef",
+                                      "key": "orgId",
+                                      "value": "<string>",
+                                      "description": "(Required) id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+                                    },
+                                    {
+                                      "id": "e7220b49-f29a-4fa7-a1ee-a4e52b92debc",
+                                      "key": "answerId",
+                                      "value": "<string>",
+                                      "description": "(Required) id of the answer"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns the answer with the provided id.\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "d4d8c72c-17dc-4363-a11d-7054f150fdb6",
+                                  "name": "answer",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/orgs/:orgId/answers/:answerId?lng=<string>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "orgs",
+                                        ":orgId",
+                                        "answers",
+                                        ":answerId"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "language code",
+                                          "key": "lng",
+                                          "value": "<string>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "orgId"
+                                        },
+                                        {
+                                          "key": "answerId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"bodyHtml\": \"<string>\",\n  \"language\": \"<string>\",\n  \"updatedAt\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T01:45:06.000Z",
+                                  "updatedAt": "2026-07-28T01:45:06.000Z",
+                                  "uid": "35240-d4d8c72c-17dc-4363-a11d-7054f150fdb6"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:45:06.000Z",
+                              "updatedAt": "2026-07-28T01:45:06.000Z",
+                              "uid": "35240-cf767a8d-316b-4184-9e5f-f96be68eb50d"
+                            }
+                          ],
+                          "id": "fa7db307-021a-434e-8550-3c50816eb5be",
+                          "createdAt": "2026-07-28T01:45:06.000Z",
+                          "updatedAt": "2026-07-28T01:45:06.000Z",
+                          "uid": "35240-fa7db307-021a-434e-8550-3c50816eb5be"
+                        }
+                      ],
+                      "id": "13aca94d-5c6f-479c-8601-cc78a3bce6c6",
+                      "createdAt": "2026-07-28T01:45:06.000Z",
+                      "updatedAt": "2026-07-28T01:45:06.000Z",
+                      "uid": "35240-13aca94d-5c6f-479c-8601-cc78a3bce6c6"
+                    }
+                  ],
+                  "id": "a98e44f4-71d1-49b6-b17e-b6307a8d5301",
+                  "createdAt": "2026-07-28T01:45:06.000Z",
+                  "updatedAt": "2026-07-28T01:45:06.000Z",
+                  "uid": "35240-a98e44f4-71d1-49b6-b17e-b6307a8d5301"
+                }
+              ],
+              "id": "2fd8a4bb-6418-411e-a2bb-1286f8139cb3",
+              "createdAt": "2026-07-28T01:45:06.000Z",
+              "updatedAt": "2026-07-28T01:45:06.000Z",
+              "uid": "35240-2fd8a4bb-6418-411e-a2bb-1286f8139cb3"
+            }
+          ],
+          "id": "fb1bb8da-a249-47b2-9261-e6f4889c1980",
+          "createdAt": "2026-07-28T01:45:06.000Z",
+          "updatedAt": "2026-07-28T01:45:06.000Z",
+          "uid": "35240-fb1bb8da-a249-47b2-9261-e6f4889c1980"
+        }
+      ],
+      "id": "7946487e-5ea0-428f-bbc2-a4161788fbe8",
+      "createdAt": "2026-07-28T01:45:06.000Z",
+      "updatedAt": "2026-07-28T01:45:06.000Z",
+      "uid": "35240-7946487e-5ea0-428f-bbc2-a4161788fbe8"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}

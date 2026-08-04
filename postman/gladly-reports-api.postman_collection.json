@@ -1,0 +1,422 @@
+{
+  "info": {
+    "_postman_id": "75a21e8e-42a3-4f6b-90b7-2a3b1a89d2d4",
+    "name": "Gladly Agents Reports API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:45:06.000Z",
+    "updatedAt": "2026-07-28T01:45:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-75a21e8e-42a3-4f6b-90b7-2a3b1a89d2d4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "reports",
+              "item": [
+                {
+                  "name": "work-session-events",
+                  "item": [
+                    {
+                      "name": "Generate a Work Session Report",
+                      "id": "2c1f99fb-f299-400c-8657-521fc55c4dab",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/csv"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"startAtTime\": \"<string>\",\n  \"endAtTime\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/reports/work-session-events",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "reports",
+                            "work-session-events"
+                          ]
+                        },
+                        "description": "> **Note:** This endpoint will generate the V2 version of the Work Session Report. Metrics may differ from the V4 version, used in the Gladly UI.\n> To generate a Work Sessions V4 Report, use the [Reports API](/rest/#tag/Reports).\n\nA **Work Session** represents a period of time that an Agent spends working with a Customer on a given channel, during a given Contact (messaging exchange, phone call, etc.). In particular:\n  - A Customer may have 0 or more Conversations, but only 1 Conversation is open at any given time.\n  - A Conversation may contain 0 or more Contacts (e.g.: A single phone call, a chat session, an email session).\n  - A Contact may have 0 or more Work Sessions (i.e.: Agents who work on the Contact).\n  - A Work Session is the unique combination of contact_session_id and agent_id. The agent_id column will be NULL if the contact has not been handled by any Agent.\n\nThe Work Session Report API contains **both** contacts and work sessions. It allows you to understand what your inbound contact volume looks like, and to get a view into how Agents are using their time. The primary use of this information is for forecasting and scheduling purposes, but it can also be used to understand, at a fine-grained level, aspects of agent behavior, agent performance, multichannel conversation patterns and more.\n\nThe time anchor for data returned by this API is COALESCE(contact_session_created_at, contact_session_ended_at) (i.e.: if contact_session_ended_at does not exist, use contact_session_created_at. Otherwise, use contact_session_ended_at).\n\nThis means that if it is currently 2023-03-23T00:00Z and:\n  - contact_session_id A was created on 2023-03-21T04:00Z and ended on 2023-03-22T04:00Z\n  - You set the startAt time filter to 2023-03-21T00:00Z\n  - You set the endAt time filter to 2023-03-22T00:00Z\n  - You would not be able to retrieve contact_session_id A in your API request. Instead, you will need to set the endAt time filter to now() (aka 2023-03-23T00:00Z) to retrieve the contact information.\n\nTherefore, the general recommendation to get correct data is always to set the endAt time to now() rather than the end interval you'd like to analyze - this will accomodate contacts that \"move\" intervals due to ending.\n\nNote that:\n  - work_session_unknown_time_sec and work_session_after_contact_time_sec may accumulate after the contact ends and before the conversation ends / another contact begins\n  - work_session_handle_time_sec will only be available for a contact after it ends\n  - This report is subject to the same [data latency](https://help.gladly.com/docs/why-is-my-reporting-data-not-current) as other Gladly reports\n\nThis CSV file contains the following columns, whose definitions may be viewed via the [Work Sessions](https://help.gladly.com/docs/work-sessions) section of the help docs.\n  - id\n  - contact_session_id\n  - contact_session_created_at\n  - customer_id\n  - conversation_id\n  - inbox_id\n  - channel\n  - direction\n  - agent_accepted_at\n  - contact_session_routed_at\n  - agent_id\n  - sla_fulfilled_at\n  - contact_session_ended_at\n  - status\n  - within_sla\n  - work_session_handle_time_sec\n  - work_session_after_contact_time_sec\n  - work_session_unknown_time_sec\n  - accepted_inbox_id\n"
+                      },
+                      "response": [
+                        {
+                          "id": "5a85b0b9-748e-4557-b35f-c5fc6211c6b1",
+                          "name": "Work Session Report CSV",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/csv"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"startAtTime\": \"<string>\",\n  \"endAtTime\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/reports/work-session-events",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "reports",
+                                "work-session-events"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/csv"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "",
+                                "type": "text/plain"
+                              },
+                              "key": "Content-Disposition",
+                              "value": "<string>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"description\": \"Work Session Report CSV\",\n  \"format\": \"binary\"\n}",
+                          "createdAt": "2026-07-28T01:45:07.000Z",
+                          "updatedAt": "2026-07-28T01:45:07.000Z",
+                          "uid": "35240-5a85b0b9-748e-4557-b35f-c5fc6211c6b1"
+                        },
+                        {
+                          "id": "ae82b8bf-0df4-400e-9009-0bda18c66eb1",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"startAtTime\": \"<string>\",\n  \"endAtTime\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/reports/work-session-events",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "reports",
+                                "work-session-events"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:45:07.000Z",
+                          "updatedAt": "2026-07-28T01:45:07.000Z",
+                          "uid": "35240-ae82b8bf-0df4-400e-9009-0bda18c66eb1"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:45:07.000Z",
+                      "updatedAt": "2026-07-28T01:45:07.000Z",
+                      "uid": "35240-2c1f99fb-f299-400c-8657-521fc55c4dab"
+                    }
+                  ],
+                  "id": "66b1464a-5438-45d9-a4bd-941131ee9210",
+                  "createdAt": "2026-07-28T01:45:07.000Z",
+                  "updatedAt": "2026-07-28T01:45:07.000Z",
+                  "uid": "35240-66b1464a-5438-45d9-a4bd-941131ee9210"
+                },
+                {
+                  "name": "Generate a Report",
+                  "id": "b72e364c-93ce-4834-8a38-a1353f4b2157",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/csv"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"metricSet\": \"ContactSummaryReportV2\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"startAtTime\": \"<string>\",\n  \"endAtTime\": \"<string>\",\n  \"aggregationLevel\": \"daily\",\n  \"filters\": {\n    \"channel\": \"allChannels\",\n    \"phoneNumber\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/reports",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "reports"
+                      ]
+                    },
+                    "description": "Generate a report with a set of specific parameters and filters. The report is returned as a CSV file. These are the same reports that you can normally access via UI. For more information about each report, check out the [Reporting and Insights](https://connect.gladly.com/docs/help-documentation/reports-and-insights/) section of the help docs."
+                  },
+                  "response": [
+                    {
+                      "id": "7d3f7645-7e08-4560-a7ea-41caba185843",
+                      "name": "Report CSV",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/csv"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"metricSet\": \"ContactSummaryReportV2\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"startAtTime\": \"<string>\",\n  \"endAtTime\": \"<string>\",\n  \"aggregationLevel\": \"daily\",\n  \"filters\": {\n    \"channel\": \"allChannels\",\n    \"phoneNumber\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/reports",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "reports"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/csv"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "",
+                            "type": "text/plain"
+                          },
+                          "key": "Content-Disposition",
+                          "value": "<string>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"description\": \"CSV report\",\n  \"format\": \"binary\"\n}",
+                      "createdAt": "2026-07-28T01:45:07.000Z",
+                      "updatedAt": "2026-07-28T01:45:07.000Z",
+                      "uid": "35240-7d3f7645-7e08-4560-a7ea-41caba185843"
+                    },
+                    {
+                      "id": "ffc5017b-60e1-454f-a62c-7e5f693f709f",
+                      "name": "Invalid request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"metricSet\": \"ContactSummaryReportV2\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"startAtTime\": \"<string>\",\n  \"endAtTime\": \"<string>\",\n  \"aggregationLevel\": \"daily\",\n  \"filters\": {\n    \"channel\": \"allChannels\",\n    \"phoneNumber\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/reports",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "reports"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:45:07.000Z",
+                      "updatedAt": "2026-07-28T01:45:07.000Z",
+                      "uid": "35240-ffc5017b-60e1-454f-a62c-7e5f693f709f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:45:07.000Z",
+                  "updatedAt": "2026-07-28T01:45:07.000Z",
+                  "uid": "35240-b72e364c-93ce-4834-8a38-a1353f4b2157"
+                }
+              ],
+              "id": "8de2acbc-c841-4a80-aad8-35c8373caf97",
+              "createdAt": "2026-07-28T01:45:07.000Z",
+              "updatedAt": "2026-07-28T01:45:07.000Z",
+              "uid": "35240-8de2acbc-c841-4a80-aad8-35c8373caf97"
+            }
+          ],
+          "id": "bfd5d3cc-65b0-4d75-a83d-e32745cc45d1",
+          "createdAt": "2026-07-28T01:45:07.000Z",
+          "updatedAt": "2026-07-28T01:45:07.000Z",
+          "uid": "35240-bfd5d3cc-65b0-4d75-a83d-e32745cc45d1"
+        }
+      ],
+      "id": "79e131c7-7823-4b94-b93c-6e570fdaf543",
+      "createdAt": "2026-07-28T01:45:07.000Z",
+      "updatedAt": "2026-07-28T01:45:07.000Z",
+      "uid": "35240-79e131c7-7823-4b94-b93c-6e570fdaf543"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}

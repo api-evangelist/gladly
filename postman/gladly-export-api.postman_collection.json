@@ -1,0 +1,798 @@
+{
+  "info": {
+    "_postman_id": "08f3a007-a2cb-42b7-b549-207c2e2cbd61",
+    "name": "Gladly Agents Export API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:44:57.000Z",
+    "updatedAt": "2026-07-28T01:44:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-08f3a007-a2cb-42b7-b549-207c2e2cbd61"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "export",
+              "item": [
+                {
+                  "name": "schedules",
+                  "item": [
+                    {
+                      "name": "List Schedules",
+                      "id": "47c1ca63-cacb-4924-8860-fded6ffac456",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/export/schedules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "export",
+                            "schedules"
+                          ]
+                        },
+                        "description": "List all schedules. Currently, only one schedule can be configured per organization. The schedule will generate recurring data export jobs with an hourly or daily frequency. By default, each organization has a daily export job configured. To change the job frequency, please contact Gladly Support.\n\nHourly schedules generate new jobs on a roughly two hour lag after the `nextStartAt` time. For example, for an hourly schedule with a `nextStartAt` equal to `2019-01-21T08:00:00.00Z`, the next job will be created at approximately `2019-01-21T10:00:00.00Z`. Daily schedules will run jobs during the night (UTC time).\n"
+                      },
+                      "response": [
+                        {
+                          "id": "d6833a79-96f7-4347-97e6-6c53e465ec22",
+                          "name": "found jobs",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/export/schedules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "export",
+                                "schedules"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<string>\",\n    \"frequency\": \"HOURLY\",\n    \"type\": \"CONVERSATIONS\",\n    \"nextStartAt\": \"<string>\",\n    \"updatedAt\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"frequency\": \"HOURLY\",\n    \"type\": \"CONVERSATIONS\",\n    \"nextStartAt\": \"<string>\",\n    \"updatedAt\": \"<string>\"\n  }\n]",
+                          "createdAt": "2026-07-28T01:44:57.000Z",
+                          "updatedAt": "2026-07-28T01:44:57.000Z",
+                          "uid": "35240-d6833a79-96f7-4347-97e6-6c53e465ec22"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:57.000Z",
+                      "updatedAt": "2026-07-28T01:44:57.000Z",
+                      "uid": "35240-47c1ca63-cacb-4924-8860-fded6ffac456"
+                    }
+                  ],
+                  "id": "3e192567-69ac-4905-98f6-f1166efc58e4",
+                  "createdAt": "2026-07-28T01:44:57.000Z",
+                  "updatedAt": "2026-07-28T01:44:57.000Z",
+                  "uid": "35240-3e192567-69ac-4905-98f6-f1166efc58e4"
+                },
+                {
+                  "name": "jobs",
+                  "item": [
+                    {
+                      "name": "{jobId}",
+                      "item": [
+                        {
+                          "name": "files",
+                          "item": [
+                            {
+                              "name": "{filename}",
+                              "item": [
+                                {
+                                  "name": "Get File",
+                                  "id": "031b5715-927b-428a-b7cf-e6a9be4b8233",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/x-ndjson"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId/files/:filename",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "export",
+                                        "jobs",
+                                        ":jobId",
+                                        "files",
+                                        ":filename"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "5d30465c-6ae9-40e5-b61a-431730100455",
+                                          "key": "jobId",
+                                          "value": "<string>",
+                                          "description": "(Required) id of the job"
+                                        },
+                                        {
+                                          "id": "b1bf5e37-8e88-4b31-9853-8f18a9e5260b",
+                                          "key": "filename",
+                                          "value": "<string>",
+                                          "description": "(Required) name of the file"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Download a file generated by a data export job.\nFilenames can be found from an export [job's](index.html#operation/getJob) `files` field.\n\nFiles are returned in `.jsonl` format where each line is a `json` object representing an element from the array of data. Please note that, in rare cases, conversation items with invalid attributes may be excluded from the data export. For example:\n- An email message that was undelivered due to an invalid recipient email address\n- EMAIL / SMS auto-replies sent by Gladly to the customer via a Rule\n\nExamples are as follows with schema below.\n\n\n**agents.jsonl**\n```\n{\"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\"name\": \"Amy Agent\",\"emailAddress\": \"amy.agent@company.com\"}\n```\n\n**conversation_items.jsonl**\n```\n{\"id\": \"ybP4szYCSy6LdV4DNwEd6g\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\"timestamp\": \"2019-07-01T11:46:45.010Z\",\"initiator\": {\"id\": \"OOrlNMXeS72gs_WEX2TtMg\",\"type\": \"CUSTOMER\"},\"content\": {\"type\": \"CHAT_MESSAGE\",\"sessionId\": \"5k04bYuTRGqyT6uoSQfWVA\",\"content\": \"Hi! I know it's after hours but can someone help upgrade my account?\"}}\n{\"id\": \"9lQDrx-HTz-JMoP2T4CtZA\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\"timestamp\": \"2019-07-02T06:30:12.070Z\",\"initiator\": {\"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\"type\": \"AGENT\"},\"content\": {\"type\": \"EMAIL\",\"from\": \"amy.agent@company.com\",\"to\": [\"martha.williams@gmail.com\"],\"subject\": \"Account upgrade\",\"content\": \"I would be happy to help you! We need a few details, so please give us a call this morning.\"}}\n{\"id\": \"QN1nURRuRne_eAEhW45UMA\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"KgnVOMc2TbiA3zad6iVlWA\",\"timestamp\": \"2020-04-21T00:44:33.690Z\",\"initiator\": {\"type\":\"AGENT\",\"id\":\"VjeJI9_GRUS_LUjKLcNlBw\"},\"responder\":{\"type\":\"CUSTOMER\",\"id\":\"KgnVOMc2TbiA3zad6iVlWA\"},\"content\":{\"startedAt\":\"2020-04-21T00:44:34.604Z\",\"answeredAt\":\"2020-04-21T00:44:45.515Z\",\"completedAt\":\"2020-04-21T00:44:57.130Z\",\"from\":\"+12096248260\",\"to\":\"+14155335980\",\"recordingUrl\":\"/api/v1/conversation-items/QN1nURRuRne_eAEhW45UMA/media/recording\",\"recordingStatus\":\"AVAILABLE\",\"recordingDuration\":11,\"type\":\"PHONE_CALL\"}}\n{\"id\": \"K0UGL3n6S4uPpvtMvItqHA\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\"timestamp\": \"2019-07-02T08:12:55.870Z\",\"initiator\": {\"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\"type\": \"AGENT\"},\"content\": {\"type\": \"TOPIC_CHANGE\",\"addedTopicIds\": [\"uu4t00vITaKQ3bVjU2UrGQ\"]}}\n{\"id\": \"VMn_5L1iTPmcM5DBP1U8oQ\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"KgnVOMc2TbiA3zad6iVlWA\",\"timestamp\": \"2020-04-21T00:56:03.712Z\",\"initiator\": {\"type\":\"CUSTOMER\",\"id\":\"KgnVOMc2TbiA3zad6iVlWA\"}, \"content\":{\"startedAt\":\"2020-04-21T00:55:50.703Z\",\"recordingUrl\":\"/api/v1/conversation-items/VMn_5L1iTPmcM5DBP1U8oQ/media/recording\",\"recordingStatus\":\"AVAILABLE\",\"recordingDuration\":13,\"type\":\"VOICEMAIL\"}}\n{\"id\": \"SShWgSCHSHy6EO5TiL7rNw\",\"conversationId\": \"gHuxLQNXSAmmWuNePSyVTw\",\"customerId\": \"0EphnSIJR0ycjMWFTf-GXA\",\"timestamp\": \"2020-04-20T23:58:51.941Z\",\"initiator\": {\"type\":\"AGENT\",\"id\":\"LsFXSnO6Ty6gdnyH6y8yug\"},\"content\":{\"type\":\"CONVERSATION_STATUS_CHANGE\",\"status\":\"CLOSED\"}}\n{\"id\": \"DnaU23pZSIqOixATlII1vA\",\"conversationId\": \"HXRqKC5GSV-jAlq0-sxYTA\",\"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\"timestamp\": \"2020-04-24T23:42:57.780Z\",\"initiator\": {\"type\":\"AGENT\",\"id\":\"zGaHXjD4SR-moMR9LbULDA\"},\"content\":{\"type\":\"CONVERSATION_NOTE\",\"body\":\"Customer has requested more information about our loyalty program.\"}}\n```\n\n**customers.jsonl**\n```\n{\"id\": \"OOrlNMXeS72gs_WEX2TtMg\",\"name\": \"Martha J Williams\",\"address\": \"563 Rigoberto Station Apt. 197\",\"emailAddresses\": [\"Martha.Williams@gmail.com\"],\"phoneNumbers\": [\"+17244895501\"],\"externalCustomerId\": \"a21c1636-c622-48b7-bf6a-d9032645aa55\"}\n```\n\n**topics.jsonl**\n```\n{\"id\": \"uu4t00vITaKQ3bVjU2UrGQ\",\"name\": \"Order Returns\",\"disabled\": false}\n```\n"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "d1d5cfc9-e12d-4b65-8997-a89cb0f89eb0",
+                                      "name": "returns a file",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/x-ndjson"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: basic",
+                                            "key": "Authorization",
+                                            "value": "Basic <credentials>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId/files/:filename",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "export",
+                                            "jobs",
+                                            ":jobId",
+                                            "files",
+                                            ":filename"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "jobId"
+                                            },
+                                            {
+                                              "key": "filename"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/x-ndjson"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "[\n  {\n    \"value\": \"reference #/paths/~1api~1v1~1agents~1%7BagentId%7D/get/responses/200/content/application~1json/schema not found in the OpenAPI spec\"\n  },\n  {\n    \"value\": \"reference #/paths/~1api~1v1~1agents~1%7BagentId%7D/get/responses/200/content/application~1json/schema not found in the OpenAPI spec\"\n  }\n]",
+                                      "createdAt": "2026-07-28T01:44:57.000Z",
+                                      "updatedAt": "2026-07-28T01:44:57.000Z",
+                                      "uid": "35240-d1d5cfc9-e12d-4b65-8997-a89cb0f89eb0"
+                                    },
+                                    {
+                                      "id": "1c35bdc9-7613-4414-a88f-58e743961fa4",
+                                      "name": "file not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: basic",
+                                            "key": "Authorization",
+                                            "value": "Basic <credentials>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId/files/:filename",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v1",
+                                            "export",
+                                            "jobs",
+                                            ":jobId",
+                                            "files",
+                                            ":filename"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "jobId"
+                                            },
+                                            {
+                                              "key": "filename"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                                      "createdAt": "2026-07-28T01:44:57.000Z",
+                                      "updatedAt": "2026-07-28T01:44:57.000Z",
+                                      "uid": "35240-1c35bdc9-7613-4414-a88f-58e743961fa4"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:44:57.000Z",
+                                  "updatedAt": "2026-07-28T01:44:57.000Z",
+                                  "uid": "35240-031b5715-927b-428a-b7cf-e6a9be4b8233"
+                                }
+                              ],
+                              "id": "f849b31b-bf66-4c50-85a6-00e27112283a",
+                              "createdAt": "2026-07-28T01:44:57.000Z",
+                              "updatedAt": "2026-07-28T01:44:57.000Z",
+                              "uid": "35240-f849b31b-bf66-4c50-85a6-00e27112283a"
+                            }
+                          ],
+                          "id": "25efdc96-3bf6-4ed6-97af-78e414172f59",
+                          "createdAt": "2026-07-28T01:44:57.000Z",
+                          "updatedAt": "2026-07-28T01:44:57.000Z",
+                          "uid": "35240-25efdc96-3bf6-4ed6-97af-78e414172f59"
+                        },
+                        {
+                          "name": "Get Job",
+                          "id": "4bcb76e8-af03-4d8b-9d9b-2a4a8143d8fe",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "export",
+                                "jobs",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4f1bc39e-eb6a-4dc4-9bd0-e4c9615e7d7d",
+                                  "key": "jobId",
+                                  "value": "<string>",
+                                  "description": "(Required) id of the job"
+                                }
+                              ]
+                            },
+                            "description": "Get a job by unique id.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "a856b957-487b-4c57-84f2-af072fc5887e",
+                              "name": "fetched job",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "export",
+                                    "jobs",
+                                    ":jobId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"scheduleId\": \"<string>\",\n  \"status\": \"FAILED\",\n  \"updatedAt\": \"<string>\",\n  \"parameters\": {\n    \"type\": \"CONVERSATIONS\",\n    \"startAt\": \"<string>\",\n    \"endAt\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:44:57.000Z",
+                              "updatedAt": "2026-07-28T01:44:57.000Z",
+                              "uid": "35240-a856b957-487b-4c57-84f2-af072fc5887e"
+                            },
+                            {
+                              "id": "d8f3b1a9-e35a-4ef8-9ed5-50279cd859fc",
+                              "name": "job not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "export",
+                                    "jobs",
+                                    ":jobId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:44:57.000Z",
+                              "updatedAt": "2026-07-28T01:44:57.000Z",
+                              "uid": "35240-d8f3b1a9-e35a-4ef8-9ed5-50279cd859fc"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:44:57.000Z",
+                          "updatedAt": "2026-07-28T01:44:57.000Z",
+                          "uid": "35240-4bcb76e8-af03-4d8b-9d9b-2a4a8143d8fe"
+                        },
+                        {
+                          "name": "Delete Job",
+                          "id": "32c6eda2-5046-4937-aa29-3aaf301b5c45",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "export",
+                                "jobs",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "377de921-b963-484d-89c1-5c460e7c7370",
+                                  "key": "jobId",
+                                  "value": "<string>",
+                                  "description": "(Required) id of the job"
+                                }
+                              ]
+                            },
+                            "description": "Delete a job and all associated files. *Note*: job status must be `COMPLETED` or `FAILED` to be deleted.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "18d956aa-fcbf-423a-8572-4e3f3322b686",
+                              "name": "the job was deleted",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "export",
+                                    "jobs",
+                                    ":jobId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:44:57.000Z",
+                              "updatedAt": "2026-07-28T01:44:57.000Z",
+                              "uid": "35240-18d956aa-fcbf-423a-8572-4e3f3322b686"
+                            },
+                            {
+                              "id": "5eb8eaee-6436-447d-aae0-36111494154b",
+                              "name": "unable to delete job",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "export",
+                                    "jobs",
+                                    ":jobId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:44:57.000Z",
+                              "updatedAt": "2026-07-28T01:44:57.000Z",
+                              "uid": "35240-5eb8eaee-6436-447d-aae0-36111494154b"
+                            },
+                            {
+                              "id": "344d14c8-1ffa-48ba-9c16-e381ab9db371",
+                              "name": "job not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/export/jobs/:jobId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "export",
+                                    "jobs",
+                                    ":jobId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    },\n    {\n      \"attr\": \"<string>\",\n      \"code\": \"<string>\",\n      \"detail\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:44:57.000Z",
+                              "updatedAt": "2026-07-28T01:44:57.000Z",
+                              "uid": "35240-344d14c8-1ffa-48ba-9c16-e381ab9db371"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:44:57.000Z",
+                          "updatedAt": "2026-07-28T01:44:57.000Z",
+                          "uid": "35240-32c6eda2-5046-4937-aa29-3aaf301b5c45"
+                        }
+                      ],
+                      "id": "f5a412dd-8ef4-4764-8543-4124e77754ce",
+                      "createdAt": "2026-07-28T01:44:57.000Z",
+                      "updatedAt": "2026-07-28T01:44:57.000Z",
+                      "uid": "35240-f5a412dd-8ef4-4764-8543-4124e77754ce"
+                    },
+                    {
+                      "name": "List Jobs",
+                      "id": "b21c10a1-fac6-4b56-9a8e-5b7a8ba7a710",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/export/jobs?status=COMPLETED&startAt=<string>&endAt=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "export",
+                            "jobs"
+                          ],
+                          "query": [
+                            {
+                              "description": "export job status to search on.",
+                              "key": "status",
+                              "value": "COMPLETED"
+                            },
+                            {
+                              "description": "Starting time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be more than 14 days ago. Default is 14 days ago.\n\nThe date should be in ISO 8601 format.\n",
+                              "key": "startAt",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ending time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be before 'startAt' or in the future. Default is now.\n\nThe date should be in ISO 8601 format.\n",
+                              "key": "endAt",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "List all jobs for the organization in any status for the last 14 days. \n```\n/api/v1/export/jobs\n```\n\nYou can further filter the results by including query parameters for `status`, `startAt`, and `endAt`.\n```\n/api/v1/export/jobs?status=COMPLETED&startAt=2024-09-15T00:00:00.000Z&endAt=2024-09-16T00:00:00.000Z\n```\n"
+                      },
+                      "response": [
+                        {
+                          "id": "949ffb65-8dce-42b6-a1b8-1a5e9fa07101",
+                          "name": "found jobs",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/export/jobs?status=COMPLETED&startAt=<string>&endAt=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "export",
+                                "jobs"
+                              ],
+                              "query": [
+                                {
+                                  "description": "export job status to search on.",
+                                  "key": "status",
+                                  "value": "COMPLETED"
+                                },
+                                {
+                                  "description": "Starting time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be more than 14 days ago. Default is 14 days ago.\n\nThe date should be in ISO 8601 format.\n",
+                                  "key": "startAt",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Ending time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be before 'startAt' or in the future. Default is now.\n\nThe date should be in ISO 8601 format.\n",
+                                  "key": "endAt",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<string>\",\n    \"scheduleId\": \"<string>\",\n    \"status\": \"FAILED\",\n    \"updatedAt\": \"<string>\",\n    \"parameters\": {\n      \"type\": \"CONVERSATIONS\",\n      \"startAt\": \"<string>\",\n      \"endAt\": \"<string>\"\n    }\n  },\n  {\n    \"id\": \"<string>\",\n    \"scheduleId\": \"<string>\",\n    \"status\": \"IN_PROGRESS\",\n    \"updatedAt\": \"<string>\",\n    \"parameters\": {\n      \"type\": \"CONVERSATIONS\",\n      \"startAt\": \"<string>\",\n      \"endAt\": \"<string>\"\n    }\n  }\n]",
+                          "createdAt": "2026-07-28T01:44:57.000Z",
+                          "updatedAt": "2026-07-28T01:44:57.000Z",
+                          "uid": "35240-949ffb65-8dce-42b6-a1b8-1a5e9fa07101"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:44:57.000Z",
+                      "updatedAt": "2026-07-28T01:44:57.000Z",
+                      "uid": "35240-b21c10a1-fac6-4b56-9a8e-5b7a8ba7a710"
+                    }
+                  ],
+                  "id": "392142e9-54e9-4d61-8b82-ad73fec7f10a",
+                  "createdAt": "2026-07-28T01:44:57.000Z",
+                  "updatedAt": "2026-07-28T01:44:57.000Z",
+                  "uid": "35240-392142e9-54e9-4d61-8b82-ad73fec7f10a"
+                }
+              ],
+              "id": "9fe761f6-8ad6-4503-be6b-c12f3cb2676f",
+              "createdAt": "2026-07-28T01:44:57.000Z",
+              "updatedAt": "2026-07-28T01:44:57.000Z",
+              "uid": "35240-9fe761f6-8ad6-4503-be6b-c12f3cb2676f"
+            }
+          ],
+          "id": "a587f0de-91a5-4f3f-b61d-3e8f8bc9ee2b",
+          "createdAt": "2026-07-28T01:44:57.000Z",
+          "updatedAt": "2026-07-28T01:44:57.000Z",
+          "uid": "35240-a587f0de-91a5-4f3f-b61d-3e8f8bc9ee2b"
+        }
+      ],
+      "id": "ccfcb9fe-907b-4779-8a93-1063bd1af190",
+      "createdAt": "2026-07-28T01:44:57.000Z",
+      "updatedAt": "2026-07-28T01:44:57.000Z",
+      "uid": "35240-ccfcb9fe-907b-4779-8a93-1063bd1af190"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}

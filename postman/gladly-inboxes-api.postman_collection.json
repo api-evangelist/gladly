@@ -1,0 +1,244 @@
+{
+  "info": {
+    "_postman_id": "37d99a54-e185-411c-9815-3e222edef397",
+    "name": "Gladly Agents Inboxes API",
+    "description": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:45:01.000Z",
+    "updatedAt": "2026-07-28T01:45:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-37d99a54-e185-411c-9815-3e222edef397"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "inboxes",
+              "item": [
+                {
+                  "name": "{inboxId}",
+                  "item": [
+                    {
+                      "name": "Get Inbox",
+                      "id": "c599cf0f-1ed9-4d82-a496-6dbd463b0450",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/inboxes/:inboxId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "inboxes",
+                            ":inboxId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9ba45254-2118-4e84-9aa3-cd986bc0c95a",
+                              "key": "inboxId",
+                              "value": "<string>",
+                              "description": "(Required) id of the inbox"
+                            }
+                          ]
+                        },
+                        "description": "Get the metadata for an inbox by its unique id.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "25bb9193-b5e8-48d6-bc49-d797d9f0b03c",
+                          "name": "Inbox",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/inboxes/:inboxId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "inboxes",
+                                ":inboxId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "inboxId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"disabled\": \"<boolean>\"\n}",
+                          "createdAt": "2026-07-28T01:45:01.000Z",
+                          "updatedAt": "2026-07-28T01:45:01.000Z",
+                          "uid": "35240-25bb9193-b5e8-48d6-bc49-d797d9f0b03c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:45:01.000Z",
+                      "updatedAt": "2026-07-28T01:45:01.000Z",
+                      "uid": "35240-c599cf0f-1ed9-4d82-a496-6dbd463b0450"
+                    }
+                  ],
+                  "id": "a8acfad1-6802-4f76-9d7e-53d9589d36e0",
+                  "createdAt": "2026-07-28T01:45:01.000Z",
+                  "updatedAt": "2026-07-28T01:45:01.000Z",
+                  "uid": "35240-a8acfad1-6802-4f76-9d7e-53d9589d36e0"
+                },
+                {
+                  "name": "List Inboxes",
+                  "id": "e9f68075-aa5b-483e-b7a3-f223b15cd4cf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/inboxes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "inboxes"
+                      ]
+                    },
+                    "description": "Returns a list of inbox metadata.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "4dd52890-9363-4682-8efe-f5e242c3ce9c",
+                      "name": "Inboxes",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/inboxes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "inboxes"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"disabled\": \"<boolean>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"disabled\": \"<boolean>\"\n  }\n]",
+                      "createdAt": "2026-07-28T01:45:01.000Z",
+                      "updatedAt": "2026-07-28T01:45:01.000Z",
+                      "uid": "35240-4dd52890-9363-4682-8efe-f5e242c3ce9c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:45:01.000Z",
+                  "updatedAt": "2026-07-28T01:45:01.000Z",
+                  "uid": "35240-e9f68075-aa5b-483e-b7a3-f223b15cd4cf"
+                }
+              ],
+              "id": "d63cdefa-cd4c-45a9-bf7e-6c91305975eb",
+              "createdAt": "2026-07-28T01:45:01.000Z",
+              "updatedAt": "2026-07-28T01:45:01.000Z",
+              "uid": "35240-d63cdefa-cd4c-45a9-bf7e-6c91305975eb"
+            }
+          ],
+          "id": "32a14ae4-df4a-4f75-b0cf-5e31c9c33715",
+          "createdAt": "2026-07-28T01:45:01.000Z",
+          "updatedAt": "2026-07-28T01:45:01.000Z",
+          "uid": "35240-32a14ae4-df4a-4f75-b0cf-5e31c9c33715"
+        }
+      ],
+      "id": "c96184be-51f0-4f51-82e1-e7da8f0f8966",
+      "createdAt": "2026-07-28T01:45:01.000Z",
+      "updatedAt": "2026-07-28T01:45:01.000Z",
+      "uid": "35240-c96184be-51f0-4f51-82e1-e7da8f0f8966"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "organization"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization}}.gladly.com/api/v1"
+    }
+  ]
+}
