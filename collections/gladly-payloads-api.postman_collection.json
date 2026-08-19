@@ -1,0 +1,166 @@
+{
+  "item": [
+    {
+      "id": "bf5ec86f-42f3-4076-80b5-5cf8d3c08a67",
+      "name": "Payloads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c47e95b6-d896-40cb-9bfe-7361ab1d24c4",
+          "name": "Events",
+          "request": {
+            "name": "Events",
+            "description": {
+              "content": "Gladly will perform a POST request to your endpoint when the event occurs.\n\nYour service is expected to respond within 15 seconds.\n\nIf your service responds to a webhook notification with a response code outside the 2XX range or times out after 15 seconds, Gladly considers that delivery as failed and will resend the request up to 4 times over an hour. After the fourth attempt, we will deactivate the webhook and will notify all API Users in your organization's environment via email.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gladly",
+                "webhook"
+              ],
+              "host": [
+                "{{gladly-webhook-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"timestamp\": \"<ISO 8601>\",\n  \"initiator\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"content\": {\n    \"agentId\": \"<string>\",\n    \"availableFor\": \"<array>\",\n    \"occurredAt\": \"<ISO 8601>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84209ed7-3f7e-46ec-af00-80bd2767e5c6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gladly",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{gladly-webhook-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"zGaHXjD4SR-moMR9LbULDa\",\n  \"type\": \"AGENT_AVAILABILITY/UPDATED\",\n  \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n  \"initiator\": {\n    \"id\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"type\": \"AGENT\"\n  },\n  \"content\": {\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\",\n    \"availableFor\": \"<array>\",\n    \"occurredAt\": \"2019-07-03T04:30:12.07Z\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Gladly organization subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "organization",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization}}.gladly.com/api/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://gateway.organization.com",
+      "key": "gladly-webhook-Url"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e15cf16e-d68b-41eb-adc9-aec3240682c3",
+    "name": "Gladly Agents Payloads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+      "type": "text/plain"
+    }
+  }
+}

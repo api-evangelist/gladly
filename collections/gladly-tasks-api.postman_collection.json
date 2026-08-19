@@ -1,0 +1,1921 @@
+{
+  "item": [
+    {
+      "id": "2a0cab4b-3f1e-4e8a-88d1-57819fbe0554",
+      "name": "Tasks",
+      "description": {
+        "content": "A task is a way to create and do internal follow-up work for a customer within Gladly. Tasks have a due date, an assignee, a description of what is needed for a customer, and can be commented on. These can be created through the API to assign items to work within Gladly.\n![Task](assets/task.png)\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bfa6fd60-99c5-47ae-bac4-513d8fb40ad6",
+          "name": "Create Task",
+          "request": {
+            "name": "Create Task",
+            "description": {
+              "content": "To add tasks to the timeline for a customer specified by identifying information. If the customer doesn't exist, a new customer profile is created.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<RFC3339>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"customer\": {\n    \"emailAddress\": \"<string>\",\n    \"mobilePhone\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9dd7967-97ae-41e2-a0e0-5fafcc1a9ce0",
+              "name": "task created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  },\n  \"customer\": {\n    \"emailAddress\": \"michelle.smith@example.org\",\n    \"mobilePhone\": \"+16505551987\"\n  },\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "/api/v1/tasks/OOrlNMXeS72gs_WEX2TtMg",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71a10b84-0814-4084-bc85-b2877f07d223",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  },\n  \"customer\": {\n    \"emailAddress\": \"michelle.smith@example.org\",\n    \"mobilePhone\": \"+16505551987\"\n  },\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d39d2228-6572-4cb0-9839-217fc3c2e44f",
+          "name": "Create Task for Customer",
+          "request": {
+            "name": "Create Task for Customer",
+            "description": {
+              "content": "Add a task to an existing customer's conversation timeline\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "customers",
+                ":customerId",
+                "tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"<string>\",\n  \"dueAt\": \"<RFC3339>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "301d666e-3b24-4662-ba92-16e8d2f6ddf9",
+              "name": "task created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  },\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "/api/v1/tasks/OOrlNMXeS72gs_WEX2TtMg",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0fbf77c6-0722-42f8-b736-61c6a1eacd21",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  },\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ea1ba02-4eb9-4122-8c7b-5b2eb4344650",
+              "name": "Customer with customerId does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  },\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5370f00-2526-40f4-a9a5-3c20a45973b9",
+              "name": "Specified id is in use",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  },\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"newConversationItems\",\n      \"code\": \"taken\",\n      \"detail\": \"task already exists\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f364c6d-94e8-40b1-88b8-7dcfd474c1ef",
+          "name": "List Tasks",
+          "request": {
+            "name": "List Tasks",
+            "description": {
+              "content": "Fetch all tasks for a customer.\n\nThe list is not paginated and will return at most 2000 tasks. The tasks are returned in descending order by timestamp. \nThe `Gladly-Limited-Data` header flag in the response will indicate if the customer has more tasks than returned.        \n\nTo see and act on any newly created tasks, webhooks can be used to listen for task related events.\nTasks older than the limit can be viewed using the Task Export.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "customers",
+                ":customerId",
+                "tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Fetch tasks with the provided status.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Id of the customer whose tasks you'd like to view.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89d89526-1acd-4ce1-9292-2e7e7574994f",
+              "name": "Array of tasks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer whose tasks you'd like to view.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n    \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n    \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n    \"createdBy\": {\n      \"type\": \"CUSTOMER\"\n    },\n    \"assignee\": {\n      \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n      \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n    },\n    \"body\": \"Call customer back with information about booking\",\n    \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n    \"status\": \"OPEN\"\n  },\n  {\n    \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n    \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n    \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n    \"createdBy\": {\n      \"type\": \"CUSTOMER\"\n    },\n    \"assignee\": {\n      \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n      \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n    },\n    \"body\": \"Call customer back with information about booking\",\n    \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n    \"status\": \"CLOSED\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5695426-f9a8-498b-ad41-8eb989a7feca",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer whose tasks you'd like to view.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edf81fe8-41b6-4925-a252-fad660e452f8",
+              "name": "A customer with the given id does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer whose tasks you'd like to view.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18189182-0a5c-4666-814a-08e990edd220",
+          "name": "Update Task",
+          "request": {
+            "name": "Update Task",
+            "description": {
+              "content": "Update an existing task\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                ":taskId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) Id of the task that is to be updated\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"body\": \"<string>\",\n  \"dueAt\": \"<RFC3339 with millis>\",\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f20569b-14bd-4cd8-adeb-7a4246979d53",
+              "name": "The task was created task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task that is to be updated\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2021-04-11T14:09:23.000Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2fab9bc6-bde8-4b89-85bf-cd91242d3269",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task that is to be updated\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2021-04-11T14:09:23.000Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23d83954-eddd-4995-bb37-545fa51458e1",
+              "name": "Task with taskId does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task that is to be updated\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2021-04-11T14:09:23.000Z\",\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6145074b-8aff-40ab-b6f1-086e5ff5b12f",
+          "name": "Get Task",
+          "request": {
+            "name": "Get Task",
+            "description": {
+              "content": "Get task\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                ":taskId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) Id of the task requested\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c36857a-c132-49a5-a552-d76ec91ba9f5",
+              "name": "Returns requested task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task requested\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n  \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"createdBy\": {\n    \"type\": \"CUSTOMER\"\n  },\n  \"assignee\": {\n    \"inboxId\": \"NFpDZtfqhk2pI6fjaVDlFf\",\n    \"agentId\": \"zGaHXjD4SR-moMR9LbULDa\"\n  },\n  \"body\": \"Call customer back with information about booking\",\n  \"dueAt\": \"2020-03-15T06:13:00.125Z\",\n  \"status\": \"OPEN\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57c81461-0371-4a7d-a985-636478a0e70c",
+              "name": "Given task id does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task requested\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b304554f-aeb9-491a-b172-800344b86818",
+          "name": "Add Task Comment",
+          "request": {
+            "name": "Add Task Comment",
+            "description": {
+              "content": "Create a comment on a task.  Note that you can’t create comments on closed tasks.\n![Task Comment](assets/task-comment.png)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                ":taskId",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) Id of the task that will be commented on.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"<string>\",\n  \"id\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "198a603c-19e0-45c6-9539-847a11d114d4",
+              "name": "comment added",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task that will be commented on.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agentId\": \"dzweSumI4bFxjlT8LApOVV\",\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"comment\": \"Return call to customer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "/api/v1/tasks/OOrlNMXeS72gs_WEX2TtMg/comments/77323sf2fj2k",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9790b97-d6e3-41d0-a2fd-d30315fd8a53",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task that will be commented on.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agentId\": \"dzweSumI4bFxjlT8LApOVV\",\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"comment\": \"Return call to customer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "509a3493-a01a-42a0-b360-6789ae8023b3",
+              "name": "Task with taskId does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task that will be commented on.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agentId\": \"dzweSumI4bFxjlT8LApOVV\",\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"comment\": \"Return call to customer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fcc9756d-912d-49e3-a7d9-cf80b4524b6e",
+          "name": "Get Task Comments",
+          "request": {
+            "name": "Get Task Comments",
+            "description": {
+              "content": "The comments are returned in ascending order by createdAt timestamp. The list is not paginated and will return at most 1000 task comments. The `Gladly-Limited-Data` header flag in the response will indicate if the task has more comments than returned.\n\nTo see and act on any newly created task comments, webhooks can be used to listen to any task comment related events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                ":taskId",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) Id of the task comments are requested for.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60843a49-90c7-4457-8433-dba871d1af5e",
+              "name": "All comments that belong to task",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task comments are requested for.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n    \"agentId\": \"dzweSumI4bFxjlT8LApOVV\",\n    \"comment\": \"Return call to customer.\",\n    \"taskId\": \"dzweSumI4bFxjlT8LApOVV\",\n    \"createdAt\": \"2020-03-15T06:13:00.125Z\"\n  },\n  {\n    \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n    \"agentId\": \"dzweSumI4bFxjlT8LApOVV\",\n    \"comment\": \"Return call to customer.\",\n    \"taskId\": \"dzweSumI4bFxjlT8LApOVV\",\n    \"createdAt\": \"2020-03-15T06:13:00.125Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f413906-e0c5-4a87-8b89-05235a32d35f",
+              "name": "Task with taskId does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Id of the task comments are requested for.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1f8b5b6-1708-4fd5-840b-6b95d3c36207",
+          "name": "Get Task Comment",
+          "request": {
+            "name": "Get Task Comment",
+            "description": {
+              "content": "Get task comment.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                ":taskId",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) Task id\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "commentId",
+                  "description": "(Required) Comment id\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f042ddc-0793-4fcb-ba6c-02f08d8f2897",
+              "name": "Returns task comment",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Task id\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"agentId\": \"dzweSumI4bFxjlT8LApOVV\",\n  \"comment\": \"Return call to customer.\",\n  \"taskId\": \"dzweSumI4bFxjlT8LApOVV\",\n  \"createdAt\": \"2020-03-15T06:13:00.125Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1c80005-9653-4a7e-966f-bc4a60024526",
+              "name": "Comment with commentId does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "tasks",
+                    ":taskId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) Task id\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) Comment id\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Gladly organization subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "organization",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization}}.gladly.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6fd7c1dc-b231-41af-a48b-4bc211b4fd4e",
+    "name": "Gladly Agents Tasks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+      "type": "text/plain"
+    }
+  }
+}

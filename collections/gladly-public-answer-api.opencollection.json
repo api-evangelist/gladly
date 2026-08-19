@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Public Answer API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Public Answer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Public Answers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/answers-search?q=search+terms",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "search term"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "language code"
+              },
+              {
+                "name": "audienceId",
+                "value": "",
+                "type": "query",
+                "description": "Audience ID. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of answers that match the provided query string.\n"
+        },
+        {
+          "info": {
+            "name": "List Public Answers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/answers?lng=:lng&audienceId=:audienceId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "Language of the answers returned\n\nDefaults to `en-us`\n"
+              },
+              {
+                "name": "audienceId",
+                "value": "",
+                "type": "query",
+                "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n"
+              }
+            ]
+          },
+          "docs": "Returns the first 1000 public answers sorted alphabetically by name.\n"
+        },
+        {
+          "info": {
+            "name": "List Help Center Answer Titles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/help-center/:helpCenterId/answer-titles?lng=:lng&audienceId=:audienceId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "helpCenterId",
+                "value": "",
+                "type": "path",
+                "description": "Help Center ID\n\nYou can look up the ID by going to Settings > Help Center in Gladly, then clicking on the 3 dots next to the Help Center and selecting Configure. Help Center ID will be in the URL\n"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "Language of the answers returned\n\nDefaults to `en-us`\n"
+              },
+              {
+                "name": "audienceId",
+                "value": "",
+                "type": "query",
+                "description": "Audience ID for answers returned - optional. The Audience ID can be retrieved by going to Settings > Audiences in Gladly, then clicking on the Edit button next to the Audience in question. The ID will be in the page URL.\n"
+              }
+            ]
+          },
+          "docs": "Returns an array of answers configured in Help Center sections with their ID and name\n"
+        },
+        {
+          "info": {
+            "name": "Get Public Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/orgs/:orgId/answers/:answerId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "id of your organization\n\nYou can look up the ID using the [Get organization](index.html#tag/Organization) API.\n"
+              },
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query",
+                "description": "language code"
+              }
+            ]
+          },
+          "docs": "Returns the answer with the provided id.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

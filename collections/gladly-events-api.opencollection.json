@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Events API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/events",
+            "params": [
+              {
+                "name": "startAt",
+                "value": "",
+                "type": "query",
+                "description": "Starting time of the events interval. This is based on the `timestamp` field which indicates when the event was recorded. Must be from last 24 hours.\n\nThe date should be in ISO 8601 format.\n"
+              },
+              {
+                "name": "endAt",
+                "value": "",
+                "type": "query",
+                "description": "Ending time of the events interval. This is based on the `timestamp` field which indicates when the event was recorded. If unspecified, current time will be implied.\n\nThe date should be in ISO 8601 format.\n"
+              },
+              {
+                "name": "entities",
+                "value": "",
+                "type": "query",
+                "description": "Entity types that have associated events. Any number of types is acceptable and at least one must be present\n\nAvailable Types: `AGENT_AVAILABILITY`, `AGENT_STATUS`, `CONTACT`, `CONVERSATION`, `CUSTOMER`, `CUSTOMER_PROFILE`, `PAYMENT_REQUEST`,`TASK`\n"
+              }
+            ]
+          },
+          "docs": "Returns a stream of events for the specified entities within the given time range. Responses are streamed using JSONL.\n\nEvents are up to 15 seconds behind real-time. \n\n```\n/api/v1/events?startAt=2020-05-20T14:00:00Z&entities=AGENT_STATUS&entities=AGENT_AVAILABILITY\n```\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

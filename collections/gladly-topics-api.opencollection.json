@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Topics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics"
+          },
+          "docs": "Returns a list of Topics.\n"
+        },
+        {
+          "info": {
+            "name": "Add Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a Topic to the list of available Topics.\n"
+        },
+        {
+          "info": {
+            "name": "Get Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics/:topicId",
+            "params": [
+              {
+                "name": "topicId",
+                "value": "",
+                "type": "path",
+                "description": "id of the Topic"
+              }
+            ]
+          },
+          "docs": "Get a Topic by its unique id.\n"
+        },
+        {
+          "info": {
+            "name": "Update Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/topics/:topicId",
+            "params": [
+              {
+                "name": "topicId",
+                "value": "",
+                "type": "path",
+                "description": "id of the Topic"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing Topic.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

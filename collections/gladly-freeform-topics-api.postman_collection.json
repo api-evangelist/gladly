@@ -1,0 +1,225 @@
+{
+  "item": [
+    {
+      "id": "05eb1fb5-930a-426d-bdd2-c8e8f3b46e17",
+      "name": "Freeform Topics",
+      "description": {
+        "content": "Freeform Topics allow you to associate granular data like Order Number to a Conversation. This data can be accessed for analysis via APIs, Webhooks, and AWS EventBridge. They are powered by custom attributes as you will see throughout this API, the Conversations API, the Events API and events used in Webhooks. \n\nNote: These attributes are currently associated to the Conversation entity only and are therefore different from customAttributes listed under the Customer entity. See the Customer API for more information on Customer custom attributes.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3377a0a1-f253-435b-9ef3-dc55632a4ad9",
+          "name": "Get Custom Attribute",
+          "request": {
+            "name": "Get Custom Attribute",
+            "description": {
+              "content": "Returns a custom attribute that matches the provided custom attribute id.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "custom-attributes",
+                ":customAttributeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customAttributeId",
+                  "description": "(Required) id of the custom attribute\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "44c424db-b871-4e6f-8bfc-ca9a68434340",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "custom-attributes",
+                    ":customAttributeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customAttributeId",
+                      "description": "(Required) id of the custom attribute\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1grfSzATQLa334VDLCWc4A\",\n  \"key\": \"orderId\",\n  \"label\": \"Order ID\",\n  \"deactivated\": true,\n  \"createdAt\": \"2020-05-20T15:00:00.000Z\",\n  \"createdBy\": \"7MRwXOeWRaGatwYCbBLLA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7197893-a523-4f60-990b-3279d26a4570",
+              "name": "Custom Attribute not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "custom-attributes",
+                    ":customAttributeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customAttributeId",
+                      "description": "(Required) id of the custom attribute\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"code\": \"not_exist\",\n    \"detail\": \"custom attribute 1grfSzATQLa334VDLCWc4A does not exist\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Gladly organization subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "organization",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization}}.gladly.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bb2f4d87-04ff-4901-8399-787f66550624",
+    "name": "Gladly Agents Freeform Topics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+      "type": "text/plain"
+    }
+  }
+}

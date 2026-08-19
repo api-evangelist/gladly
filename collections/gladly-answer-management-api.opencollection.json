@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Answer Management API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Answer Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an answer to the list of answers.\n"
+        },
+        {
+          "info": {
+            "name": "Get Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              }
+            ]
+          },
+          "docs": "Returns the answer requested.\n"
+        },
+        {
+          "info": {
+            "name": "Update Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the answer with the provided id.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              }
+            ]
+          },
+          "docs": "Deletes the answer with the provided id.\n"
+        },
+        {
+          "info": {
+            "name": "Get Answer Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId/languages/:language/type/:type",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "path",
+                "description": "Language code according to ISO 639 format. The specified language must also be configured for the org."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+              }
+            ]
+          },
+          "docs": "Returns the answer content requested by language and type.\n"
+        },
+        {
+          "info": {
+            "name": "Add or Update Answer Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId/languages/:language/type/:type",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "path",
+                "description": "Language code according to ISO 639 format. The specified language must also be configured for the org."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or Updates the answer content for the specified answer by language and type.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Answer Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/answers/:answerId/languages/:language/type/:type",
+            "params": [
+              {
+                "name": "answerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the answer"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "path",
+                "description": "Language code according to ISO 639 format. The specified language must also be configured for the org."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Type of answer. Must be one of `public`, `email`, `messaging`, or `reference`."
+              }
+            ]
+          },
+          "docs": "Deletes the answer content for the specified answer by language and type.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

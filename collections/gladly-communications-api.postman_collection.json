@@ -1,0 +1,414 @@
+{
+  "item": [
+    {
+      "id": "a31c4bb9-820e-4904-8aee-1058fabb3d25",
+      "name": "Communications",
+      "description": {
+        "content": "Communications API enables you to programmatically send messages to your customers. These messages are non-routable and non-searchable.\n\n### Agent View\n![Agent View](assets/agent-sms.png)\n\n### Consumer View\n![Customer View](assets/consumer-sms.png)\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d79290f4-9a33-4950-bbfa-15e073a2b038",
+          "name": "Send SMS",
+          "request": {
+            "name": "Send SMS",
+            "description": {
+              "content": "To send an SMS message to a customer specified by a mobile phone number.\n\nGladly can send outbound SMS messages globally. By default, your organization is set up to only allow access to your home country.  To send SMS messages to other countries, please contact [Gladly Support](https://help.gladly.com/implementation/docs/filing-a-support-issue) with a P4 designation.\n\nPlease be aware that:\n- Any automated outbound text messages **must** comply with carrier [acceptable use policies](https://help.gladly.com/docs/sms-compliance-requirements) (e.g.: if sending automated messages about order status, make sure customers can explicitly opt-in to text messages), including registering your SMS use cases carriers. \n- Text messages send in [segments](https://help.gladly.com/v1/docs/en/voice-and-sms-phone-number-costs) and you pay per segment. We highly recommend using the [segment calculator](https://twiliodeved.github.io/message-segment-calculator/) when crafting automated outbound text messages. \n- Each type of phone number has a [Message Segments per Second limit](https://support.twilio.com/hc/en-us/articles/115002943027-Understanding-Twilio-Rate-Limits-and-Message-Queues).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "communications",
+                "sms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer\": {\n    \"mobileNumber\": \"<string>\"\n  },\n  \"from\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbe56fdf-8e22-4226-8fc4-8cdcd0c5ee9d",
+              "name": "the customer and conversation item ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "communications",
+                    "sms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"mobileNumber\": \"+14152223000\"\n  },\n  \"from\": \"+14152223316\",\n  \"body\": \"hello, this is a sample SMS message!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n  \"conversationItemId\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e9db58e-d42b-4d8f-90d6-b5223a4f299f",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "communications",
+                    "sms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"mobileNumber\": \"+14152223000\"\n  },\n  \"from\": \"+14152223316\",\n  \"body\": \"hello, this is a sample SMS message!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "185d9516-d443-4f82-9fca-47c53138d4f9",
+          "name": "Send Email",
+          "request": {
+            "name": "Send Email",
+            "description": {
+              "content": "Used to send an email messages to a customer specified by an email address.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the email address specified as part of the payload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "communications",
+                "email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": [\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"example\": {}\n    },\n    {\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"example\": {}\n    }\n  ],\n  \"from\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"body\": {\n    \"html\": \"<string>\",\n    \"text\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "14ba44a8-9417-4f4c-98d8-0fa9a1c486d2",
+              "name": "the customer and conversation item ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "communications",
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"to\": [\n    {\n      \"email\": \"jane.doe@example.com\",\n      \"name\": \"Jane Doe\"\n    }\n  ],\n  \"from\": \"no-reply@gladly.com\",\n  \"subject\": \"This is a sample email message!\",\n  \"body\": {\n    \"html\": \"<div><p>This is a sample email message!</p><p>Best regards,<br>The Support Team</p></div>\",\n    \"text\": \"This is a sample email message!\\\\n\\\\nBest regards,\\\\nThe Support Team\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n  \"conversationItemId\": \"pOVVdzweSumI4bFxjlT8LA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54531e97-c2bf-4107-9941-8ec93123a2dc",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "communications",
+                    "email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"to\": [\n    {\n      \"email\": \"jane.doe@example.com\",\n      \"name\": \"Jane Doe\"\n    }\n  ],\n  \"from\": \"no-reply@gladly.com\",\n  \"subject\": \"This is a sample email message!\",\n  \"body\": {\n    \"html\": \"<div><p>This is a sample email message!</p><p>Best regards,<br>The Support Team</p></div>\",\n    \"text\": \"This is a sample email message!\\\\n\\\\nBest regards,\\\\nThe Support Team\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Gladly organization subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "organization",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization}}.gladly.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2773b391-9e8f-42aa-aa4a-cb22f9a292d9",
+    "name": "Gladly Agents Communications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+      "type": "text/plain"
+    }
+  }
+}

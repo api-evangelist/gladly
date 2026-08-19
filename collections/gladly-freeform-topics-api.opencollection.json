@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Freeform Topics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Freeform Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Custom Attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/custom-attributes/:customAttributeId",
+            "params": [
+              {
+                "name": "customAttributeId",
+                "value": "",
+                "type": "path",
+                "description": "id of the custom attribute\n"
+              }
+            ]
+          },
+          "docs": "Returns a custom attribute that matches the provided custom attribute id.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

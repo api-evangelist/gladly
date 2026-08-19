@@ -1,0 +1,446 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Conversations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Conversations for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/conversations",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "gHufx-U3QqOmhvFuViceTw",
+                "type": "path",
+                "description": "Id of the customer to get all conversations for"
+              }
+            ]
+          },
+          "docs": "Get the list of conversations for a customer.\nThe list is not paginated and will return at most 100 conversations.\nThe conversations are returned in ascending order by timestamp.\nThe `Gladly-Limited-Data` header flag in the response will indicate if the customer has more conversations than returned.\n"
+        },
+        {
+          "info": {
+            "name": "Get Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "9BcE2O0DQ2ynGHRmk9FeoA",
+                "type": "path",
+                "description": "Id of the conversation to get"
+              }
+            ]
+          },
+          "docs": "Get conversation metadata such as it's assignee, topics, inbox, etc.\n"
+        },
+        {
+          "info": {
+            "name": "Update Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "9BcE2O0DQ2ynGHRmk9FeoA",
+                "type": "path",
+                "description": "Id of the conversation"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update conversation assignee, statusor both\n"
+        },
+        {
+          "info": {
+            "name": "Create Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To add items to the timeline for a customer specified by identifying information. If the customer doesn't exist, a new customer profile is created.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the mobile phone number or email address specified as part of the payload.\n"
+        },
+        {
+          "info": {
+            "name": "Get Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ]
+          },
+          "docs": "Returns the conversation item with the provided id.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the item to be deleted.\n"
+              }
+            ]
+          },
+          "docs": "To delete an item.\n\nPlease note only items of type **CUSTOMER_ACTIVITY** may be deleted by this API.\n"
+        },
+        {
+          "info": {
+            "name": "Get Media",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/media/recording",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ]
+          },
+          "docs": "Returns the media file associated with the conversation item\n"
+        },
+        {
+          "info": {
+            "name": "Get Voice Transcript",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/voice-transcript",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ]
+          },
+          "docs": "Returns a transcript of a phone call or a voicemail\n"
+        },
+        {
+          "info": {
+            "name": "Get Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/attachments/:attachmentId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation item that contains the attachment.\n"
+              },
+              {
+                "name": "attachmentId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the attachment to retrieve.\n"
+              }
+            ]
+          },
+          "docs": "Returns a redirect to the URL of the specified attachment on a conversation item.\n\nThe response is a `303 See Other` redirect. Follow the redirect to download the attachment content.\n\nAttachments are available on conversation items with content types that support them, such as emails, chat messages, SMS messages, and custom channel messages.\n"
+        },
+        {
+          "info": {
+            "name": "Create Item for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/conversation-items",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To add items to a customer's timeline.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the mobile phone number or email address specified as part of the payload.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Item for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/conversation-items/:itemId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the item to be deleted.\n"
+              }
+            ]
+          },
+          "docs": "To delete an item.\n\nPlease note only items of type **CUSTOMER_ACTIVITY** may be deleted by this API.\n"
+        },
+        {
+          "info": {
+            "name": "List Items in Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/items",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "9BcE2O0DQ2ynGHRmk9FeoA",
+                "type": "path",
+                "description": "Id of the conversation to get the timeline for"
+              },
+              {
+                "name": "sessionId",
+                "value": "5k04bYuTRGqyT6uoSQfWVA",
+                "type": "query",
+                "description": "Return only items whose `sessionId` matches the given value."
+              }
+            ]
+          },
+          "docs": "Get the list of items in the timeline of a conversation.\nThe conversation represents a period of related interactions between a customer and your organization.\nThe list is not paginated and will return at most 1000 items. The items are returned in ascending order by timestamp.\nThe `Gladly-Limited-Data` header flag in the response will indicate if the conversation has more items than returned.\n\nThe response can be filtered by session using the optional `sessionId` query parameter.\n"
+        },
+        {
+          "info": {
+            "name": "Add Topics to Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/topics",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a list of topics to the conversation. If a topic being added already exists on the conversation, that topic is ignored.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Topic From Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/topics/:topicId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              },
+              {
+                "name": "topicId",
+                "value": "",
+                "type": "path",
+                "description": "Id of topic to be deleted from conversation.\n"
+              }
+            ]
+          },
+          "docs": "Delete a topic from a conversation.\n"
+        },
+        {
+          "info": {
+            "name": "Add or Remove Freeform Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-history/:customerId/conversations/:conversationId/custom-attributes",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer.\n"
+              },
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or removes a list of freeform topics to the conversation. If the freeform topic being added already exists on the conversation, that topic is ignored.\n"
+        },
+        {
+          "info": {
+            "name": "Add Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/notes",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the conversation.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds note to an existing conversation."
+        },
+        {
+          "info": {
+            "name": "Get Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversations/:conversationId/notes/:noteId",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation\n"
+              },
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "id of the note\n"
+              }
+            ]
+          },
+          "docs": "Returns the note with the provided conversation and note id.\n"
+        },
+        {
+          "info": {
+            "name": "Reply to Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/reply",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a response to a conversation item. If no agent is assigned to the conversation, the conversation is assigned to the API User who made this call."
+        },
+        {
+          "info": {
+            "name": "Redact Conversation Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/conversation-items/:itemId/redact",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "id of the conversation item\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For supported items, the item's content will be removed but the item will\nremain in the conversation timeline. Supported types are Chat Message,\nSMS Message, Email, Twitter (decommissioned as of 04/20/23, but can still be redacted), WhatsApp, Voicemail, Phone Call.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

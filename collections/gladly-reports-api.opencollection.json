@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a report with a set of specific parameters and filters. The report is returned as a CSV file. These are the same reports that you can normally access via UI. For more information about each report, check out the [Reporting and Insights](https://connect.gladly.com/docs/help-documentation/reports-and-insights/) section of the help docs."
+        },
+        {
+          "info": {
+            "name": "Generate a Work Session Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/reports/work-session-events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "> **Note:** This endpoint will generate the V2 version of the Work Session Report. Metrics may differ from the V4 version, used in the Gladly UI.\n> To generate a Work Sessions V4 Report, use the [Reports API](/rest/#tag/Reports).\n\nA **Work Session** represents a period of time that an Agent spends working with a Customer on a given channel, during a given Contact (messaging exchange, phone call, etc.). In particular:\n  - A Customer may have 0 or more Conversations, but only 1 Conversation is ope"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

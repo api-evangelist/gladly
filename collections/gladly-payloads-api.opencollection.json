@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Payloads API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/gladly/webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gladly will perform a POST request to your endpoint when the event occurs.\n\nYour service is expected to respond within 15 seconds.\n\nIf your service responds to a webhook notification with a response code outside the 2XX range or times out after 15 seconds, Gladly considers that delivery as failed and will resend the request up to 4 times over an hour. After the fourth attempt, we will deactivate the webhook and will notify all API Users in your organization's environment via email.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

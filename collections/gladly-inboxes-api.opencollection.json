@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Inboxes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inboxes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Inboxes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/inboxes"
+          },
+          "docs": "Returns a list of inbox metadata.\n"
+        },
+        {
+          "info": {
+            "name": "Get Inbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/inboxes/:inboxId",
+            "params": [
+              {
+                "name": "inboxId",
+                "value": "",
+                "type": "path",
+                "description": "id of the inbox"
+              }
+            ]
+          },
+          "docs": "Get the metadata for an inbox by its unique id.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

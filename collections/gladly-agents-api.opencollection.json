@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents"
+          },
+          "docs": "Returns a list of agents.\n"
+        },
+        {
+          "info": {
+            "name": "Get Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents/:agentId",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "id of the agent"
+              }
+            ]
+          },
+          "docs": "Get an agent profile by their unique id.\n"
+        },
+        {
+          "info": {
+            "name": "Get Agent CallRecorder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents/:agentId/call-recorder",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "Gladly ID or Gladly email address of the agent"
+              }
+            ]
+          },
+          "docs": "Get an agent call recording status.\n"
+        },
+        {
+          "info": {
+            "name": "Update Agent CallRecorder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/agents/:agentId/call-recorder",
+            "params": [
+              {
+                "name": "agentId",
+                "value": "",
+                "type": "path",
+                "description": "Gladly ID or Gladly email address of the agent"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an agent's active call recording status. This API allows changing the `recording` property.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

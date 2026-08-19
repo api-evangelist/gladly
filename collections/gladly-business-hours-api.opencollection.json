@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Business Hours API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Hours",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours"
+          },
+          "docs": "Returns a list of all business hours configurations for your organization.\n"
+        },
+        {
+          "info": {
+            "name": "Create Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new business hours configuration for your organization.\n"
+        },
+        {
+          "info": {
+            "name": "Get Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours/:businessHoursId",
+            "params": [
+              {
+                "name": "businessHoursId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the business hours configuration"
+              }
+            ]
+          },
+          "docs": "Returns a single business hours configuration by its unique ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours/:businessHoursId",
+            "params": [
+              {
+                "name": "businessHoursId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the business hours configuration"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing business hours configuration. The `version` field must match the current version of the business hours to prevent conflicting updates.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Business Hours",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/business-hours/:businessHoursId",
+            "params": [
+              {
+                "name": "businessHoursId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the business hours configuration"
+              }
+            ]
+          },
+          "docs": "Deletes a business hours configuration. The primary business hours configuration cannot be deleted.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

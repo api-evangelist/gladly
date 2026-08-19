@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Customers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "customer email address to search on."
+              },
+              {
+                "name": "externalCustomerId",
+                "value": "",
+                "type": "query",
+                "description": "Customer ID in your system of record for Customer Profiles linked to a Lookup Adaptor installed prior to 05/12/21. If Customer Profile is linked to a Lookup Adaptor installed on or after 05/12/21, this field is not searchable."
+              },
+              {
+                "name": "phoneNumber",
+                "value": "",
+                "type": "query",
+                "description": "Phone number in E.164 format. The value should be URL escaped where `+` becomes `%2B`.\n"
+              }
+            ]
+          },
+          "docs": "Find customers by searching by choosing **one** of the following identifiers as query parameters:\n\n```\n/api/v1/customer-profiles?phoneNumber=%2B14151234567\n```\n\nMax limit of 50 profiles returned, sorted by most recently updatedAt date descending. \n"
+        },
+        {
+          "info": {
+            "name": "Create Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new customer with the supplied profile data.\n"
+        },
+        {
+          "info": {
+            "name": "Get Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the customer"
+              }
+            ]
+          },
+          "docs": "Get a customer by unique id.\nIf a customer has been merged into another, an error will be returned specifying the new id of the customer.\n"
+        },
+        {
+          "info": {
+            "name": "Update Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the customer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a customer by unique id with the supplied JSON patch.\n\nYou may supply only the properties which you want to update or insert into the profile.\nWhen updating arrays, such as `phones` and `emails` you must provide the entire list of values\nsince it is not possible to add or delete a single value.\n\nIf a customer has been merged into another, an error will be returned specifying the new id of the customer.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customer-profiles/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "id of the customer"
+              }
+            ]
+          },
+          "docs": "Delete a customer and all associated conversations.\n\nAll conversations associated with the customer must be closed before the customer can be deleted.\n\nThis operation is irreversible.\n\nThe user associated with the API token must have both Compliance Admin and API User roles.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents User Identity API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Identity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a User Identity JWT",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/user-identity-jwt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a User Identity JWT for a customer. The JWT is used to authenticate the customer with \n[Chat](https://developer.gladly.com/chat/). The JWT contains the customer identity information.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

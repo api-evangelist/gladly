@@ -1,0 +1,4307 @@
+{
+  "item": [
+    {
+      "id": "4e8c39cd-ed2d-447e-8aeb-e5992168bd78",
+      "name": "Conversations",
+      "description": {
+        "content": "## Conversation\n\nA **Conversation** in Gladly contains the timeline of activity for a customer including communications to and from your organization along with other internal and external activity.\nConversations API enables you to interact with the customer conversation timeline.\n\n## Conversation Items\n\nA number of different types of items may appear in a customer's timeline. Each is described below.\n\n| Item Type                     | Item Definition | Create | Read | Update | Delete | Media  |\n|-------------------------------|----------------|--------|------|--------|--------|--------|\n| Chat Message                  | A message sent/received via the [Chat](https://help.gladly.com/docs/add-and-configure-chat-entry-points#) channel | Yes    | Yes  | No     | No     | No     |\n| Conversation Status Change    | Conversation status changed (e.g.: from OPEN to WAITING, or OPEN to CLOSED) | Yes    | Yes  | Yes    | No     | No     |\n| Customer Activity             | Non-routable customer activity added to customer timeline via API | Yes    | Yes  | No     | Yes    | No     |\n| Email                         | A message sent/received via the [Email](https://help.gladly.com/docs/add-and-configure-email-entry-point) channel | Yes    | Yes  | No     | No     | No     |\n| Facebook Messenger Message    | A message sent/received via the [Facebook Messenger](https://help.gladly.com/docs/set-up-and-configure-facebook-messenger) channel | Yes    | Yes  | No     | No     | No     |\n| Instagram Direct              | A message sent/received via the [Instagram](https://help.gladly.com/docs/set-up-and-configure-instagram-messaging) channel | No     | Yes  | No     | No     | No     |\n| Note                          | An internal [Note](https://help.gladly.com/docs/add-a-note-to-a-conversation) on the Customer conversation | Yes    | Yes  | No     | No     | No     |\n| Phone Call                    | A [Phone Call](https://help.gladly.com/docs/add-and-configure-voice-entry-points) placed/received on Gladly | No     | Yes  | No     | No     | Yes    |\n| SMS Message                   | A message sent/received via the [SMS](https://help.gladly.com/docs/add-and-configure-sms-entry-points) channel | Yes    | Yes  | No     | No     | No     |\n| Task                          | A [Task](https://help.gladly.com/docs/what-is-a-task) on a Customer's profile | Yes    | Yes  | Yes    | No     | No     |\n| Topic Change                  | A [Topic](https://help.gladly.com/docs/what-are-topics) added or removed on a Conversation | Yes    | Yes  | No     | Yes    | No     |\n| Twitter (decommissioned as of 04/20/23)                       | A message sent/received via the [Twitter](https://help.gladly.com/docs/setup-and-configure-twitter-direct-messages) channel | No     | Yes  | No     | Yes    | No     |\n| Voice AI Message              | A spoken message exchanged with Gladly's voice AI during a voice AI session | No     | Yes  | No     | No     | No     |\n| Voicemail                     | A Voicemail received | No     | Yes  | No     | No     | Yes    |\n| WhatsApp                      | A message sent/received via the WhatsApp channel | No     | Yes  | No     | No     | No     |\n\n\n### Chat Message\n\nContent of messages sent between Gladly and customers through Gladly Chat.\n\n### Conversation Status Change\n\nRecord of a change in the status of a conversation.\n\n### Customer Activity\n\nInformation about activities customers participated in, for example, emails they received, issues in another system, or customer satisfaction surveys they answered.\nThese can be created through the API to bring in information from other systems.\nAdding an activity to the customer timeline is not customer facing.\nFor example, posting an email activity to the timeline does not send an email to the customer.\n![Customer Activity](assets/customer-activity.png)\n\n### Email\n\nContent of emails sent between Gladly and customers.\n\n###  Facebook Messenger Message\n\nContent of messages sent between Gladly and customers on Facebook Messenger.\n\n### Instagram Direct\n\nContent of messages sent between Gladly and customers on Instagram Direct.\n\n###  Note\n\nContent of the note recorded in Gladly.\n\n### Phone Call\n\nInformation about phone calls that took place between Gladly and customers.\n\n### SMS Message\n\nContent of SMS text messages sent between Gladly and customers.\nTo send SMS messages to customers through the API, see [Send SMS](#operation/sendSMS).\n\n### Task\n\nInteracting with tasks through the conversations API is deprecated. Use [Tasks API](#tag/Tasks) instead.\n\n### Topic Change\n\nRecord of an agent adding or removing a topic from a conversation in Gladly.\n\n### Twitter (decommissioned as of 04/20/23)\n\nContent of messages sent between Gladly and customers on Twitter.\n\n### Voice AI Message\n\nA spoken message exchanged between a customer and Gladly's voice AI during a voice AI session.\n\n### Voicemail\n\nInformation about voicemail left by customers in Gladly.\n\n### WhatsApp\n\nContent of messages sent between Gladly and customers on WhatsApp.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99e6d16e-295d-4970-907f-8ca0b17e065b",
+          "name": "Get Conversations for Customer",
+          "request": {
+            "name": "Get Conversations for Customer",
+            "description": {
+              "content": "Get the list of conversations for a customer.\nThe list is not paginated and will return at most 100 conversations.\nThe conversations are returned in ascending order by timestamp.\nThe `Gladly-Limited-Data` header flag in the response will indicate if the customer has more conversations than returned.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "customers",
+                ":customerId",
+                "conversations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Id of the customer to get all conversations for"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29211ad9-ebaa-415e-ab94-3681481a514f",
+              "name": "The conversations for the customer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer to get all conversations for"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"HXRqKC5GSV-jAlq0-sxYTA\",\n    \"topicIds\": [\n      \"_DZTz4I0Qsq9YXxeXwufMg\",\n      \"tYVmwhIVQe-2tflRIszQ3g\"\n    ],\n    \"customAttributes\": [\n      {\n        \"id\": \"UCeBpdBVSNyaP54jhd8CZw\",\n        \"value\": \"1234556777\"\n      },\n      {\n        \"id\": \"UCeBpdBVSNyaP54jhd8CZw\",\n        \"value\": \"883399334403\"\n      },\n      {\n        \"id\": \"cEBkE90eQHObfcsnrm60Tg\",\n        \"value\": \"UPS\"\n      }\n    ],\n    \"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\n    \"createdAt\": \"2016-01-02T00:10:00Z\",\n    \"agentId\": \"sHuXx-U3QqOmhvFusJGeBw\",\n    \"inboxId\": \"E1nArq1uQAees_DogHB0MA\",\n    \"status\": \"OPEN\"\n  },\n  {\n    \"id\": \"UMTZxwzJRyejwOj4NDfjeg\",\n    \"topicIds\": [\n      \"tYVmwhIVQe-2tflRIszQ3g\"\n    ],\n    \"customAttributes\": [\n      {\n        \"id\": \"UCeBpdBVSNyaP54jhd8CZw\",\n        \"value\": \"1234556777\"\n      },\n      {\n        \"id\": \"UCeBpdBVSNyaP54jhd8CZw\",\n        \"value\": \"883399334403\"\n      },\n      {\n        \"id\": \"cEBkE90eQHObfcsnrm60Tg\",\n        \"value\": \"UPS\"\n      }\n    ],\n    \"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\n    \"createdAt\": \"2016-01-02T00:10:00Z\",\n    \"closedAt\": \"2016-01-03T08:10:00Z\",\n    \"agentId\": \"sHuXx-U3QqOmhvFusJGeBw\",\n    \"inboxId\": \"E1nArq1uQAees_DogHB0MA\",\n    \"status\": \"CLOSED\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c0996da-62cc-4641-b3dc-71c9795d7fa7",
+          "name": "Get Conversation",
+          "request": {
+            "name": "Get Conversation",
+            "description": {
+              "content": "Get conversation metadata such as it's assignee, topics, inbox, etc.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversations",
+                ":conversationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) Id of the conversation to get"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de983cbc-97cc-410b-aca1-2fbd8dd64ebe",
+              "name": "Conversation metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation to get"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"HXRqKC5GSV-jAlq0-sxYTA\",\n  \"topicIds\": [\n    \"_DZTz4I0Qsq9YXxeXwufMg\",\n    \"tYVmwhIVQe-2tflRIszQ3g\"\n  ],\n  \"customAttributes\": [\n    {\n      \"id\": \"UCeBpdBVSNyaP54jhd8CZw\",\n      \"value\": \"1234556777\"\n    },\n    {\n      \"id\": \"UCeBpdBVSNyaP54jhd8CZw\",\n      \"value\": \"883399334403\"\n    },\n    {\n      \"id\": \"cEBkE90eQHObfcsnrm60Tg\",\n      \"value\": \"UPS\"\n    }\n  ],\n  \"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\n  \"createdAt\": \"2016-01-02T00:10:00Z\",\n  \"closedAt\": \"2016-01-03T08:10:00Z\",\n  \"agentId\": \"sHuXx-U3QqOmhvFusJGeBw\",\n  \"inboxId\": \"E1nArq1uQAees_DogHB0MA\",\n  \"status\": \"CLOSED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4c9bca8-8254-4763-9759-bb66daab6ffe",
+              "name": "A conversation with the given id does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation to get"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af00b0bd-378c-4948-8a56-908bb660295e",
+          "name": "Update Conversation",
+          "request": {
+            "name": "Update Conversation",
+            "description": {
+              "content": "Update conversation assignee, statusor both\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversations",
+                ":conversationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) Id of the conversation"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assignee\": {\n    \"inboxId\": \"<string>\",\n    \"agentId\": \"<string>\"\n  },\n  \"status\": {\n    \"value\": \"<string>\",\n    \"force\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06ebdcfa-fdb8-4a0c-9b93-0bc841913593",
+              "name": "updated conversation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"assignee\": {\n    \"inboxId\": \"E1nArq1uQAees_DogHB0MA\",\n    \"agentId\": \"sHuXx-U3QqOmhvFusJGeBw\"\n  },\n  \"status\": {\n    \"value\": \"CLOSED\",\n    \"force\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8cc55327-2aa0-44a8-a765-aa4c44857f02",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"assignee\": {\n    \"inboxId\": \"E1nArq1uQAees_DogHB0MA\",\n    \"agentId\": \"sHuXx-U3QqOmhvFusJGeBw\"\n  },\n  \"status\": {\n    \"value\": \"CLOSED\",\n    \"force\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"assignee.inboxId\",\n      \"code\": \"blank\",\n      \"detail\": \"'inboxId' cannot be blank when updating assignee\"\n    },\n    {\n      \"attr\": \"status.value\",\n      \"code\": \"blank\",\n      \"detail\": \"'value' cannot be blank when updating status\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95e2d472-4be7-499b-851a-fb6cde76eeb1",
+              "name": "A conversation with the given id does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"assignee\": {\n    \"inboxId\": \"E1nArq1uQAees_DogHB0MA\",\n    \"agentId\": \"sHuXx-U3QqOmhvFusJGeBw\"\n  },\n  \"status\": {\n    \"value\": \"CLOSED\",\n    \"force\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"conversation does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfc6cfa0-f834-4bdc-a644-61bb2daf7388",
+          "name": "Create Item",
+          "request": {
+            "name": "Create Item",
+            "description": {
+              "content": "To add items to the timeline for a customer specified by identifying information. If the customer doesn't exist, a new customer profile is created.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the mobile phone number or email address specified as part of the payload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": {\n    \"activityType\": \"<string>\",\n    \"type\": \"<string>\",\n    \"title\": \"<string>\",\n    \"body\": \"<string>\",\n    \"sourceName\": \"<string>\",\n    \"link\": {\n      \"url\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"expandByDefault\": false,\n    \"occurredAt\": \"<RFC3339 with millis>\"\n  },\n  \"customer\": {\n    \"value\": \"reference #/paths/~1api~1v1~1tasks/post/requestBody/content/application~1json/schema/properties/customer not found in the OpenAPI spec\"\n  },\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d29a353-29c9-44c9-a473-d6d4eadc0b17",
+              "name": "The created item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"customer\": {\n    \"emailAddress\": \"michelle.smith@example.org\"\n  },\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": {\n    \"activityType\": \"EMAIL\",\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    },\n    \"expandByDefault\": true,\n    \"occurredAt\": \"2016-04-11T14:09:23.000Z\",\n    \"receivedAt\": \"2019-01-11T20:49:55.000Z\"\n  },\n  \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n  \"initiator\": {\n    \"value\": \"reference #/paths/~1api~1v1~1tasks~1%7BtaskId%7D/get/responses/200/content/application~1json/schema/properties/createdBy not found in the OpenAPI spec\"\n  },\n  \"responder\": {\n    \"id\": \"zGaHXjD4SR-moMR9LbULDa\",\n    \"type\": \"AGENT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f7c3853-cdda-4cd8-9420-273f6af56249",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"customer\": {\n    \"emailAddress\": \"michelle.smith@example.org\"\n  },\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64caa3af-3198-4015-babc-7053130dacf0",
+              "name": "Specified id is in use",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"customer\": {\n    \"emailAddress\": \"michelle.smith@example.org\"\n  },\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"newConversationItems\",\n      \"code\": \"taken\",\n      \"detail\": \"conversation item already exists\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac80367a-3e3b-48bf-9961-9b89fa5699df",
+          "name": "Get Item",
+          "request": {
+            "name": "Get Item",
+            "description": {
+              "content": "Returns the conversation item with the provided id.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items",
+                ":itemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) id of the conversation item\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0fb34ae-4e65-4eb7-92ee-f9b5e432314e",
+              "name": "conversation item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n  \"content\": {\n    \"type\": \"CHAT_MESSAGE\",\n    \"sessionId\": \"5k04bYuTRGqyT6uoSQfWVA\",\n    \"content\": \"HI! Can you help me with my order?\",\n    \"messageType\": \"TEXT\",\n    \"attachments\": [\n      {\n        \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n        \"contentType\": \"image/png\",\n        \"filename\": \"attachment-1.png\",\n        \"fileSize\": 1024\n      },\n      {\n        \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n        \"contentType\": \"image/png\",\n        \"filename\": \"attachment-1.png\",\n        \"fileSize\": 1024\n      }\n    ]\n  },\n  \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n  \"conversationId\": \"PmDVUfWfRjKuwb4VgA2zEA\",\n  \"sessionId\": \"8K2mX9nRTyWv4bQzLpH5jA\",\n  \"initiator\": {\n    \"value\": \"reference #/paths/~1api~1v1~1tasks~1%7BtaskId%7D/get/responses/200/content/application~1json/schema/properties/createdBy not found in the OpenAPI spec\"\n  },\n  \"responder\": {\n    \"id\": \"zGaHXjD4SR-moMR9LbULDa\",\n    \"type\": \"AGENT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea50019-4d73-4b9f-ba75-61a779d7eaf0",
+              "name": "An item exists but is not supported by the API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"invalid\",\n      \"detail\": \"Conversation item with id [pOVVdzweSumI4bFxjlT8LA] exists but is not supported by the API.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faa6dd4c-869d-4f5c-8e5f-06859fe75f7b",
+              "name": "An item with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22e21027-743b-49ff-9e8c-7c80e9f13808",
+          "name": "Delete Item",
+          "request": {
+            "name": "Delete Item",
+            "description": {
+              "content": "To delete an item.\n\nPlease note only items of type **CUSTOMER_ACTIVITY** may be deleted by this API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items",
+                ":itemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) Id of the item to be deleted.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "084c746f-ad5f-40cc-aedc-0fe53327b1cf",
+              "name": "The item was deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Id of the item to be deleted.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad5b0ee6-d1ec-4a04-9010-1d1ece776691",
+              "name": "An item with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Id of the item to be deleted.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f314be4a-448c-48ff-8020-ff35e89ab05a",
+          "name": "Get Media",
+          "request": {
+            "name": "Get Media",
+            "description": {
+              "content": "Returns the media file associated with the conversation item\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items",
+                ":itemId",
+                "media",
+                "recording"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) id of the conversation item\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "audio/mpeg"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee64f87b-4643-45eb-af15-4e2ce3426602",
+              "name": "The media file associated with the conversation item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "media",
+                    "recording"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "audio/mpeg"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "audio/mpeg"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5bf344cb-fdfb-4602-a369-8db0ff7ac0dd",
+              "name": "An item with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "media",
+                    "recording"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8db14e6-b360-47fc-8d07-94d1b0098c26",
+          "name": "Get Voice Transcript",
+          "request": {
+            "name": "Get Voice Transcript",
+            "description": {
+              "content": "Returns a transcript of a phone call or a voicemail\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items",
+                ":itemId",
+                "voice-transcript"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) id of the conversation item\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c173c407-313b-45ae-b48a-1a8eb74b3c60",
+              "name": "The voice transcript of a phone call or a voicemail",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "voice-transcript"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paragraphs\": [\n    {\n      \"transcript\": \"Hello! How are you doing today?\",\n      \"speaker\": 0,\n      \"startTime\": 2.48,\n      \"endTime\": 6.1\n    },\n    {\n      \"transcript\": \"Hello! How are you doing today?\",\n      \"speaker\": 0,\n      \"startTime\": 2.48,\n      \"endTime\": 6.1\n    }\n  ],\n  \"customerId\": \"AloLvEkzQlqc7c4kyYQY1A\",\n  \"numberOfSpeakers\": 1,\n  \"language\": \"string\",\n  \"createdAt\": \"2024-05-15T14:09:23.000Z\",\n  \"updatedAt\": \"2024-05-15T14:19:23.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67826059-307b-40f8-b154-e4f015cd9b61",
+              "name": "A transcript with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "voice-transcript"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "098bbf94-7d63-4262-be57-74787e474598",
+          "name": "Get Attachment",
+          "request": {
+            "name": "Get Attachment",
+            "description": {
+              "content": "Returns a redirect to the URL of the specified attachment on a conversation item.\n\nThe response is a `303 See Other` redirect. Follow the redirect to download the attachment content.\n\nAttachments are available on conversation items with content types that support them, such as emails, chat messages, SMS messages, and custom channel messages.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items",
+                ":itemId",
+                "attachments",
+                ":attachmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) Id of the conversation item that contains the attachment.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "attachmentId",
+                  "description": "(Required) Id of the attachment to retrieve.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84fd524b-7dfa-4289-8508-44eed242b09f",
+              "name": "Redirect to the attachment URL",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "attachments",
+                    ":attachmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Id of the conversation item that contains the attachment.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attachmentId",
+                      "description": "(Required) Id of the attachment to retrieve.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "See Other",
+              "code": 303,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL to download the attachment content.\n",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba708341-a6ec-4025-848b-2c6ac69ec0c6",
+              "name": "The conversation item content does not contain attachments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "attachments",
+                    ":attachmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Id of the conversation item that contains the attachment.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attachmentId",
+                      "description": "(Required) Id of the attachment to retrieve.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"invalid\",\n      \"detail\": \"conversation item content does not contain attachments\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94cd24f9-f09d-4a44-a7e6-5da04cb52496",
+              "name": "The conversation item or attachment could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "attachments",
+                    ":attachmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Id of the conversation item that contains the attachment.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attachmentId",
+                      "description": "(Required) Id of the attachment to retrieve.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0459dad4-52b3-48cb-9e5c-4d29e2f2a8d3",
+          "name": "Create Item for Customer",
+          "request": {
+            "name": "Create Item for Customer",
+            "description": {
+              "content": "To add items to a customer's timeline.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the mobile phone number or email address specified as part of the payload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "customers",
+                ":customerId",
+                "conversation-items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": {\n    \"activityType\": \"<string>\",\n    \"type\": \"<string>\",\n    \"title\": \"<string>\",\n    \"body\": \"<string>\",\n    \"sourceName\": \"<string>\",\n    \"link\": {\n      \"url\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"expandByDefault\": false,\n    \"occurredAt\": \"<RFC3339 with millis>\"\n  },\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a93e005a-8f2d-45e9-bc3c-015a8cd0e3e9",
+              "name": "The created item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": {\n    \"activityType\": \"EMAIL\",\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    },\n    \"expandByDefault\": true,\n    \"occurredAt\": \"2016-04-11T14:09:23.000Z\",\n    \"receivedAt\": \"2019-01-11T20:49:55.000Z\"\n  },\n  \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n  \"initiator\": {\n    \"value\": \"reference #/paths/~1api~1v1~1tasks~1%7BtaskId%7D/get/responses/200/content/application~1json/schema/properties/createdBy not found in the OpenAPI spec\"\n  },\n  \"responder\": {\n    \"id\": \"zGaHXjD4SR-moMR9LbULDa\",\n    \"type\": \"AGENT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50717455-869c-4f84-86d6-04a416b21a8d",
+              "name": "This customer id no longer exists, but has been moved because it has been merged with another customer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Moved Permanently",
+              "code": 301,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Location of the new customer id to use",
+                  "key": "Location",
+                  "value": "https://example.gladly.com/api/v1/customers/TX6f82W4S_ayp11kP4dhrQ/conversation-items"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"customer id\",\n      \"code\": \"moved\",\n      \"detail\": \"the customer id has changed from [wjotRA-fSU6feGCxdFwwNQ] to [TX6f82W4S_ayp11kP4dhrQ]\",\n      \"meta\": {\n        \"old\": \"wjotRA-fSU6feGCxdFwwNQ\",\n        \"new\": \"TX6f82W4S_ayp11kP4dhrQ\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "776228ef-a347-4704-ad6d-4ee9e53a54e2",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3c58ded-e6fd-4ed4-85f9-f5ffa28ff46f",
+              "name": "Customer with customerId does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "103a5f0c-7c70-4e2f-8146-df53893a76a9",
+              "name": "Specified id is in use",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversation-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"CUSTOMER_ACTIVITY\",\n    \"title\": \"Welcome to Gladly!\",\n    \"body\": \"At Gladly we set out to reinvent customer service. Why? Because 21st century consumers are different. They are from 18 to 80 years old, expect the brands they love to recognize them, and to be able to communicate with your agents over all channels – all the time.\",\n    \"activityType\": \"EMAIL\",\n    \"sourceName\": \"HubSpot\",\n    \"link\": {\n      \"url\": \"https://www.gladly.com/product/\",\n      \"text\": \"View Details\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"newConversationItems\",\n      \"code\": \"taken\",\n      \"detail\": \"conversation item already exists\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "881bdb3c-3eb7-4842-9db7-3cb57fdf9f87",
+          "name": "Delete Item for Customer",
+          "request": {
+            "name": "Delete Item for Customer",
+            "description": {
+              "content": "To delete an item.\n\nPlease note only items of type **CUSTOMER_ACTIVITY** may be deleted by this API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "customers",
+                ":customerId",
+                "conversation-items",
+                ":itemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) Id of the item to be deleted.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4908d04f-95a8-4cbf-9adb-ab7b606dd795",
+              "name": "The item was deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversation-items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Id of the item to be deleted.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c159fa8a-7346-4678-8332-305e7fd86aa9",
+              "name": "An item with the given id, for the given customer id, could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customers",
+                    ":customerId",
+                    "conversation-items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer associated with this item.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Id of the item to be deleted.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3dd7624-7146-4bf7-b28e-d8f3b943a5cf",
+          "name": "List Items in Conversation",
+          "request": {
+            "name": "List Items in Conversation",
+            "description": {
+              "content": "Get the list of items in the timeline of a conversation.\nThe conversation represents a period of related interactions between a customer and your organization.\nThe list is not paginated and will return at most 1000 items. The items are returned in ascending order by timestamp.\nThe `Gladly-Limited-Data` header flag in the response will indicate if the conversation has more items than returned.\n\nThe response can be filtered by session using the optional `sessionId` query parameter.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversations",
+                ":conversationId",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sessionId",
+                  "value": "<string>",
+                  "description": "Return only items whose `sessionId` matches the given value."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) Id of the conversation to get the timeline for"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b74d062c-a7ce-4488-9750-87aee836a6a2",
+              "name": "The items on the conversation timeline",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sessionId",
+                      "value": "5k04bYuTRGqyT6uoSQfWVA"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation to get the timeline for"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"ybP4szYCSy6LdV4DNwEd6g\",\n    \"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\n    \"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"timestamp\": \"2019-07-01T11:46:45.01Z\",\n    \"initiator\": {\n      \"id\": \"OOrlNMXeS72gs_WEX2TtMg\",\n      \"type\": \"CUSTOMER\"\n    },\n    \"content\": {\n      \"type\": \"CHAT_MESSAGE\",\n      \"sessionId\": \"5k04bYuTRGqyT6uoSQfWVA\",\n      \"content\": \"Hi! I know it's after hours but can someone help upgrade my account?\"\n    }\n  },\n  {\n    \"id\": \"Rk7dLm2xTXqNwZp8vB3YeA\",\n    \"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\n    \"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"timestamp\": \"2019-07-01T11:46:50.01Z\",\n    \"initiator\": {\n      \"id\": \"SIDEKICK_V2\",\n      \"type\": \"SYSTEM\"\n    },\n    \"content\": {\n      \"type\": \"CHAT_MESSAGE\",\n      \"sessionId\": \"5k04bYuTRGqyT6uoSQfWVA\",\n      \"content\": \"Hello! I can help you with upgrading your account. What plan are you interested in?\"\n    }\n  },\n  {\n    \"id\": \"9lQDrx-HTz-JMoP2T4CtZA\",\n    \"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\n    \"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"timestamp\": \"2019-07-02T06:30:12.07Z\",\n    \"initiator\": {\n      \"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\n      \"type\": \"AGENT\"\n    },\n    \"content\": {\n      \"type\": \"EMAIL\",\n      \"from\": \"amy.agent@company.com\",\n      \"to\": [\n        \"martha.williams@gmail.com\"\n      ],\n      \"subject\": \"Account upgrade\",\n      \"content\": \"I would be happy to help you! We need a few details, so please give us a call this morning.\"\n    }\n  },\n  {\n    \"id\": \"S6pMkJ78QMmkVf9qPP_SeQ\",\n    \"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\n    \"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"timestamp\": \"2019-07-02T08:05:00.10Z\",\n    \"initiator\": {\n      \"id\": \"OOrlNMXeS72gs_WEX2TtMg\",\n      \"type\": \"CUSTOMER\"\n    },\n    \"responder\": {\n      \"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\n      \"type\": \"AGENT\"\n    },\n    \"content\": {\n      \"type\": \"PHONE_CALL\",\n      \"from\": \"+14153335555\",\n      \"to\": \"+12149897676\",\n      \"startedAt\": \"2019-07-02T08:05:00.10Z\",\n      \"answeredAt\": \"2019-07-02T08:05:09.41Z\",\n      \"completedAt\": \"2019-07-02T08:11:15.03Z\",\n      \"recordingStatus\": \"AVAILABLE\",\n      \"recordingUrl\": \"/api/v1/conversation-items/S6pMkJ78QMmkVf9qPP_SeQ/media/recording\",\n      \"recordingDuration\": \"100\"\n    }\n  },\n  {\n    \"id\": \"K0UGL3n6S4uPpvtMvItqHA\",\n    \"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\n    \"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"timestamp\": \"2019-07-02T08:12:55.870Z\",\n    \"initiator\": {\n      \"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\n      \"type\": \"AGENT\"\n    },\n    \"content\": {\n      \"type\": \"TOPIC_CHANGE\",\n      \"addedTopicIds\": [\n        \"uu4t00vITaKQ3bVjU2UrGQ\"\n      ]\n    }\n  },\n  {\n    \"id\": \"zwo9AtljSfaGjWb4Aq-aDQ\",\n    \"conversationId\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\n    \"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\n    \"timestamp\": \"2019-07-02T08:12:55.870Z\",\n    \"initiator\": {\n      \"id\\\"\": \"zGaHXjD4SR-moMR9LbULDA\",\n      \"type\\\"\": \"AGENT\"\n    },\n    \"content\": {\n      \"type\": \"CONVERSATION_STATUS_CHANGE\",\n      \"status\": \"CLOSED\"\n    }\n  },\n  {\n    \"id\": \"azwo9AtljSfaGjWb4Aq-aDQ\",\n    \"conversationId\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\n    \"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\n    \"timestamp\": \"2019-07-02T08:12:55.870Z\",\n    \"initiator\": {\n      \"id\\\"\": \"zGaHXjD4SR-moMR9LbULDA\",\n      \"type\\\"\": \"AGENT\"\n    },\n    \"content\": {\n      \"type\": \"VOICEMAIL\",\n      \"startedAt\": \"2019-07-04T08:12:55.870Z\",\n      \"recordingUrl\": \"/api/v1/conversation-items/azwo9AtljSfaGjWb4Aq-aDQ/media/recording\",\n      \"recordingStatus\": \"AVAILABLE\",\n      \"recordingDuration\": 200\n    }\n  },\n  {\n    \"id\": \"VnL3kQ8zSPmW9rXpA2fYbA\",\n    \"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\n    \"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"sessionId\": \"8K2mX9nRTyWv4bQzLpH5jA\",\n    \"timestamp\": \"2019-07-02T08:13:02.450Z\",\n    \"initiator\": {\n      \"id\": \"SIDEKICK_V2\",\n      \"type\": \"SYSTEM\"\n    },\n    \"content\": {\n      \"type\": \"VOICE_AI_MESSAGE\",\n      \"customerNumber\": \"+14153335555\",\n      \"companyNumber\": \"+12149897676\",\n      \"body\": \"Thanks for calling. How can I help you today?\",\n      \"status\": \"PLAYED\"\n    }\n  },\n  {\n    \"id\": \"DnaU23pZSIqOixATlII1vA\",\n    \"conversationId\": \"HXRqKC5GSV-jAlq0-sxYTA\",\n    \"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\n    \"timestamp\": \"2019-07-04T23:42:57.780Z\",\n    \"initiator\": {\n      \"type\": \"AGENT\",\n      \"id\": \"zGaHXjD4SR-moMR9LbULDA\"\n    },\n    \"content\": {\n      \"type\": \"CONVERSATION_NOTE\",\n      \"body\": \"Customer has requested more information about our loyalty program.\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "589b03b5-9df4-4b31-8a6c-fdbe0b91a7a6",
+              "name": "A conversation with the given id does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sessionId",
+                      "value": "5k04bYuTRGqyT6uoSQfWVA"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation to get the timeline for"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e49bb0dd-3cbe-4789-8c64-9a6cbcd96661",
+          "name": "Add Topics to Conversation",
+          "request": {
+            "name": "Add Topics to Conversation",
+            "description": {
+              "content": "Adds a list of topics to the conversation. If a topic being added already exists on the conversation, that topic is ignored.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversations",
+                ":conversationId",
+                "topics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) Id of the conversation.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topicIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36dabec2-d87b-4d52-a380-771b75058edd",
+              "name": "The topic was added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "topics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topicIds\": [\n    \"pOVVdzweSumI4bFxjlT8LA\",\n    \"pOVVdzweSumI4bFxjlT8LB\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1221bea3-7489-4660-9d21-ae68af969cb3",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "topics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topicIds\": [\n    \"pOVVdzweSumI4bFxjlT8LA\",\n    \"pOVVdzweSumI4bFxjlT8LB\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a52b8ff-830a-4e7f-a1e1-b21017a56d9f",
+              "name": "A conversation with the given Id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "topics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topicIds\": [\n    \"pOVVdzweSumI4bFxjlT8LA\",\n    \"pOVVdzweSumI4bFxjlT8LB\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6047f78b-707d-423c-b931-bc386562afa1",
+          "name": "Delete Topic From Conversation",
+          "request": {
+            "name": "Delete Topic From Conversation",
+            "description": {
+              "content": "Delete a topic from a conversation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversations",
+                ":conversationId",
+                "topics",
+                ":topicId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) Id of the conversation.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "topicId",
+                  "description": "(Required) Id of topic to be deleted from conversation.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06cddb1d-df15-46a3-84ec-2e4ff439fdb0",
+              "name": "The topic was deleted from the conversation successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "topics",
+                    ":topicId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicId",
+                      "description": "(Required) Id of topic to be deleted from conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08d91c23-1535-44d6-9fed-4cb0966b29c2",
+              "name": "A conversation with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "topics",
+                    ":topicId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicId",
+                      "description": "(Required) Id of topic to be deleted from conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68518d68-580b-43c4-b3f4-e51417883701",
+          "name": "Add or Remove Freeform Topic",
+          "request": {
+            "name": "Add or Remove Freeform Topic",
+            "description": {
+              "content": "Adds or removes a list of freeform topics to the conversation. If the freeform topic being added already exists on the conversation, that topic is ignored.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "customer-history",
+                ":customerId",
+                "conversations",
+                ":conversationId",
+                "custom-attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Id of the customer.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) Id of the conversation.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc1ac60e-c7e1-4733-9295-d6be16949250",
+              "name": "The freeform topic was added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customer-history",
+                    ":customerId",
+                    "conversations",
+                    ":conversationId",
+                    "custom-attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add\": [\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_3\"\n    },\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_4\"\n    }\n  ],\n  \"remove\": [\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_1\"\n    },\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_2\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cce933ba-f143-4d06-9fdc-07fc9cf28dd4",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customer-history",
+                    ":customerId",
+                    "conversations",
+                    ":conversationId",
+                    "custom-attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add\": [\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_3\"\n    },\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_4\"\n    }\n  ],\n  \"remove\": [\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_1\"\n    },\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_2\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4142dba3-e7c2-4dc2-9fc9-39a846f24039",
+              "name": "A conversation with the given Id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "customer-history",
+                    ":customerId",
+                    "conversations",
+                    ":conversationId",
+                    "custom-attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Id of the customer.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add\": [\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_3\"\n    },\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_4\"\n    }\n  ],\n  \"remove\": [\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_1\"\n    },\n    {\n      \"key\": \"ORDER_ID\",\n      \"value\": \"ORD_2\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8f09fbc-07c9-49ee-b6c2-2612cf8a72be",
+          "name": "Add Note",
+          "request": {
+            "name": "Add Note",
+            "description": {
+              "content": "Adds note to an existing conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversations",
+                ":conversationId",
+                "notes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) Id of the conversation.\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "61f54738-c9e0-433c-a326-a66f112ee6c3",
+              "name": "The note was added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"body\": \"Customer has requested more information about our loyalty program.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "282470ea-fb21-4487-ae53-a49eaba48fc6",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"body\": \"Customer has requested more information about our loyalty program.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17d2588e-77d0-4dd7-b527-8dbe9df018c7",
+              "name": "A conversation with the given Id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) Id of the conversation.\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"body\": \"Customer has requested more information about our loyalty program.\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f974397c-ce6a-46df-a49d-ce31a5efa256",
+          "name": "Get Note",
+          "request": {
+            "name": "Get Note",
+            "description": {
+              "content": "Returns the note with the provided conversation and note id.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversations",
+                ":conversationId",
+                "notes",
+                ":noteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationId",
+                  "description": "(Required) id of the conversation\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "noteId",
+                  "description": "(Required) id of the note\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "849a592f-ff7d-4908-ab28-7cedd29c83a8",
+              "name": "Conversation note",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "notes",
+                    ":noteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) id of the conversation\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "noteId",
+                      "description": "(Required) id of the note\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n  \"customerId\": \"gHufx-U3QqOmhvFuViceTw\",\n  \"content\": {\n    \"type\": \"CONVERSATION_NOTE\",\n    \"body\": \"Customer has requested more information about our loyalty program.\",\n    \"attachments\": [\n      {\n        \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n        \"contentType\": \"image/png\",\n        \"filename\": \"attachment-1.png\",\n        \"fileSize\": 1024\n      },\n      {\n        \"id\": \"pOVVdzweSumI4bFxjlT8LA\",\n        \"contentType\": \"image/png\",\n        \"filename\": \"attachment-1.png\",\n        \"fileSize\": 1024\n      }\n    ]\n  },\n  \"timestamp\": \"2019-07-03T04:30:12.07Z\",\n  \"conversationId\": \"PmDVUfWfRjKuwb4VgA2zEA\",\n  \"initiator\": {\n    \"value\": \"reference #/paths/~1api~1v1~1tasks~1%7BtaskId%7D/get/responses/200/content/application~1json/schema/properties/createdBy not found in the OpenAPI spec\"\n  },\n  \"responder\": {\n    \"id\": \"zGaHXjD4SR-moMR9LbULDa\",\n    \"type\": \"AGENT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd6823c7-e289-4311-9794-907884c2a744",
+              "name": "An item with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversations",
+                    ":conversationId",
+                    "notes",
+                    ":noteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationId",
+                      "description": "(Required) id of the conversation\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "noteId",
+                      "description": "(Required) id of the note\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69b8632d-dbd6-4d66-9e21-b3fe8b4ada3f",
+          "name": "Reply to Message",
+          "request": {
+            "name": "Reply to Message",
+            "description": {
+              "content": "Sends a response to a conversation item. If no agent is assigned to the conversation, the conversation is assigned to the API User who made this call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items",
+                ":itemId",
+                "reply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) id of the conversation item\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": {\n    \"type\": \"<string>\",\n    \"body\": \"<string>\",\n    \"bodyPlain\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c12265a5-1816-4a4b-8710-35379f5fabdc",
+              "name": "The reply was created successfully. Note that creation doesn't guarantee delivery",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "reply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"EMAIL\",\n    \"body\": \"<h>Hi!</h><br>Of course we can help with your issue!\",\n    \"bodyPlain\": \"Hi!\\n We can definitely help you with that!\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "33e33372-fef4-45e3-ad94-ecc3e452d21a",
+              "name": "Invalid field(s) in request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "reply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"EMAIL\",\n    \"body\": \"<h>Hi!</h><br>Of course we can help with your issue!\",\n    \"bodyPlain\": \"Hi!\\n We can definitely help you with that!\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"invalid\",\n      \"detail\": \"you cannot reply to items in closed conversations\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fc9886f-8989-499b-afc1-ccc40fee40d4",
+              "name": "A conversation item with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "reply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"type\": \"EMAIL\",\n    \"body\": \"<h>Hi!</h><br>Of course we can help with your issue!\",\n    \"bodyPlain\": \"Hi!\\n We can definitely help you with that!\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f5fc6a8-c5f1-40fb-ba92-a29f0235122e",
+          "name": "Redact Conversation Item",
+          "request": {
+            "name": "Redact Conversation Item",
+            "description": {
+              "content": "For supported items, the item's content will be removed but the item will\nremain in the conversation timeline. Supported types are Chat Message,\nSMS Message, Email, Twitter (decommissioned as of 04/20/23, but can still be redacted), WhatsApp, Voicemail, Phone Call.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "conversation-items",
+                ":itemId",
+                "redact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) id of the conversation item\n"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fb9fb7a4-acdb-43cc-9c68-d74f532e55b6",
+              "name": "The redaction was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "redact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d83d1485-1a65-44ee-9ead-27652547505f",
+              "name": "A conversation item with the given id could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "conversation-items",
+                    ":itemId",
+                    "redact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) id of the conversation item\n"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Gladly organization subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "organization",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization}}.gladly.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2ecacf4-74e8-4c8b-9b1a-832a69d44ef1",
+    "name": "Gladly Agents Conversations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+      "type": "text/plain"
+    }
+  }
+}

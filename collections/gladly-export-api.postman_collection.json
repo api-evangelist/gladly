@@ -1,0 +1,891 @@
+{
+  "item": [
+    {
+      "id": "e965b99d-f607-4fe7-9d92-ae7d45f716b9",
+      "name": "Export",
+      "description": {
+        "content": "Export API is a simple, comprehensive, file-based data export. You can export the lifetime of your customers' conversations in Gladly to a central data repository such as your data warehouse or data lake. You can export all communications successfully delivered within a specified date range.  The export date range could be the past hour, the past 24 hours, or a custom data range. Please note, for one-time exports covering a period greater than six months, a service fee may apply.\n\nJob results can be deleted once downloaded.  Delete will remove all result files along with the job metadata.  Files older than 14 days are removed from Gladly and jobs older than 14 days are not available from the API.  If you discover that you need the deleted files later, please contact Gladly Support to regenerate them for you.\n\n### SCHEDULING EXPORT JOBS\n\nYou can schedule a one-time or repeating - hourly or daily - data export job.  By default, each organization has a daily export job configured.  To schedule a one-time job or change the job frequency, please contact Gladly Support.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "529172ab-c73f-489f-afd4-0779f0e6855f",
+          "name": "List Schedules",
+          "request": {
+            "name": "List Schedules",
+            "description": {
+              "content": "List all schedules. Currently, only one schedule can be configured per organization. The schedule will generate recurring data export jobs with an hourly or daily frequency. By default, each organization has a daily export job configured. To change the job frequency, please contact Gladly Support.\n\nHourly schedules generate new jobs on a roughly two hour lag after the `nextStartAt` time. For example, for an hourly schedule with a `nextStartAt` equal to `2019-01-21T08:00:00.00Z`, the next job will be created at approximately `2019-01-21T10:00:00.00Z`. Daily schedules will run jobs during the night (UTC time).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "export",
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d100bb68-0352-4af0-9cf7-c3a118296583",
+              "name": "found jobs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"vZgCEQlDR6aQz_0HeWZ9_Q\",\n    \"frequency\": \"HOURLY\",\n    \"type\": \"CONVERSATIONS\",\n    \"nextStartAt\": \"2019-01-21T08:00:00.00Z\",\n    \"updatedAt\": \"2019-01-21T07:15:18.07272933Z\"\n  },\n  {\n    \"id\": \"vZgCEQlDR6aQz_0HeWZ9_Q\",\n    \"frequency\": \"HOURLY\",\n    \"type\": \"CONVERSATIONS\",\n    \"nextStartAt\": \"2019-01-21T08:00:00.00Z\",\n    \"updatedAt\": \"2019-01-21T07:15:18.07272933Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4897c23a-584e-4a17-8b06-147e2b2457d6",
+          "name": "List Jobs",
+          "request": {
+            "name": "List Jobs",
+            "description": {
+              "content": "List all jobs for the organization in any status for the last 14 days. \n```\n/api/v1/export/jobs\n```\n\nYou can further filter the results by including query parameters for `status`, `startAt`, and `endAt`.\n```\n/api/v1/export/jobs?status=COMPLETED&startAt=2024-09-15T00:00:00.000Z&endAt=2024-09-16T00:00:00.000Z\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "export",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "export job status to search on."
+                },
+                {
+                  "disabled": false,
+                  "key": "startAt",
+                  "value": "<ISO 8601>",
+                  "description": "Starting time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be more than 14 days ago. Default is 14 days ago.\n\nThe date should be in ISO 8601 format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "endAt",
+                  "value": "<ISO 8601>",
+                  "description": "Ending time to filter export jobs by. This is based on the `updatedAt` field which indicates when the job was last updated. Cannot be before 'startAt' or in the future. Default is now.\n\nThe date should be in ISO 8601 format.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "037b13d3-fd90-45b5-8e9e-69cc264aeb35",
+              "name": "found jobs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    },
+                    {
+                      "key": "startAt",
+                      "value": "2024-09-15T00:00:00.000Z"
+                    },
+                    {
+                      "key": "endAt",
+                      "value": "2024-09-16T00:00:00.000Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"vZgCEQlDR6aQz_0HeWZ9_Q\",\n    \"scheduleId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"status\": \"COMPLETED\",\n    \"updatedAt\": \"2019-02-21T07:15:19.07272933Z\",\n    \"parameters\": {\n      \"type\": \"CONVERSATIONS\",\n      \"startAt\": \"2019-01-21T07:15:18.07272933Z\",\n      \"endAt\": \"2019-01-22T07:15:18.07272933Z\"\n    },\n    \"files\": [\n      \"agents.jsonl\",\n      \"conversation_items.jsonl\",\n      \"customers.jsonl\",\n      \"topics.jsonl\"\n    ]\n  },\n  {\n    \"id\": \"vZgCEQlDR6aQz_0HeWZ9_Q\",\n    \"scheduleId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n    \"status\": \"COMPLETED\",\n    \"updatedAt\": \"2019-02-21T07:15:19.07272933Z\",\n    \"parameters\": {\n      \"type\": \"CONVERSATIONS\",\n      \"startAt\": \"2019-01-21T07:15:18.07272933Z\",\n      \"endAt\": \"2019-01-22T07:15:18.07272933Z\"\n    },\n    \"files\": [\n      \"agents.jsonl\",\n      \"conversation_items.jsonl\",\n      \"customers.jsonl\",\n      \"topics.jsonl\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfe5f6a8-1565-4631-9093-f8ec437e45a4",
+          "name": "Get Job",
+          "request": {
+            "name": "Get Job",
+            "description": {
+              "content": "Get a job by unique id.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "export",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) id of the job"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d14f8009-c7ef-4a91-b489-256b8078ac21",
+              "name": "fetched job",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) id of the job"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"vZgCEQlDR6aQz_0HeWZ9_Q\",\n  \"scheduleId\": \"OOrlNMXeS72gs_WEX2TtMg\",\n  \"status\": \"COMPLETED\",\n  \"updatedAt\": \"2019-02-21T07:15:19.07272933Z\",\n  \"parameters\": {\n    \"type\": \"CONVERSATIONS\",\n    \"startAt\": \"2019-01-21T07:15:18.07272933Z\",\n    \"endAt\": \"2019-01-22T07:15:18.07272933Z\"\n  },\n  \"files\": [\n    \"agents.jsonl\",\n    \"conversation_items.jsonl\",\n    \"customers.jsonl\",\n    \"topics.jsonl\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d129bd4-09ca-4103-ac4d-f049b7907a52",
+              "name": "job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) id of the job"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6084383f-d0e5-4c49-b62c-2a92f7490d2c",
+          "name": "Delete Job",
+          "request": {
+            "name": "Delete Job",
+            "description": {
+              "content": "Delete a job and all associated files. *Note*: job status must be `COMPLETED` or `FAILED` to be deleted.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "export",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) id of the job"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78c4b1ca-9904-4b79-a55d-fd67484da89a",
+              "name": "the job was deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) id of the job"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "18882e36-8e86-42c3-b412-83cb3b7f3f96",
+              "name": "unable to delete job",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) id of the job"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"attr\": \"status\",\n    \"code\": \"temporary_failure\",\n    \"detail\": \"unable to delete job with status [IN_PROGRESS]. Please try again after it has finished\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37cdb1e5-c4f6-4c04-b076-af115c68ca8f",
+              "name": "job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) id of the job"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4538ef7b-04a2-4005-8061-76c8d5a4d6f1",
+          "name": "Get File",
+          "request": {
+            "name": "Get File",
+            "description": {
+              "content": "Download a file generated by a data export job.\nFilenames can be found from an export [job's](index.html#operation/getJob) `files` field.\n\nFiles are returned in `.jsonl` format where each line is a `json` object representing an element from the array of data. Please note that, in rare cases, conversation items with invalid attributes may be excluded from the data export. For example:\n- An email message that was undelivered due to an invalid recipient email address\n- EMAIL / SMS auto-replies sent by Gladly to the customer via a Rule\n\nExamples are as follows with schema below.\n\n\n**agents.jsonl**\n```\n{\"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\"name\": \"Amy Agent\",\"emailAddress\": \"amy.agent@company.com\"}\n```\n\n**conversation_items.jsonl**\n```\n{\"id\": \"ybP4szYCSy6LdV4DNwEd6g\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\"timestamp\": \"2019-07-01T11:46:45.010Z\",\"initiator\": {\"id\": \"OOrlNMXeS72gs_WEX2TtMg\",\"type\": \"CUSTOMER\"},\"content\": {\"type\": \"CHAT_MESSAGE\",\"sessionId\": \"5k04bYuTRGqyT6uoSQfWVA\",\"content\": \"Hi! I know it's after hours but can someone help upgrade my account?\"}}\n{\"id\": \"9lQDrx-HTz-JMoP2T4CtZA\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\"timestamp\": \"2019-07-02T06:30:12.070Z\",\"initiator\": {\"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\"type\": \"AGENT\"},\"content\": {\"type\": \"EMAIL\",\"from\": \"amy.agent@company.com\",\"to\": [\"martha.williams@gmail.com\"],\"subject\": \"Account upgrade\",\"content\": \"I would be happy to help you! We need a few details, so please give us a call this morning.\"}}\n{\"id\": \"QN1nURRuRne_eAEhW45UMA\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"KgnVOMc2TbiA3zad6iVlWA\",\"timestamp\": \"2020-04-21T00:44:33.690Z\",\"initiator\": {\"type\":\"AGENT\",\"id\":\"VjeJI9_GRUS_LUjKLcNlBw\"},\"responder\":{\"type\":\"CUSTOMER\",\"id\":\"KgnVOMc2TbiA3zad6iVlWA\"},\"content\":{\"startedAt\":\"2020-04-21T00:44:34.604Z\",\"answeredAt\":\"2020-04-21T00:44:45.515Z\",\"completedAt\":\"2020-04-21T00:44:57.130Z\",\"from\":\"+12096248260\",\"to\":\"+14155335980\",\"recordingUrl\":\"/api/v1/conversation-items/QN1nURRuRne_eAEhW45UMA/media/recording\",\"recordingStatus\":\"AVAILABLE\",\"recordingDuration\":11,\"type\":\"PHONE_CALL\"}}\n{\"id\": \"K0UGL3n6S4uPpvtMvItqHA\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"OOrlNMXeS72gs_WEX2TtMg\",\"timestamp\": \"2019-07-02T08:12:55.870Z\",\"initiator\": {\"id\": \"WmeA3Y51Q5ayCAaZ1AotIA\",\"type\": \"AGENT\"},\"content\": {\"type\": \"TOPIC_CHANGE\",\"addedTopicIds\": [\"uu4t00vITaKQ3bVjU2UrGQ\"]}}\n{\"id\": \"VMn_5L1iTPmcM5DBP1U8oQ\",\"conversationId\": \"9BcE2O0DQ2ynGHRmk9FeoA\",\"customerId\": \"KgnVOMc2TbiA3zad6iVlWA\",\"timestamp\": \"2020-04-21T00:56:03.712Z\",\"initiator\": {\"type\":\"CUSTOMER\",\"id\":\"KgnVOMc2TbiA3zad6iVlWA\"}, \"content\":{\"startedAt\":\"2020-04-21T00:55:50.703Z\",\"recordingUrl\":\"/api/v1/conversation-items/VMn_5L1iTPmcM5DBP1U8oQ/media/recording\",\"recordingStatus\":\"AVAILABLE\",\"recordingDuration\":13,\"type\":\"VOICEMAIL\"}}\n{\"id\": \"SShWgSCHSHy6EO5TiL7rNw\",\"conversationId\": \"gHuxLQNXSAmmWuNePSyVTw\",\"customerId\": \"0EphnSIJR0ycjMWFTf-GXA\",\"timestamp\": \"2020-04-20T23:58:51.941Z\",\"initiator\": {\"type\":\"AGENT\",\"id\":\"LsFXSnO6Ty6gdnyH6y8yug\"},\"content\":{\"type\":\"CONVERSATION_STATUS_CHANGE\",\"status\":\"CLOSED\"}}\n{\"id\": \"DnaU23pZSIqOixATlII1vA\",\"conversationId\": \"HXRqKC5GSV-jAlq0-sxYTA\",\"customerId\": \"o2sg-TMTSD2rTwMuxzewbA\",\"timestamp\": \"2020-04-24T23:42:57.780Z\",\"initiator\": {\"type\":\"AGENT\",\"id\":\"zGaHXjD4SR-moMR9LbULDA\"},\"content\":{\"type\":\"CONVERSATION_NOTE\",\"body\":\"Customer has requested more information about our loyalty program.\"}}\n```\n\n**customers.jsonl**\n```\n{\"id\": \"OOrlNMXeS72gs_WEX2TtMg\",\"name\": \"Martha J Williams\",\"address\": \"563 Rigoberto Station Apt. 197\",\"emailAddresses\": [\"Martha.Williams@gmail.com\"],\"phoneNumbers\": [\"+17244895501\"],\"externalCustomerId\": \"a21c1636-c622-48b7-bf6a-d9032645aa55\"}\n```\n\n**topics.jsonl**\n```\n{\"id\": \"uu4t00vITaKQ3bVjU2UrGQ\",\"name\": \"Order Returns\",\"disabled\": false}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "export",
+                "jobs",
+                ":jobId",
+                "files",
+                ":filename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) id of the job"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filename",
+                  "description": "(Required) name of the file"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e9b4bf34-6c44-4d4b-858a-e2637be48cdf",
+              "name": "returns a file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs",
+                    ":jobId",
+                    "files",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) id of the job"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) name of the file"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6eeb2049-556c-45d4-9519-0dd9f079ee26",
+              "name": "file not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "export",
+                    "jobs",
+                    ":jobId",
+                    "files",
+                    ":filename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) id of the job"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filename",
+                      "description": "(Required) name of the file"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"entity does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Gladly organization subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "organization",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization}}.gladly.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7e1b3812-d13f-44bb-b7e1-e6632175c66b",
+    "name": "Gladly Agents Export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+      "type": "text/plain"
+    }
+  }
+}

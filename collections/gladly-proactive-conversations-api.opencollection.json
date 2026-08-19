@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Proactive Conversations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Proactive Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Recipient Collection for an Existing Proactive Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/campaigns/:campaignId/recipient-collections",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path",
+                "description": "id of the campaign to create a new recipient collection for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new recipient collection for an existing proactive campaign that will be contacted based on the campaign settings.\n\nYou can locate the `campaignId` by navigating to the campaign in the dashboard and copying the `id` from the URL.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

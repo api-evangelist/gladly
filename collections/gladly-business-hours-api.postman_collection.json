@@ -1,0 +1,1064 @@
+{
+  "item": [
+    {
+      "id": "d1ee8052-d319-474a-a962-d9ab0cc57c13",
+      "name": "Business Hours",
+      "description": {
+        "content": "**Business Hours** define the operating schedule for your organization. They determine when your organization is available to handle customer communications and can be used to control routing, auto-responses, and other time-sensitive workflows.\n\nBusiness hours configurations include:\n- **Schedule blocks** for each day of the week specifying start and end times\n- **Timezone** in IANA format (e.g., America/Los_Angeles)\n- **Exceptions** for holidays or special dates\n\nOne business hours configuration is marked as **primary** and serves as the default schedule for your organization. The primary business hours cannot be deleted.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "07db8640-e19d-4da5-89cc-e524148c0256",
+          "name": "List Business Hours",
+          "request": {
+            "name": "List Business Hours",
+            "description": {
+              "content": "Returns a list of all business hours configurations for your organization.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "business-hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "deb58145-57e2-4c3b-97ae-7383d66a7012",
+              "name": "Business hours",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"bh_WmeA3Y51Q5ayCAaZ1AotIA\",\n    \"version\": 1,\n    \"createdAt\": \"2024-01-15T09:00:00Z\",\n    \"updatedAt\": \"2024-01-15T09:00:00Z\",\n    \"name\": \"Default Hours\",\n    \"primary\": true,\n    \"officeHours\": {\n      \"timezone\": \"America/Los_Angeles\",\n      \"monday\": [\n        {\n          \"start\": \"09:00\",\n          \"stop\": \"17:00\"\n        }\n      ],\n      \"tuesday\": [\n        {\n          \"start\": \"09:00\",\n          \"stop\": \"17:00\"\n        }\n      ],\n      \"wednesday\": [\n        {\n          \"start\": \"09:00\",\n          \"stop\": \"17:00\"\n        }\n      ],\n      \"thursday\": [\n        {\n          \"start\": \"09:00\",\n          \"stop\": \"17:00\"\n        }\n      ],\n      \"friday\": [\n        {\n          \"start\": \"09:00\",\n          \"stop\": \"17:00\"\n        }\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3754db49-7998-4f38-981f-b20bbb002f3e",
+          "name": "Create Business Hours",
+          "request": {
+            "name": "Create Business Hours",
+            "description": {
+              "content": "Creates a new business hours configuration for your organization.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "business-hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"officeHours\": {\n    \"timezone\": \"<string>\",\n    \"monday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"saturday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"sunday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"exceptions\": [\n      {\n        \"name\": \"<string>\",\n        \"start\": \"<dateTime>\",\n        \"stop\": \"<dateTime>\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          },\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"start\": \"<dateTime>\",\n        \"stop\": \"<dateTime>\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          },\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"primary\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "724dc77e-97a2-4f11-8522-87ce3f771415",
+              "name": "Business hours created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekend Support\",\n  \"primary\": false,\n  \"officeHours\": {\n    \"timezone\": \"America/Los_Angeles\",\n    \"saturday\": [\n      {\n        \"start\": \"10:00\",\n        \"stop\": \"16:00\"\n      }\n    ],\n    \"sunday\": [\n      {\n        \"start\": \"10:00\",\n        \"stop\": \"16:00\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bh_WmeA3Y51Q5ayCAaZ1AotIA\",\n  \"version\": 1,\n  \"createdAt\": \"2024-01-15T09:00:00Z\",\n  \"updatedAt\": \"2024-01-15T09:00:00Z\",\n  \"name\": \"Default Hours\",\n  \"primary\": true,\n  \"officeHours\": {\n    \"timezone\": \"America/Los_Angeles\",\n    \"monday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"saturday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"sunday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"exceptions\": [\n      {\n        \"name\": \"New Year's Day\",\n        \"start\": \"2024-01-01T00:00:00Z\",\n        \"stop\": \"2024-01-02T00:00:00Z\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          },\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          }\n        ]\n      },\n      {\n        \"name\": \"New Year's Day\",\n        \"start\": \"2024-01-01T00:00:00Z\",\n        \"stop\": \"2024-01-02T00:00:00Z\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          },\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e601c63-9a23-4824-a3b5-fc1db061067e",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Weekend Support\",\n  \"primary\": false,\n  \"officeHours\": {\n    \"timezone\": \"America/Los_Angeles\",\n    \"saturday\": [\n      {\n        \"start\": \"10:00\",\n        \"stop\": \"16:00\"\n      }\n    ],\n    \"sunday\": [\n      {\n        \"start\": \"10:00\",\n        \"stop\": \"16:00\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"name\",\n      \"code\": \"invalid\",\n      \"detail\": \"name cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9a2ade5-fb39-4d78-a66e-bb4ebf8bc2fa",
+          "name": "Get Business Hours",
+          "request": {
+            "name": "Get Business Hours",
+            "description": {
+              "content": "Returns a single business hours configuration by its unique ID.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "business-hours",
+                ":businessHoursId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "businessHoursId",
+                  "description": "(Required) ID of the business hours configuration"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4458235f-f033-439c-8797-20137eb2e625",
+              "name": "Business hours",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bh_WmeA3Y51Q5ayCAaZ1AotIA\",\n  \"version\": 1,\n  \"createdAt\": \"2024-01-15T09:00:00Z\",\n  \"updatedAt\": \"2024-01-15T09:00:00Z\",\n  \"name\": \"Default Hours\",\n  \"primary\": true,\n  \"officeHours\": {\n    \"timezone\": \"America/Los_Angeles\",\n    \"monday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"saturday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"sunday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"exceptions\": [\n      {\n        \"name\": \"New Year's Day\",\n        \"start\": \"2024-01-01T00:00:00Z\",\n        \"stop\": \"2024-01-02T00:00:00Z\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          },\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          }\n        ]\n      },\n      {\n        \"name\": \"New Year's Day\",\n        \"start\": \"2024-01-01T00:00:00Z\",\n        \"stop\": \"2024-01-02T00:00:00Z\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          },\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1da113fd-3da4-424e-8f98-6f87c5f8c960",
+              "name": "Business hours not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"business hours does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0060274a-809c-4871-864f-1ab190bdbf5d",
+          "name": "Update Business Hours",
+          "request": {
+            "name": "Update Business Hours",
+            "description": {
+              "content": "Updates an existing business hours configuration. The `version` field must match the current version of the business hours to prevent conflicting updates.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "business-hours",
+                ":businessHoursId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "businessHoursId",
+                  "description": "(Required) ID of the business hours configuration"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"officeHours\": {\n    \"timezone\": \"<string>\",\n    \"monday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"saturday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"sunday\": [\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"exceptions\": [\n      {\n        \"name\": \"<string>\",\n        \"start\": \"<dateTime>\",\n        \"stop\": \"<dateTime>\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          },\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"start\": \"<dateTime>\",\n        \"stop\": \"<dateTime>\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          },\n          {\n            \"start\": \"<string>\",\n            \"stop\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"primary\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7253159d-a06b-4808-b37d-8b40220e6a20",
+              "name": "Business hours updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": 1,\n  \"name\": \"Updated Business Hours\",\n  \"primary\": false,\n  \"officeHours\": {\n    \"timezone\": \"America/New_York\",\n    \"monday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bh_WmeA3Y51Q5ayCAaZ1AotIA\",\n  \"version\": 1,\n  \"createdAt\": \"2024-01-15T09:00:00Z\",\n  \"updatedAt\": \"2024-01-15T09:00:00Z\",\n  \"name\": \"Default Hours\",\n  \"primary\": true,\n  \"officeHours\": {\n    \"timezone\": \"America/Los_Angeles\",\n    \"monday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"saturday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"sunday\": [\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      },\n      {\n        \"start\": \"09:00\",\n        \"stop\": \"17:00\"\n      }\n    ],\n    \"exceptions\": [\n      {\n        \"name\": \"New Year's Day\",\n        \"start\": \"2024-01-01T00:00:00Z\",\n        \"stop\": \"2024-01-02T00:00:00Z\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          },\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          }\n        ]\n      },\n      {\n        \"name\": \"New Year's Day\",\n        \"start\": \"2024-01-01T00:00:00Z\",\n        \"stop\": \"2024-01-02T00:00:00Z\",\n        \"scheduleBlocks\": [\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          },\n          {\n            \"start\": \"09:00\",\n            \"stop\": \"17:00\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3bf6ccc-6141-4819-aad9-e3aba14b8364",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": 1,\n  \"name\": \"Updated Business Hours\",\n  \"primary\": false,\n  \"officeHours\": {\n    \"timezone\": \"America/New_York\",\n    \"monday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"attr\": \"content\",\n      \"code\": \"blank\",\n      \"detail\": \"content cannot be blank\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0a85443-eafa-4754-8252-c3d31cc29953",
+              "name": "Business hours not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": 1,\n  \"name\": \"Updated Business Hours\",\n  \"primary\": false,\n  \"officeHours\": {\n    \"timezone\": \"America/New_York\",\n    \"monday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"business hours does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebff9faa-81f8-41c5-a2e2-8caab9ab3f22",
+              "name": "Version conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": 1,\n  \"name\": \"Updated Business Hours\",\n  \"primary\": false,\n  \"officeHours\": {\n    \"timezone\": \"America/New_York\",\n    \"monday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"tuesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"wednesday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"thursday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ],\n    \"friday\": [\n      {\n        \"start\": \"08:00\",\n        \"stop\": \"18:00\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"version_outdated\",\n      \"detail\": \"the version provided is outdated\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e450f56-d261-4da6-a730-36dbe45179d7",
+          "name": "Delete Business Hours",
+          "request": {
+            "name": "Delete Business Hours",
+            "description": {
+              "content": "Deletes a business hours configuration. The primary business hours configuration cannot be deleted.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "business-hours",
+                ":businessHoursId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "businessHoursId",
+                  "description": "(Required) ID of the business hours configuration"
+                },
+                {
+                  "description": "Your Gladly organization subdomain",
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bfedee5-ca15-4301-8cb5-115812b74a54",
+              "name": "Business hours deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b146489-5222-4142-bb3b-093fc394826e",
+              "name": "Cannot delete primary business hours",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"invalid\",\n      \"detail\": \"cannot delete primary business hours\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b6ca643-729f-40fb-b01a-9f771e41e2ae",
+              "name": "Business hours not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "business-hours",
+                    ":businessHoursId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "businessHoursId",
+                      "description": "(Required) ID of the business hours configuration"
+                    },
+                    {
+                      "description": "Your Gladly organization subdomain",
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_exist\",\n      \"detail\": \"business hours does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Gladly organization subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "organization",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization}}.gladly.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "07114226-f7b1-4b6a-8356-70dcd3a1562b",
+    "name": "Gladly Agents Business Hours API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducing the Gladly API\n\nAt Gladly, we believe that customer service is best when it's a conversation.\nThat means more than just helping customers with one-off questions or issues: it's about making them feel known, valued, and respected for the individuals they are.\n\nThe Gladly API was built to help facilitate those relationships, providing agents with the rich customer context\nthey need to deliver seamless experiences that make customers feel like they're more than just a number in a sea of others.\n\n# Overview\n\nYou can integrate easily with Gladly by calling Gladly's [REST API](#section/Overview/REST-API)\nand implementing the [Lookup API](#section/Overview/Lookup-API) to provide data from your own services.\n\nSome examples of what you do through Gladly APIs include managing customer profile data, interacting with a customer's timeline,\nproviding the latest information about a customer's orders, and more.\n\n## REST API\n\nClients can access the **REST API** via HTTPS at your organization's Gladly domain (e.g. `https://{organization}.gladly.com`).\n\nResources follow REST semantics and utilize industry-standard HTTP verbs, response codes, and authentication schemes.\nIn addition, all responses and payloads are in JSON with consistent error codes and formats.\n\n## Lookup API\n\nThe Gladly **Lookup API** allows your organization to provide data services to power the agent's experience with a complete view of your customers'\ninformation, transactions, and activity. You can provide a web service that implements the Lookup API and Gladly will call it when that data is needed.\n\nLike the REST API, the Lookup API is specified using REST semantics, and exchanges JSON requests and responses authenticated and signed with secure keys.\n\nGladly will perform lookups when certain activities occur within Gladly, such as when a customer's profile is loaded.\n\nA detailed overview of Lookup Adaptor architecture, requests, resposnes and more can be found [here](https://help.gladly.com/developer/docs/lookup-adapter-introduction).\n\n## Testing\n\nTest the myriad possibilities of the Gladly API in a safe, secure space. We'll enable the Gladly API in a separate sandbox environment, so you can experiment freely without impacting your production environment (or vice versa).\n\nYour sandbox environment is accessible at `https://{organization}.gladly.qa`, where `organization` is your company name. For specific API endpoints, see documentation below.\n\n# Getting Started\n\nThink of this section as getting the keys to unlocking your access to the Gladly APIs.\nFirst, you'll need to set up an account with the necessary API [permissions](#/section/Getting-Started/Permissions).\nWith these permissions, you can then go on to create the [API Token(s)](#section/Getting-Started/Creating-API-Tokens) you need to access Gladly's API [resources](#section/Overview/Resources).\n\n## Permissions\n\nGladly Administrators can set API permissions on an agent-by-agent basis.\nWe'll discuss how this maps to API access in the section on [authentication](#section/Authentication) below.\n\nTo allow a user to create API tokens and access the API:\n1. Log in to your Gladly instance.\n2. Open the menu on the top left-hand corner of the page.\n3. Navigate to **Settings** > **Users*\n4. Search and click the user profile you wish to give access to.\n5. You'll see a permission called **API User**. Select it, while making sure to keep the user's **Agent** role intact.\n6. Hit **Save** to give access.\n\n![Agent profile screen](assets/permissions-agent.png)\n\nWe recommend creating a dedicated user to make API calls, whose account won't be used for agent and organization management.\nThis will help you with any future audits of API activity vs. agent activity.\n\n## Creating API Tokens\n\nYou must create an API token to access Gladly API resources (see above [Permissions](#/section/Getting-Started/Permissions)).\nIf your profile already has access to the **API User** permission, you'll see a menu item titled **More settings**. Click **More settings**:\n\n![API Token Menu](assets/permissions-token-nav.png)\n\nClick **API Tokens**, then the **Create Token** button on the upper right-hand corner of the page:\n\n![API Token Add](assets/permissions-token-add.png)\n\nA token will be generated and named, by default, **New Token** (though depending on whether you have existing tokens, it may be named New Token 2, or New Token 3, etc.).\nYou can rename the token to something more easily referenceable by clicking the name to edit.\n\nThis token will be associated with your agent profile, which we refer to as the API User in this document.\n\n![API Token View](assets/permissions-token-view.png)\n\nFor security purposes, you'll only see a new token once before you navigate away from the page.\n\n## Replacing/Rotating API Tokens\n\nShould you lose this token, or wish to rotate your application keys, you can do the following:\n\n1. Generate a new token.\n2. Store the new token in a secure location.\n3. Delete the old token.\n4. Update your applications/scripts with the new token.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+      "type": "text/plain"
+    }
+  }
+}

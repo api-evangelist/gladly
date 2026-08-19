@@ -1,0 +1,197 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Tasks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To add tasks to the timeline for a customer specified by identifying information. If the customer doesn't exist, a new customer profile is created.\n"
+        },
+        {
+          "info": {
+            "name": "List Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/tasks",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer whose tasks you'd like to view.\n"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Fetch tasks with the provided status.\n"
+              }
+            ]
+          },
+          "docs": "Fetch all tasks for a customer.\n\nThe list is not paginated and will return at most 2000 tasks. The tasks are returned in descending order by timestamp. \nThe `Gladly-Limited-Data` header flag in the response will indicate if the customer has more tasks than returned.        \n\nTo see and act on any newly created tasks, webhooks can be used to listen for task related events.\nTasks older than the limit can be viewed using the Task Export.\n"
+        },
+        {
+          "info": {
+            "name": "Create Task for Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/customers/:customerId/tasks",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the customer associated with the task to create.\n\nYou can look up the id using the [Find customers](index.html#tag/Customers) API.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a task to an existing customer's conversation timeline\n"
+        },
+        {
+          "info": {
+            "name": "Get Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task requested\n"
+              }
+            ]
+          },
+          "docs": "Get task\n"
+        },
+        {
+          "info": {
+            "name": "Update Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task that is to be updated\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing task\n"
+        },
+        {
+          "info": {
+            "name": "Get Task Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId/comments",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task comments are requested for.\n"
+              }
+            ]
+          },
+          "docs": "The comments are returned in ascending order by createdAt timestamp. The list is not paginated and will return at most 1000 task comments. The `Gladly-Limited-Data` header flag in the response will indicate if the task has more comments than returned.\n\nTo see and act on any newly created task comments, webhooks can be used to listen to any task comment related events.\n"
+        },
+        {
+          "info": {
+            "name": "Add Task Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId/comments",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the task that will be commented on.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a comment on a task.  Note that you can’t create comments on closed tasks.\n![Task Comment](assets/task-comment.png)\n"
+        },
+        {
+          "info": {
+            "name": "Get Task Comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/tasks/:taskId/comments/:commentId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Task id\n"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "Comment id\n"
+              }
+            ]
+          },
+          "docs": "Get task comment.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

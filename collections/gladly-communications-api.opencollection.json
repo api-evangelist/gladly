@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gladly Agents Communications API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Communications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send SMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/communications/sms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To send an SMS message to a customer specified by a mobile phone number.\n\nGladly can send outbound SMS messages globally. By default, your organization is set up to only allow access to your home country.  To send SMS messages to other countries, please contact [Gladly Support](https://help.gladly.com/implementation/docs/filing-a-support-issue) with a P4 designation.\n\nPlease be aware that:\n- Any automated outbound text messages **must** comply with carrier [acceptable use policies](https://help."
+        },
+        {
+          "info": {
+            "name": "Send Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization}.gladly.com/api/v1/api/v1/communications/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to send an email messages to a customer specified by an email address.\n\nAny items created using this API will not be considered part of a conversation, and are **non-routable** and **non-searchable** aside from the email address specified as part of the payload.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
