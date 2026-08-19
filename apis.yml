@@ -1496,7 +1496,7 @@ description: >-
 maintainers:
   - FN: API Evangelist
     email: info@apievangelist.com
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/gladly/overview
