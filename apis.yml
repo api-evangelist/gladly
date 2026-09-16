@@ -19,10 +19,9 @@ apis:
     type: Documentation
   - url: https://github.com/gladly/lookup-practice
     type: SampleSource
-  description: >-
-    Brand-hosted "Lookup" endpoint that Gladly calls outbound to enrich a conversation with first-party
-    customer data. Lets brands keep system-of-record customer data in their own services while presenting
-    a unified profile inside the Gladly Hero agent workspace and to Sidekick AI.
+  description: Brand-hosted "Lookup" endpoint that Gladly calls outbound to enrich a conversation with
+    first-party customer data. Lets brands keep system-of-record customer data in their own services while
+    presenting a unified profile inside the Gladly Hero agent workspace and to Sidekick AI.
 - aid: gladly:gladly-chat-sdk
   name: Gladly Chat SDK
   tags:
@@ -36,11 +35,10 @@ apis:
     type: Documentation
   - url: https://cdn.gladly.com/chat-sdk/widget.js
     type: SDKs
-  description: >-
-    JavaScript chat widget loaded from the Gladly CDN. Exposes `Gladly.init`, `show`, `close`, `setUser`,
-    `startConversation`, `navigate`, `applyCampaign`, `getAvailability`, plus a full event system (availability,
-    conversation lifecycle, messages, campaigns). Supports JWT-authenticated user identity issued by the
-    User Identity REST endpoint.
+  description: JavaScript chat widget loaded from the Gladly CDN. Exposes `Gladly.init`, `show`, `close`,
+    `setUser`, `startConversation`, `navigate`, `applyCampaign`, `getAvailability`, plus a full event
+    system (availability, conversation lifecycle, messages, campaigns). Supports JWT-authenticated user
+    identity issued by the User Identity REST endpoint.
 - aid: gladly:gladly-sidekick-ios-sdk
   name: Gladly Sidekick iOS SDK
   tags:
@@ -57,10 +55,9 @@ apis:
     type: SourceCode
   - url: https://github.com/gladly/sidekick-ios-sdk
     type: SDKs
-  description: >-
-    Swift SDK (v1.2.5, iOS 11+) for embedding the Gladly Sidekick chat experience in iOS apps. Ships `Gladly`,
-    `GladlySettings`, `GladlyUser`, `UIConfiguration`, `UIHeaderConfiguration`, and delegate protocols
-    for chat display, notifications, and unread counts.
+  description: Swift SDK (v1.2.5, iOS 11+) for embedding the Gladly Sidekick chat experience in iOS apps.
+    Ships `Gladly`, `GladlySettings`, `GladlyUser`, `UIConfiguration`, `UIHeaderConfiguration`, and delegate
+    protocols for chat display, notifications, and unread counts.
 - aid: gladly:gladly-sidekick-android-sdk
   name: Gladly Sidekick Android SDK
   tags:
@@ -77,10 +74,9 @@ apis:
     type: SourceCode
   - url: https://github.com/gladly/sidekick-android-sdk
     type: SDKs
-  description: >-
-    Kotlin SDK (Android Q / API 29+) for embedding the Gladly Sidekick chat experience in Android apps.
-    Provides `Gladly.initialize`, `setUser`, `showChat`, `handleMessageReceived`, `getUnreadCount`, `registerPushToken`/`unregisterPushToken`
-    plus EventInterface for events and errors.
+  description: Kotlin SDK (Android Q / API 29+) for embedding the Gladly Sidekick chat experience in Android
+    apps. Provides `Gladly.initialize`, `setUser`, `showChat`, `handleMessageReceived`, `getUnreadCount`,
+    `registerPushToken`/`unregisterPushToken` plus EventInterface for events and errors.
 - aid: gladly:gladly-help-center
   name: Gladly Help Center
   tags:
@@ -92,11 +88,10 @@ apis:
   properties:
   - url: https://developer.gladly.com/help-center/
     type: Documentation
-  description: >-
-    Embeddable Help Center widget that builds an FAQ/help page on a brand's website powered by Public
-    Answers from Gladly's Answers knowledge base. Exposes a `.gladlyHC` CSS class hierarchy for fully
-    custom styling. SPA support is limited (Next.js not supported); best run from a single non-SPA HTML
-    page.
+  description: Embeddable Help Center widget that builds an FAQ/help page on a brand's website powered
+    by Public Answers from Gladly's Answers knowledge base. Exposes a `.gladlyHC` CSS class hierarchy
+    for fully custom styling. SPA support is limited (Next.js not supported); best run from a single non-SPA
+    HTML page.
 - aid: gladly:gladly-app-platform
   name: Gladly App Platform
   tags:
@@ -121,10 +116,9 @@ apis:
     type: SampleSource
   - url: https://github.com/gladly/gladapp-examples
     type: SampleSource
-  description: >-
-    Framework for building embedded "Apps" inside the Gladly Hero agent workspace. Apps surface third-party
-    data (orders, loyalty, returns, CDP profiles) alongside the customer timeline. Authored as JavaScript/Groovy
-    bundles and managed via the `app-platform-appcfg-cli`.
+  description: Framework for building embedded "Apps" inside the Gladly Hero agent workspace. Apps surface
+    third-party data (orders, loyalty, returns, CDP profiles) alongside the customer timeline. Authored
+    as JavaScript/Groovy bundles and managed via the `app-platform-appcfg-cli`.
 - aid: gladly:gladly-webhooks
   name: Gladly Webhooks
   tags:
@@ -145,17 +139,15 @@ apis:
     type: JSONSchema
   - url: examples/gladly-webhook-create-example.json
     type: Examples
-  description: >-
-    Event-driven push channel that delivers Gladly platform events (conversation created/updated/closed,
+  description: Event-driven push channel that delivers Gladly platform events (conversation created/updated/closed,
     message created, task created/updated/closed, customer created/updated, agent state changes) to a
     brand-supplied HTTPS endpoint. Managed through the Webhooks REST endpoints. Includes retry policy
     and logging.
 - aid: gladly:gladly-agents-api
   name: Gladly Agents API
-  description: >-
-    An **Agent** represents the user profile of a person who helps customers in Gladly.
+  description: 'An **Agent** represents the user profile of a person who helps customers in Gladly.
 
-    The API allows you to lookup Agents who participated in conversations with customers.
+    The API allows you to lookup Agents who participated in conversations with customers.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -253,11 +245,10 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-audiences-api
   name: Gladly Audiences API
-  description: >-
-    An **Audience** represents a brand (or segment) specially for a multi-brand company. They are used
-    to categorize Answers, Help Centers and Chats for the specific brands.
+  description: 'An **Audience** represents a brand (or segment) specially for a multi-brand company. They
+    are used to categorize Answers, Help Centers and Chats for the specific brands.
 
-    The API allows you to lookup the audiences that have been created for the organization.
+    The API allows you to lookup the audiences that have been created for the organization.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -305,10 +296,9 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-business-hours-api
   name: Gladly Business Hours API
-  description: >-
-    **Business Hours** define the operating schedule for your organization. They determine when your organization
-    is available to handle customer communications and can be used to control routing, auto-responses,
-    and other time-sensitive workflows.
+  description: '**Business Hours** define the operating schedule for your organization. They determine
+    when your organization is available to handle customer communications and can be used to control routing,
+    auto-responses, and other time-sensitive workflows.
 
 
     Business hours configurations include:
@@ -321,7 +311,7 @@ apis:
 
 
     One business hours configuration is marked as **primary** and serves as the default schedule for your
-    organization. The primary business hours cannot be deleted.
+    organization. The primary business hours cannot be deleted.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -369,9 +359,8 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-communications-api
   name: Gladly Communications API
-  description: >-
-    Communications API enables you to programmatically send messages to your customers. These messages
-    are non-routable and non-searchable.
+  description: 'Communications API enables you to programmatically send messages to your customers. These
+    messages are non-routable and non-searchable.
 
 
     ### Agent View
@@ -381,7 +370,7 @@ apis:
 
     ### Consumer View
 
-    ![Customer View](assets/consumer-sms.png)
+    ![Customer View](assets/consumer-sms.png)'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -429,8 +418,7 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-conversations-api
   name: Gladly Conversations API
-  description: >-
-    ## Conversation
+  description: '## Conversation
 
 
     A **Conversation** in Gladly contains the timeline of activity for a customer including communications
@@ -442,7 +430,7 @@ apis:
     ## Conversation Items
 
 
-    A number of different types of items may appear in a customer's timeline. Each is described below.
+    A number of different types of items may appear in a customer''s timeline. Each is described below.
 
 
     | Item Type                     | Item Definition | Create | Read | Update | Delete | Media  |
@@ -476,7 +464,7 @@ apis:
     | SMS Message                   | A message sent/received via the [SMS](https://help.gladly.com/docs/add-and-configure-sms-entry-points)
     channel | Yes    | Yes  | No     | No     | No     |
 
-    | Task                          | A [Task](https://help.gladly.com/docs/what-is-a-task) on a Customer's
+    | Task                          | A [Task](https://help.gladly.com/docs/what-is-a-task) on a Customer''s
     profile | Yes    | Yes  | Yes    | No     | No     |
 
     | Topic Change                  | A [Topic](https://help.gladly.com/docs/what-are-topics) added or
@@ -486,7 +474,7 @@ apis:
     [Twitter](https://help.gladly.com/docs/setup-and-configure-twitter-direct-messages) channel | No     |
     Yes  | No     | Yes    | No     |
 
-    | Voice AI Message              | A spoken message exchanged with Gladly's voice AI during a voice
+    | Voice AI Message              | A spoken message exchanged with Gladly''s voice AI during a voice
     AI session | No     | Yes  | No     | No     | No     |
 
     | Voicemail                     | A Voicemail received | No     | Yes  | No     | No     | Yes    |
@@ -582,7 +570,7 @@ apis:
     ### Voice AI Message
 
 
-    A spoken message exchanged between a customer and Gladly's voice AI during a voice AI session.
+    A spoken message exchanged between a customer and Gladly''s voice AI during a voice AI session.
 
 
     ### Voicemail
@@ -594,7 +582,7 @@ apis:
     ### WhatsApp
 
 
-    Content of messages sent between Gladly and customers on WhatsApp.
+    Content of messages sent between Gladly and customers on WhatsApp.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -642,9 +630,8 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-customers-api
   name: Gladly Customers API
-  description: >-
-    A **Customer** in Gladly represents information about a customer of your organization including their
-    profile, contact information,
+  description: 'A **Customer** in Gladly represents information about a customer of your organization
+    including their profile, contact information,
 
     notes, and transactions.
 
@@ -665,7 +652,7 @@ apis:
 
     another, requests to get a customer by id will return 301 errors specifying the new id of the customer,
 
-    and requests to update a customer by id will return 404 errors.
+    and requests to update a customer by id will return 404 errors.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -713,9 +700,8 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-events-api
   name: Gladly Events API
-  description: >-
-    An **Event** is something that has happened in Gladly. The Events API allows you to extract event
-    details from the past 24 hours.
+  description: An **Event** is something that has happened in Gladly. The Events API allows you to extract
+    event details from the past 24 hours.
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -765,10 +751,9 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-export-api
   name: Gladly Export API
-  description: >-
-    Export API is a simple, comprehensive, file-based data export. You can export the lifetime of your
-    customers' conversations in Gladly to a central data repository such as your data warehouse or data
-    lake. You can export all communications successfully delivered within a specified date range.  The
+  description: 'Export API is a simple, comprehensive, file-based data export. You can export the lifetime
+    of your customers'' conversations in Gladly to a central data repository such as your data warehouse
+    or data lake. You can export all communications successfully delivered within a specified date range.  The
     export date range could be the past hour, the past 24 hours, or a custom data range. Please note,
     for one-time exports covering a period greater than six months, a service fee may apply.
 
@@ -784,7 +769,7 @@ apis:
 
     You can schedule a one-time or repeating - hourly or daily - data export job.  By default, each organization
     has a daily export job configured.  To schedule a one-time job or change the job frequency, please
-    contact Gladly Support.
+    contact Gladly Support.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -885,11 +870,10 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-inboxes-api
   name: Gladly Inboxes API
-  description: >-
-    An **Inbox** receives customer communications in Gladly. The communications route to the inbox according
-    to channel and destination endpoint configuration.
+  description: 'An **Inbox** receives customer communications in Gladly. The communications route to the
+    inbox according to channel and destination endpoint configuration.
 
-    For example, all calls to a specific phone number or emails to a specific address may go to an inbox.
+    For example, all calls to a specific phone number or emails to a specific address may go to an inbox.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1033,9 +1017,8 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-proactive-conversations-api
   name: Gladly Proactive Conversations API
-  description: >-
-    A proactive conversation consists of a **campaign** and **recipients**. This APIs intended use-case
-    would be to provide status updates to a customer and not for marketing purposes.
+  description: A proactive conversation consists of a **campaign** and **recipients**. This APIs intended
+    use-case would be to provide status updates to a customer and not for marketing purposes.
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1083,15 +1066,14 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-public-answer-api
   name: Gladly Public Answer API
-  description: >-
-    A **Public Answer** in Gladly represents a consumer-facing Answer.
+  description: 'A **Public Answer** in Gladly represents a consumer-facing Answer.
 
 
     The Public Answers API allows you to search and retrieve Public Answers (created
 
     directly in the Gladly UI), which you can display in the Chat
 
-    web widget, use to build your website's help center/FAQ page, or publish
+    web widget, use to build your website''s help center/FAQ page, or publish
 
     on any page on your website.
 
@@ -1114,7 +1096,7 @@ apis:
     ### How that answer is searched and displayed on the Chat Web widget
 
 
-    ![](assets/sidekick-answer-search.png)
+    ![](assets/sidekick-answer-search.png)'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1162,9 +1144,8 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-reports-api
   name: Gladly Reports API
-  description: >-
-    A **Report** in Gladly contains metrics that you need to run the contact center. Reports API allows
-    you to access Gladly's reports programatically.
+  description: A **Report** in Gladly contains metrics that you need to run the contact center. Reports
+    API allows you to access Gladly's reports programatically.
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1212,12 +1193,11 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-tasks-api
   name: Gladly Tasks API
-  description: >-
-    A task is a way to create and do internal follow-up work for a customer within Gladly. Tasks have
-    a due date, an assignee, a description of what is needed for a customer, and can be commented on.
-    These can be created through the API to assign items to work within Gladly.
+  description: 'A task is a way to create and do internal follow-up work for a customer within Gladly.
+    Tasks have a due date, an assignee, a description of what is needed for a customer, and can be commented
+    on. These can be created through the API to assign items to work within Gladly.
 
-    ![Task](assets/task.png)
+    ![Task](assets/task.png)'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1267,9 +1247,8 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-teams-api
   name: Gladly Teams API
-  description: >-
-    A **Team** represents a group of Agents. They may handle particular **Inboxes** or types of work within
-    Gladly.
+  description: A **Team** represents a group of Agents. They may handle particular **Inboxes** or types
+    of work within Gladly.
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1319,16 +1298,15 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-topics-api
   name: Gladly Topics API
-  description: >-
-    A **Topic** is a way of labeling a conversation in Gladly for specific business purposes. For example,
-    an agent may apply the topic "Return" to a conversation where a customer returns merchandise.
+  description: 'A **Topic** is a way of labeling a conversation in Gladly for specific business purposes.
+    For example, an agent may apply the topic "Return" to a conversation where a customer returns merchandise.
 
     Topics are used for reporting and to control various workflows.
 
 
     Topics can be configured to have a nested hierarchy. For instance, the topic "Return" could be a parent
     of "Size" and "Color" child topics. Visit our [Help Pages](https://help.gladly.com/docs/principles-of-hierarchical-topics)
-    to learn more about Hierarchical Topics.
+    to learn more about Hierarchical Topics.'
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1424,9 +1402,8 @@ apis:
     url: examples/gladly-webhook-create-example.json
 - aid: gladly:gladly-webhooks-api
   name: Gladly Webhooks API
-  description: >-
-    A **Webhook** is a way to send notifications about Gladly events as a POST request to the endpoint
-    of your choice.
+  description: A **Webhook** is a way to send notifications about Gladly events as a POST request to the
+    endpoint of your choice.
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
@@ -1476,35 +1453,35 @@ apis:
     url: examples/gladly-webhook-create-example.json
 name: Gladly
 tags:
-  - Customer Service
-  - CX
-  - Contact Center
-  - AI Customer Service
-  - Conversations
-  - Sidekick AI
-  - Hero
-  - Voice
-  - Chat
-  - SMS
-  - Email
-  - Help Center
-  - Webhook
-  - Knowledge Base
+- Customer Service
+- CX
+- Contact Center
+- AI Customer Service
+- Conversations
+- Sidekick AI
+- Hero
+- Voice
+- Chat
+- SMS
+- Email
+- Help Center
+- Webhook
+- Knowledge Base
 tags_raw:
-  - Customer Service
-  - CX
-  - Contact Center
-  - AI Customer Service
-  - Conversations
-  - Sidekick AI
-  - Hero
-  - Voice
-  - Chat
-  - SMS
-  - Email
-  - Help Center
-  - Webhooks
-  - Knowledge Base
+- Customer Service
+- CX
+- Contact Center
+- AI Customer Service
+- Conversations
+- Sidekick AI
+- Hero
+- Voice
+- Chat
+- SMS
+- Email
+- Help Center
+- Webhooks
+- Knowledge Base
 kind: contract
 deliveryModel:
   model: unknown
@@ -1536,285 +1513,281 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gladly.png
 access: 3rd-Party
 created: '2026-05-24'
-modified: '2026-05-24'
-description: >-
-  Gladly is a San Francisco–based people-centered customer service AI platform. The Gladly Hero agent workspace unifies
-  voice, chat, SMS, email, and social into a single, channel-agnostic conversation per Customer, while Gladly Sidekick
-  AI handles routine resolutions, drafts replies, and hands off to humans with full context. Brands integrate via the
-  REST API, the Chat SDK (Web/iOS/Android), the Help Center widget, the embedded App Platform, webhooks, and a
-  brand-hosted Lookup API. Customers include JetBlue, Allbirds, Crate & Barrel, Warby Parker, Ulta, Nordstrom, TUMI,
-  UGG, Tory Burch, and Breeze Airways.
+modified: '2026-09-16'
+description: Gladly is a San Francisco–based people-centered customer service AI platform. The Gladly
+  Hero agent workspace unifies voice, chat, SMS, email, and social into a single, channel-agnostic conversation
+  per Customer, while Gladly Sidekick AI handles routine resolutions, drafts replies, and hands off to
+  humans with full context. Brands integrate via the REST API, the Chat SDK (Web/iOS/Android), the Help
+  Center widget, the embedded App Platform, webhooks, and a brand-hosted Lookup API. Customers include
+  JetBlue, Allbirds, Crate & Barrel, Warby Parker, Ulta, Nordstrom, TUMI, UGG, Tory Burch, and Breeze
+  Airways.
 maintainers:
-  - FN: API Evangelist
-    email: info@apievangelist.com
+- FN: API Evangelist
+  email: info@apievangelist.com
 specificationVersion: '0.23'
 common:
-  - type: CapabilityMap
-    url: capabilities/gladly-capability-edges.yml
-    name: Gladly Business Capability Map
-  - type: PostmanWorkspace
-    url: https://www.postman.com/kinlaneapi/gladly/overview
-  - type: AgenticAccess
-    url: agentic-access/gladly-agentic-access.yml
-  - type: DomainSecurity
-    url: security/gladly-domain-security.yml
-  - type: Authentication
-    url: authentication/gladly-authentication.yml
-  - url: https://www.gladly.ai/
-    type: Portal
-  - url: https://developer.gladly.com/
-    type: Documentation
-  - url: https://developer.gladly.com/rest/
-    name: REST API Reference
-    type: APIReference
-  - url: https://help.gladly.com/
-    type: Support
-  - url: https://help.gladly.com/developer-tutorials/docs
-    name: Developer Tutorials
-    type: GettingStarted
-  - url: https://help.gladly.com/developer-tutorials/docs/default-api-rate-limits
-    name: Default API Rate Limits
-    type: RateLimits
-  - url: rate-limits/gladly-rate-limits.yml
-    type: RateLimits
-  - url: https://www.gladly.ai/pricing/
-    type: Pricing
-  - url: plans/gladly-plans-pricing.yml
-    type: Plans
-  - url: finops/gladly-finops.yml
-    type: FinOps
-  - url: https://www.gladly.ai/privacy-policy/
-    type: PrivacyPolicy
-  - url: https://www.gladly.ai/terms-of-service/
-    type: TermsOfService
-  - url: https://www.gladly.ai/blog/
-    type: Blog
-  - url: https://github.com/gladly
-    type: GitHubOrganization
-  - url: https://www.linkedin.com/company/gladly/
-    type: LinkedIn
-  - url: https://twitter.com/gladly
-    type: Twitter
-  - url: https://www.youtube.com/@gladlysoftware
-    type: YouTube
-  - url: rules/gladly-rules.yml
-    type: SpectralRules
-  - url: vocabulary/gladly-vocabulary.yml
-    type: Vocabulary
-  - url: json-ld/gladly-context.jsonld
-    type: JSONLD
-  - name: Features
-    type: Features
-    data:
-      - name: Unified Customer Conversation
-        description: >-
-          One channel-agnostic conversation per customer across voice, chat, SMS, email, and social — with full history
-          visible to agents and Sidekick AI.
-      - name: Gladly Sidekick AI
-        description: >-
-          AI agent that resolves routine cases end-to-end, drafts agent replies, and hands off with full context.
-          Configured in plain English via Guides.
-      - name: Gladly Hero
-        description: >-
-          People-centric agent workspace (formerly Gladly Team) with customer timeline, topics, tasks, and inbox
-          routing.
-      - name: Answers Knowledge Base
-        description: Versioned answers with audiences, topics, language scoping, and Help Center publication.
-      - name: Lookup API Pattern
-        description: >-
-          Brand-hosted endpoint Gladly calls to enrich conversations with first-party customer data — no need to mirror
-          profiles into Gladly.
-      - name: App Platform
-        description: Embedded apps inside Hero that surface third-party data (orders, loyalty, returns, CDP) next to the timeline.
-      - name: Webhooks and Events
-        description: Push delivery of conversation, message, task, customer, and agent-state events to brand endpoints.
-      - name: Bulk Export Jobs
-        description: Scheduled export jobs for agents, conversations, customers, and metrics in JSONL.
-      - name: Multichannel Voice
-        description: Native voice channel with call recording, Voice AI deflection, and toll-free / local number support.
-      - name: Help Center Widget
-        description: Embeddable, brand-styled self-service surface backed by Public Answers.
-  - name: UseCases
-    type: UseCases
-    data:
-      - name: Retail and DTC Customer Service
-        description: >-
-          Tie order data from Shopify or BigCommerce to every conversation so agents can refund, replace, or cancel
-          orders without leaving Hero.
-      - name: Travel and Hospitality Care
-        description: >-
-          Manage high-touch, multi-leg voice + messaging cases for airlines, cruise lines, and resorts (JetBlue,
-          Breeze).
-      - name: AI Deflection of Routine Cases
-        description: >-
-          Have Sidekick AI fully resolve order-status, return, password-reset, and FAQ traffic with seamless human
-          handoff.
-      - name: Loyalty-Aware Service
-        description: >-
-          Pull loyalty tier and lifetime value from Smile.io, Zinrelo, or LoyaltyLion to prioritize and personalize
-          support.
-      - name: Subscription Lifecycle Support
-        description: >-
-          Coordinate billing, pause/skip, and renewal questions with Recharge, Recurly, Ordergroove, or Skio
-          in-conversation.
-      - name: CDP-Driven Personalization
-        description: Sync customer segments from Segment, HighTouch, or Fivetran into Gladly to tailor every interaction.
-      - name: Proactive Outreach
-        description: >-
-          Trigger outbound conversations from order events, delivery delays, or abandoned carts via Proactive
-          Conversations and Communications APIs.
-  - name: Integrations
-    type: Integrations
-    data:
-      - name: Shopify
-        description: >-
-          Native bidirectional integration — order history, customer LTV, refunds, cancellations, and discount codes
-          from inside the conversation.
-      - name: BigCommerce
-        description: E-commerce platform integration for order and customer context.
-      - name: Magento (Adobe Commerce)
-        description: E-commerce platform integration.
-      - name: Klaviyo
-        description: Send conversation-created and closed events from Gladly to Klaviyo for segmentation and lifecycle email flows.
-      - name: Recharge
-        description: Subscription management integration for pause/skip/cancel inside conversations.
-      - name: Recurly
-        description: Subscription billing integration.
-      - name: Ordergroove
-        description: Subscription and reorder integration.
-      - name: Skio
-        description: Subscription management integration.
-      - name: AfterShip
-        description: Shipment tracking and post-purchase notifications.
-      - name: Loop
-        description: Returns management for e-commerce brands.
-      - name: ReturnLogic
-        description: Returns and reverse-logistics integration.
-      - name: Narvar
-        description: Post-purchase experience and tracking.
-      - name: Corso
-        description: Shipping protection and order recovery.
-      - name: Shiphero
-        description: Warehouse and order fulfillment.
-      - name: Shipped Suite
-        description: Package protection and shipping confidence.
-      - name: Segment (Source)
-        description: Stream Gladly events into Segment for the data warehouse and downstream tools.
-      - name: Fivetran
-        description: ELT extraction of Gladly data into the data warehouse.
-      - name: HighTouch
-        description: Reverse-ETL sync of warehouse audiences into Gladly customer profiles.
-      - name: Smile.io
-        description: Loyalty program data surfaced in conversations.
-      - name: LoyaltyLion
-        description: Loyalty program data and tier-aware routing.
-      - name: Zinrelo
-        description: Loyalty program integration.
-      - name: Attentive
-        description: SMS marketing audience and campaign integration.
-      - name: Emplifi
-        description: Social media management integration.
-      - name: Optimizely / Zaius
-        description: Customer data and personalization platform integration.
-      - name: TurnTo
-        description: Reviews and Q&A integration.
-      - name: ScreenMeet
-        description: In-conversation co-browse and screen-share.
-      - name: Flip
-        description: Live-shopping and video customer support.
-      - name: Facebook Messenger
-        description: Native social messaging channel.
-      - name: AWS EventBridge
-        description: Stream Gladly events to AWS EventBridge for serverless downstream automation.
-      - name: Linc
-        description: Voice-of-customer and AI assistance integration.
-      - name: Ada Support
-        description: AI chatbot integration partner.
-      - name: Netomi
-        description: AI customer experience platform integration.
-      - name: Siena
-        description: Autonomous CX agent integration.
-      - name: KODIF.ai
-        description: AI customer service automation integration.
-      - name: AgentsOnly
-        description: On-demand agent staffing integration.
-      - name: Endear
-        description: Clienteling and outreach for retail.
-      - name: Simplr
-        description: On-demand customer service capacity.
-      - name: HiOperator
-        description: Managed customer service operations partner.
-      - name: Assembled
-        description: Workforce management for forecasting and scheduling.
-      - name: MaestroQA
-        description: Quality assurance and agent scoring.
-      - name: Playvox
-        description: Quality, coaching, and workforce optimization.
-      - name: Calabrio
-        description: Workforce management and quality.
-      - name: Medallia
-        description: Customer experience and feedback.
-      - name: Medallia Agent Connect
-        description: Agent feedback and coaching loop.
-      - name: Simplesat
-        description: CSAT survey integration.
-      - name: Delighted
-        description: NPS and customer satisfaction surveys.
-      - name: Qualtrics
-        description: Enterprise experience management surveys.
-      - name: Hark
-        description: Voice-of-customer escalation video capture.
-      - name: SentiSum
-        description: Tagging and analytics for conversations.
-      - name: Formspree
-        description: Form-to-conversation routing.
-      - name: Formstack
-        description: Form data routing into Gladly.
-      - name: Jotform
-        description: Form ingestion into customer conversations.
-      - name: Idiomatic
-        description: Conversation analytics and CX insights.
-      - name: Spree Commerce
-        description: Open-source e-commerce platform integration.
-      - name: Swell
-        description: Headless commerce integration.
-  - name: Solutions
-    type: Solutions
-    data:
-      - name: Gladly Hero
-        description: People-centered agent workspace for voice, chat, SMS, email, and social — formerly known as Gladly Team.
-      - name: Gladly Sidekick AI
-        description: >-
-          AI customer service agent that resolves routine cases end-to-end and hands off to human agents with full
-          context.
-      - name: Gladly Voice AI
-        description: Voice-channel AI assistant priced per minute, layered on the native voice channel.
-      - name: Gladly Help Center
-        description: Embedded self-service experience powered by Public Answers.
-      - name: Gladly App Platform
-        description: Embedded apps and connectors inside the Hero workspace.
-  - name: Customers
-    type: Customers
-    data:
-      - name: JetBlue
-        description: US airline using Gladly for unified airline customer care.
-      - name: Allbirds
-        description: DTC footwear brand using Gladly across voice, chat, email, and social.
-      - name: Crate & Barrel
-        description: Home goods retailer running Gladly for omnichannel customer service.
-      - name: Warby Parker
-        description: Eyewear retailer using Gladly for unified care.
-      - name: Ulta Beauty
-        description: Beauty retailer using Gladly for service and Sidekick AI.
-      - name: Nordstrom
-        description: Department store running Gladly for customer experience.
-      - name: TUMI
-        description: Travel goods brand on Gladly.
-      - name: UGG
-        description: Footwear brand on Gladly.
-      - name: Tory Burch
-        description: Luxury accessories brand on Gladly.
-      - name: Breeze Airways
-        description: US airline using Gladly.
-      - name: Kuhl
-        description: Outdoor apparel brand on Gladly.
+- type: Website
+  url: https://gladly.com
+- type: CapabilityMap
+  url: capabilities/gladly-capability-edges.yml
+  name: Gladly Business Capability Map
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/gladly/overview
+- type: AgenticAccess
+  url: agentic-access/gladly-agentic-access.yml
+- type: DomainSecurity
+  url: security/gladly-domain-security.yml
+- type: Authentication
+  url: authentication/gladly-authentication.yml
+- url: https://www.gladly.ai/
+  type: Portal
+- url: https://developer.gladly.com/
+  type: Documentation
+- url: https://developer.gladly.com/rest/
+  name: REST API Reference
+  type: APIReference
+- url: https://help.gladly.com/
+  type: Support
+- url: https://help.gladly.com/developer-tutorials/docs
+  name: Developer Tutorials
+  type: GettingStarted
+- url: https://help.gladly.com/developer-tutorials/docs/default-api-rate-limits
+  name: Default API Rate Limits
+  type: RateLimits
+- url: rate-limits/gladly-rate-limits.yml
+  type: RateLimits
+- url: https://www.gladly.ai/pricing/
+  type: Pricing
+- url: plans/gladly-plans-pricing.yml
+  type: Plans
+- url: finops/gladly-finops.yml
+  type: FinOps
+- url: https://www.gladly.ai/privacy-policy/
+  type: PrivacyPolicy
+- url: https://www.gladly.ai/terms-of-service/
+  type: TermsOfService
+- url: https://www.gladly.ai/blog/
+  type: Blog
+- url: https://github.com/gladly
+  type: GitHubOrganization
+- url: https://www.linkedin.com/company/gladly/
+  type: LinkedIn
+- url: https://twitter.com/gladly
+  type: Twitter
+- url: https://www.youtube.com/@gladlysoftware
+  type: YouTube
+- url: rules/gladly-rules.yml
+  type: SpectralRules
+- url: vocabulary/gladly-vocabulary.yml
+  type: Vocabulary
+- url: json-ld/gladly-context.jsonld
+  type: JSONLD
+- name: Features
+  type: Features
+  data:
+  - name: Unified Customer Conversation
+    description: One channel-agnostic conversation per customer across voice, chat, SMS, email, and social
+      — with full history visible to agents and Sidekick AI.
+  - name: Gladly Sidekick AI
+    description: AI agent that resolves routine cases end-to-end, drafts agent replies, and hands off
+      with full context. Configured in plain English via Guides.
+  - name: Gladly Hero
+    description: People-centric agent workspace (formerly Gladly Team) with customer timeline, topics,
+      tasks, and inbox routing.
+  - name: Answers Knowledge Base
+    description: Versioned answers with audiences, topics, language scoping, and Help Center publication.
+  - name: Lookup API Pattern
+    description: Brand-hosted endpoint Gladly calls to enrich conversations with first-party customer
+      data — no need to mirror profiles into Gladly.
+  - name: App Platform
+    description: Embedded apps inside Hero that surface third-party data (orders, loyalty, returns, CDP)
+      next to the timeline.
+  - name: Webhooks and Events
+    description: Push delivery of conversation, message, task, customer, and agent-state events to brand
+      endpoints.
+  - name: Bulk Export Jobs
+    description: Scheduled export jobs for agents, conversations, customers, and metrics in JSONL.
+  - name: Multichannel Voice
+    description: Native voice channel with call recording, Voice AI deflection, and toll-free / local
+      number support.
+  - name: Help Center Widget
+    description: Embeddable, brand-styled self-service surface backed by Public Answers.
+- name: UseCases
+  type: UseCases
+  data:
+  - name: Retail and DTC Customer Service
+    description: Tie order data from Shopify or BigCommerce to every conversation so agents can refund,
+      replace, or cancel orders without leaving Hero.
+  - name: Travel and Hospitality Care
+    description: Manage high-touch, multi-leg voice + messaging cases for airlines, cruise lines, and
+      resorts (JetBlue, Breeze).
+  - name: AI Deflection of Routine Cases
+    description: Have Sidekick AI fully resolve order-status, return, password-reset, and FAQ traffic
+      with seamless human handoff.
+  - name: Loyalty-Aware Service
+    description: Pull loyalty tier and lifetime value from Smile.io, Zinrelo, or LoyaltyLion to prioritize
+      and personalize support.
+  - name: Subscription Lifecycle Support
+    description: Coordinate billing, pause/skip, and renewal questions with Recharge, Recurly, Ordergroove,
+      or Skio in-conversation.
+  - name: CDP-Driven Personalization
+    description: Sync customer segments from Segment, HighTouch, or Fivetran into Gladly to tailor every
+      interaction.
+  - name: Proactive Outreach
+    description: Trigger outbound conversations from order events, delivery delays, or abandoned carts
+      via Proactive Conversations and Communications APIs.
+- name: Integrations
+  type: Integrations
+  data:
+  - name: Shopify
+    description: Native bidirectional integration — order history, customer LTV, refunds, cancellations,
+      and discount codes from inside the conversation.
+  - name: BigCommerce
+    description: E-commerce platform integration for order and customer context.
+  - name: Magento (Adobe Commerce)
+    description: E-commerce platform integration.
+  - name: Klaviyo
+    description: Send conversation-created and closed events from Gladly to Klaviyo for segmentation and
+      lifecycle email flows.
+  - name: Recharge
+    description: Subscription management integration for pause/skip/cancel inside conversations.
+  - name: Recurly
+    description: Subscription billing integration.
+  - name: Ordergroove
+    description: Subscription and reorder integration.
+  - name: Skio
+    description: Subscription management integration.
+  - name: AfterShip
+    description: Shipment tracking and post-purchase notifications.
+  - name: Loop
+    description: Returns management for e-commerce brands.
+  - name: ReturnLogic
+    description: Returns and reverse-logistics integration.
+  - name: Narvar
+    description: Post-purchase experience and tracking.
+  - name: Corso
+    description: Shipping protection and order recovery.
+  - name: Shiphero
+    description: Warehouse and order fulfillment.
+  - name: Shipped Suite
+    description: Package protection and shipping confidence.
+  - name: Segment (Source)
+    description: Stream Gladly events into Segment for the data warehouse and downstream tools.
+  - name: Fivetran
+    description: ELT extraction of Gladly data into the data warehouse.
+  - name: HighTouch
+    description: Reverse-ETL sync of warehouse audiences into Gladly customer profiles.
+  - name: Smile.io
+    description: Loyalty program data surfaced in conversations.
+  - name: LoyaltyLion
+    description: Loyalty program data and tier-aware routing.
+  - name: Zinrelo
+    description: Loyalty program integration.
+  - name: Attentive
+    description: SMS marketing audience and campaign integration.
+  - name: Emplifi
+    description: Social media management integration.
+  - name: Optimizely / Zaius
+    description: Customer data and personalization platform integration.
+  - name: TurnTo
+    description: Reviews and Q&A integration.
+  - name: ScreenMeet
+    description: In-conversation co-browse and screen-share.
+  - name: Flip
+    description: Live-shopping and video customer support.
+  - name: Facebook Messenger
+    description: Native social messaging channel.
+  - name: AWS EventBridge
+    description: Stream Gladly events to AWS EventBridge for serverless downstream automation.
+  - name: Linc
+    description: Voice-of-customer and AI assistance integration.
+  - name: Ada Support
+    description: AI chatbot integration partner.
+  - name: Netomi
+    description: AI customer experience platform integration.
+  - name: Siena
+    description: Autonomous CX agent integration.
+  - name: KODIF.ai
+    description: AI customer service automation integration.
+  - name: AgentsOnly
+    description: On-demand agent staffing integration.
+  - name: Endear
+    description: Clienteling and outreach for retail.
+  - name: Simplr
+    description: On-demand customer service capacity.
+  - name: HiOperator
+    description: Managed customer service operations partner.
+  - name: Assembled
+    description: Workforce management for forecasting and scheduling.
+  - name: MaestroQA
+    description: Quality assurance and agent scoring.
+  - name: Playvox
+    description: Quality, coaching, and workforce optimization.
+  - name: Calabrio
+    description: Workforce management and quality.
+  - name: Medallia
+    description: Customer experience and feedback.
+  - name: Medallia Agent Connect
+    description: Agent feedback and coaching loop.
+  - name: Simplesat
+    description: CSAT survey integration.
+  - name: Delighted
+    description: NPS and customer satisfaction surveys.
+  - name: Qualtrics
+    description: Enterprise experience management surveys.
+  - name: Hark
+    description: Voice-of-customer escalation video capture.
+  - name: SentiSum
+    description: Tagging and analytics for conversations.
+  - name: Formspree
+    description: Form-to-conversation routing.
+  - name: Formstack
+    description: Form data routing into Gladly.
+  - name: Jotform
+    description: Form ingestion into customer conversations.
+  - name: Idiomatic
+    description: Conversation analytics and CX insights.
+  - name: Spree Commerce
+    description: Open-source e-commerce platform integration.
+  - name: Swell
+    description: Headless commerce integration.
+- name: Solutions
+  type: Solutions
+  data:
+  - name: Gladly Hero
+    description: People-centered agent workspace for voice, chat, SMS, email, and social — formerly known
+      as Gladly Team.
+  - name: Gladly Sidekick AI
+    description: AI customer service agent that resolves routine cases end-to-end and hands off to human
+      agents with full context.
+  - name: Gladly Voice AI
+    description: Voice-channel AI assistant priced per minute, layered on the native voice channel.
+  - name: Gladly Help Center
+    description: Embedded self-service experience powered by Public Answers.
+  - name: Gladly App Platform
+    description: Embedded apps and connectors inside the Hero workspace.
+- name: Customers
+  type: Customers
+  data:
+  - name: JetBlue
+    description: US airline using Gladly for unified airline customer care.
+  - name: Allbirds
+    description: DTC footwear brand using Gladly across voice, chat, email, and social.
+  - name: Crate & Barrel
+    description: Home goods retailer running Gladly for omnichannel customer service.
+  - name: Warby Parker
+    description: Eyewear retailer using Gladly for unified care.
+  - name: Ulta Beauty
+    description: Beauty retailer using Gladly for service and Sidekick AI.
+  - name: Nordstrom
+    description: Department store running Gladly for customer experience.
+  - name: TUMI
+    description: Travel goods brand on Gladly.
+  - name: UGG
+    description: Footwear brand on Gladly.
+  - name: Tory Burch
+    description: Luxury accessories brand on Gladly.
+  - name: Breeze Airways
+    description: US airline using Gladly.
+  - name: Kuhl
+    description: Outdoor apparel brand on Gladly.
