@@ -1310,6 +1310,8 @@ apis:
   humanURL: https://developer.gladly.com/rest/
   baseURL: https://organization.gladly.com/api/v1
   tags:
+  - Topic
+  tags_raw:
   - Topics
   properties:
   - type: OpenAPI
