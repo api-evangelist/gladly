@@ -525,18 +525,6 @@ paths:
                 $ref: '#/components/schemas/NotFoundErrors'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        attr:
-          type: string
-          description: Identifies the field causing the error
-        code:
-          type: string
-          description: Code indicating the error type
-        detail:
-          type: string
-          description: More details describing what went wrong
     NotFoundErrors:
       type: object
       properties:
@@ -558,6 +546,18 @@ components:
           - attr: content
             code: blank
             detail: content cannot be blank
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
   securitySchemes:
     BasicAuth:
       type: http
