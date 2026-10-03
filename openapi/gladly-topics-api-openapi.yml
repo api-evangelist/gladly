@@ -256,6 +256,48 @@ paths:
                         id: BgMCrCVbTrGhAeDTwIr44g
 components:
   schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
+    NotFoundErrors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - code: not_exist
+            detail: entity does not exist
+    ErrorWithMeta:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          meta:
+            type: object
+            additionalProperties: true
+            description: Additional information about the error
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
     ErrorsWithMeta:
       type: object
       properties:
@@ -269,48 +311,6 @@ components:
             detail: another entity with this name already exists
             meta:
               id: conflicting-id
-    NotFoundErrors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          example:
-          - code: not_exist
-            detail: entity does not exist
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          example:
-          - attr: content
-            code: blank
-            detail: content cannot be blank
-    Error:
-      type: object
-      properties:
-        attr:
-          type: string
-          description: Identifies the field causing the error
-        code:
-          type: string
-          description: Code indicating the error type
-        detail:
-          type: string
-          description: More details describing what went wrong
-    ErrorWithMeta:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          meta:
-            type: object
-            additionalProperties: true
-            description: Additional information about the error
   securitySchemes:
     BasicAuth:
       type: http

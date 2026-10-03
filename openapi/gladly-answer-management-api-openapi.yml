@@ -680,30 +680,6 @@ paths:
                       detail: answer does not exist
 components:
   schemas:
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          example:
-          - attr: content
-            code: blank
-            detail: content cannot be blank
-    ErrorsWithMeta:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorWithMeta'
-          example:
-          - attr: name
-            code: taken
-            detail: another entity with this name already exists
-            meta:
-              id: conflicting-id
     Error:
       type: object
       properties:
@@ -725,6 +701,30 @@ components:
             type: object
             additionalProperties: true
             description: Additional information about the error
+    ErrorsWithMeta:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorWithMeta'
+          example:
+          - attr: name
+            code: taken
+            detail: another entity with this name already exists
+            meta:
+              id: conflicting-id
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
   securitySchemes:
     BasicAuth:
       type: http
