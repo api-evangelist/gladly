@@ -680,27 +680,6 @@ paths:
                       detail: answer does not exist
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        attr:
-          type: string
-          description: Identifies the field causing the error
-        code:
-          type: string
-          description: Code indicating the error type
-        detail:
-          type: string
-          description: More details describing what went wrong
-    ErrorWithMeta:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          meta:
-            type: object
-            additionalProperties: true
-            description: Additional information about the error
     ErrorsWithMeta:
       type: object
       properties:
@@ -725,6 +704,27 @@ components:
           - attr: content
             code: blank
             detail: content cannot be blank
+    ErrorWithMeta:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          meta:
+            type: object
+            additionalProperties: true
+            description: Additional information about the error
+    Error:
+      type: object
+      properties:
+        attr:
+          type: string
+          description: Identifies the field causing the error
+        code:
+          type: string
+          description: Code indicating the error type
+        detail:
+          type: string
+          description: More details describing what went wrong
   securitySchemes:
     BasicAuth:
       type: http

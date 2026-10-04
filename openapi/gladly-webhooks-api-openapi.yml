@@ -310,6 +310,17 @@ paths:
           description: Webhook with id does not exist
 components:
   schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
     Error:
       type: object
       properties:
@@ -322,17 +333,6 @@ components:
         detail:
           type: string
           description: More details describing what went wrong
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          example:
-          - attr: content
-            code: blank
-            detail: content cannot be blank
   securitySchemes:
     BasicAuth:
       type: http
