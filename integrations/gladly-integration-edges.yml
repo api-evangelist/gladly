@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/gladly/integrations
+- https://n8n.io/integrations/gladly/
+- https://composio.dev/toolkits/gladly
+- https://monid.ai/tools/gladly
+checked:
+- https://composio.dev/toolkits/gladly
+- https://monid.ai/tools/gladly
+- https://n8n.io/integrations/gladly/
+- https://zapier.com/apps/gladly/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
