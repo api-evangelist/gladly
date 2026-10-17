@@ -693,17 +693,6 @@ components:
             detail: another entity with this name already exists
             meta:
               id: conflicting-id
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          example:
-          - attr: content
-            code: blank
-            detail: content cannot be blank
     ErrorWithMeta:
       allOf:
       - $ref: '#/components/schemas/Error'
@@ -725,6 +714,17 @@ components:
         detail:
           type: string
           description: More details describing what went wrong
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+          - attr: content
+            code: blank
+            detail: content cannot be blank
   securitySchemes:
     BasicAuth:
       type: http
