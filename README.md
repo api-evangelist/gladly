@@ -1,4 +1,4 @@
-# Gladly (gladly)
+# Gladly
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,255 +66,223 @@
 
 Gladly is a San Francisco–based people-centered customer service AI platform. The Gladly Hero agent workspace unifies voice, chat, SMS, email, and social into a single, channel-agnostic conversation per Customer, while Gladly Sidekick AI handles routine resolutions, drafts replies, and hands off to humans with full context. Brands integrate via the REST API, the Chat SDK (Web/iOS/Android), the Help Center widget, the embedded App Platform, webhooks, and a brand-hosted Lookup API. Customers include JetBlue, Allbirds, Crate & Barrel, Warby Parker, Ulta, Nordstrom, TUMI, UGG, Tory Burch, and Breeze Airways.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/gladly/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/gladly/refs/heads/main/apis.yml)
+**Areas:** Customer Service · Customer Experience · Contact Center · AI Customer Service · Conversations · Sidekick AI · Hero · Voice · Chat · SMS · Email · Help Center
 
-## Scope
+## Gladly on APIs.io
 
-- **Access:** 3rd-Party
-
-## Tags
+Everything profiled for Gladly is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/gladly/](https://apis.io/providers/gladly/)** — or go straight to one of the APIs or properties below.
 
-- Customer Service
-- CX
-- Contact Center
-- AI Customer Service
-- Conversations
-- Sidekick AI
-- Hero
-- Voice
-- Chat
-- SMS
-- Email
-- Help Center
-- Webhooks
-- Knowledge Base
+### APIs (28)
 
-## Timestamps
+- [Gladly Lookup API](https://apis.io/apis/gladly/gladly-lookup-api/) — Brand-hosted "Lookup" endpoint that Gladly calls outbound to enrich a conversation with first-party customer data. Lets brands keep system-of-record…
+- [Gladly Chat SDK](https://apis.io/apis/gladly/gladly-chat-sdk/) — JavaScript chat widget loaded from the Gladly CDN. Exposes `Gladly.init`, `show`, `close`, `setUser`, `startConversation`, `navigate`, `applyCampaign`,…
+- [Gladly Sidekick iOS SDK](https://apis.io/apis/gladly/gladly-sidekick-ios-sdk/) — Swift SDK (v1.2.5, iOS 11+) for embedding the Gladly Sidekick chat experience in iOS apps. Ships `Gladly`, `GladlySettings`, `GladlyUser`,…
+- [Gladly Sidekick Android SDK](https://apis.io/apis/gladly/gladly-sidekick-android-sdk/) — Kotlin SDK (Android Q / API 29+) for embedding the Gladly Sidekick chat experience in Android apps. Provides `Gladly.initialize`, `setUser`, `showChat`,…
+- [Gladly Help Center](https://apis.io/apis/gladly/gladly-help-center/) — Embeddable Help Center widget that builds an FAQ/help page on a brand's website powered by Public Answers from Gladly's Answers knowledge base. Exposes a…
+- [Gladly App Platform](https://apis.io/apis/gladly/gladly-app-platform/) — Framework for building embedded "Apps" inside the Gladly Hero agent workspace. Apps surface third-party data (orders, loyalty, returns, CDP profiles)…
+- [Gladly Webhooks](https://apis.io/apis/gladly/gladly-webhooks/) — Event-driven push channel that delivers Gladly platform events (conversation created/updated/closed, message created, task created/updated/closed, customer…
+- [Gladly Agents API](https://apis.io/apis/gladly/gladly-agents-api/) — An **Agent** represents the user profile of a person who helps customers in Gladly. The API allows you to lookup Agents who participated in conversations…
+- [Gladly Answer Management API](https://apis.io/apis/gladly/gladly-answer-management-api/) — The **Answer Management API** allows you to create, update, and delete Answers in Gladly. To create an Answer with content, two calls would be needed. One…
+- [Gladly Audiences API](https://apis.io/apis/gladly/gladly-audiences-api/) — An **Audience** represents a brand (or segment) specially for a multi-brand company. They are used to categorize Answers, Help Centers and Chats for the…
+- [Gladly Business Hours API](https://apis.io/apis/gladly/gladly-business-hours-api/) — **Business Hours** define the operating schedule for your organization. They determine when your organization is available to handle customer communications…
+- [Gladly Communications API](https://apis.io/apis/gladly/gladly-communications-api/) — Communications API enables you to programmatically send messages to your customers. These messages are non-routable and non-searchable. ### Agent View…
+- [Gladly Conversations API](https://apis.io/apis/gladly/gladly-conversations-api/) — ## Conversation A **Conversation** in Gladly contains the timeline of activity for a customer including communications to and from your organization along…
+- [Gladly Customers API](https://apis.io/apis/gladly/gladly-customers-api/) — A **Customer** in Gladly represents information about a customer of your organization including their profile, contact information, notes, and transactions.…
+- [Gladly Events API](https://apis.io/apis/gladly/gladly-events-api/) — An **Event** is something that has happened in Gladly. The Events API allows you to extract event details from the past 24 hours.
+- [Gladly Export API](https://apis.io/apis/gladly/gladly-export-api/) — Export API is a simple, comprehensive, file-based data export. You can export the lifetime of your customers' conversations in Gladly to a central data…
+- [Gladly Freeform Topics API](https://apis.io/apis/gladly/gladly-freeform-topics-api/) — Freeform Topics allow you to associate granular data like Order Number to a Conversation. This data can be accessed for analysis via APIs, Webhooks, and AWS…
+- [Gladly Inboxes API](https://apis.io/apis/gladly/gladly-inboxes-api/) — An **Inbox** receives customer communications in Gladly. The communications route to the inbox according to channel and destination endpoint configuration.…
+- [Gladly Organization API](https://apis.io/apis/gladly/gladly-organization-api/) — An **Organization** contains metadata about your company that Gladly is configured with.
+- [Gladly Payloads API](https://apis.io/apis/gladly/gladly-payloads-api/) — The Payloads API from Gladly — 1 operation(s) for payloads.
+- [Gladly Proactive Conversations API](https://apis.io/apis/gladly/gladly-proactive-conversations-api/) — A proactive conversation consists of a **campaign** and **recipients**. This APIs intended use-case would be to provide status updates to a customer and not…
+- [Gladly Public Answer API](https://apis.io/apis/gladly/gladly-public-answer-api/) — A **Public Answer** in Gladly represents a consumer-facing Answer. The Public Answers API allows you to search and retrieve Public Answers (created directly…
+- [Gladly Reports API](https://apis.io/apis/gladly/gladly-reports-api/) — A **Report** in Gladly contains metrics that you need to run the contact center. Reports API allows you to access Gladly's reports programatically.
+- [Gladly Tasks API](https://apis.io/apis/gladly/gladly-tasks-api/) — A task is a way to create and do internal follow-up work for a customer within Gladly. Tasks have a due date, an assignee, a description of what is needed…
+- [Gladly Teams API](https://apis.io/apis/gladly/gladly-teams-api/) — A **Team** represents a group of Agents. They may handle particular **Inboxes** or types of work within Gladly.
+- [Gladly Topics API](https://apis.io/apis/gladly/gladly-topics-api/) — A **Topic** is a way of labeling a conversation in Gladly for specific business purposes. For example, an agent may apply the topic "Return" to a…
+- [Gladly User Identity API](https://apis.io/apis/gladly/gladly-user-identity-api/) — The User Identity API from Gladly — 1 operation(s) for user identity.
+- [Gladly Webhooks API](https://apis.io/apis/gladly/gladly-webhooks-api/) — A **Webhook** is a way to send notifications about Gladly events as a POST request to the endpoint of your choice.
 
-- **Created:** 2026-05-24
-- **Modified:** 2026-05-24
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Gladly REST API
+#### Agentic access (1)
 
-Gladly's unified REST API for the people-centered customer service platform. Exposes Customers, Conversations, Messages, Tasks, Answers (knowledge base), Topics, Teams, Inboxes, Audiences, Business Hours, Communications (outbound SMS/email), Webhooks, Events, Export jobs, Reports, Agents, Organization, Public Answers (Help Center), Proactive Conversations, and User Identity (JWT for authenticated chat). HTTP Basic auth with an agent email + API token. Default 10 req/sec per organization. Mounted at `https://{organization}.gladly.com/api/v1`.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://developer.gladly.com/rest/](https://developer.gladly.com/rest/)
-- **Base URL:** `https://organization.gladly.com/api/v1`
+- [Gladly Agentic Access](https://apis.io/agentic-access/gladly/gladly-agentic-access/)
 
-#### Tags
+#### JSON Schema (5)
 
-- Customer Service
-- CX
-- Contact Center
-- Conversations
-- Customers
-- Tasks
-- Answers
-- Webhooks
+The data models the API reads and writes.
 
-#### Properties
+- [Gladly Answer](https://apis.io/schemas/gladly/gladly-answer/)
+- [Gladly Conversation](https://apis.io/schemas/gladly/gladly-conversation/)
+- [Gladly Customer](https://apis.io/schemas/gladly/gladly-customer/)
+- [Gladly Task](https://apis.io/schemas/gladly/gladly-task/)
+- [Gladly Webhook](https://apis.io/schemas/gladly/gladly-webhook/)
 
-- [Documentation](https://developer.gladly.com/rest/)
-- [API Reference](https://developer.gladly.com/rest/)
-- [Getting Started](https://help.gladly.com/developer-tutorials/docs)
-- [Authentication](https://developer.gladly.com/rest/)
-- [OpenAPI](openapi/gladly-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/gladly-customer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gladly-conversation-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gladly-task-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gladly-answer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gladly-webhook-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/gladly-customer-structure.json)
-- [JSON Structure](json-structure/gladly-conversation-structure.json)
-- [JSON Structure](json-structure/gladly-task-structure.json)
-- [JSON Structure](json-structure/gladly-answer-structure.json)
-- [JSON Structure](json-structure/gladly-webhook-structure.json)
-- [JSON-LD](json-ld/gladly-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Example](examples/gladly-customer-create-example.json)
-- [Example](examples/gladly-conversation-list-example.json)
-- [Example](examples/gladly-task-create-example.json)
-- [Example](examples/gladly-webhook-create-example.json)
+#### JSON Structure (5)
 
-### Gladly Lookup API
+Data models expressed in JSON Structure.
 
-Brand-hosted "Lookup" endpoint that Gladly calls outbound to enrich a conversation with first-party customer data. Lets brands keep system-of-record customer data in their own services while presenting a unified profile inside the Gladly Hero agent workspace and to Sidekick AI.
+- [Gladly Answer Structure](https://apis.io/json-structure/gladly/gladly-answer-structure/)
+- [Gladly Conversation Structure](https://apis.io/json-structure/gladly/gladly-conversation-structure/)
+- [Gladly Customer Structure](https://apis.io/json-structure/gladly/gladly-customer-structure/)
+- [Gladly Task Structure](https://apis.io/json-structure/gladly/gladly-task-structure/)
+- [Gladly Webhook Structure](https://apis.io/json-structure/gladly/gladly-webhook-structure/)
 
-- **Human URL:** [https://developer.gladly.com/rest/](https://developer.gladly.com/rest/)
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-- Customer Service
-- Customer Data
-- Webhooks
-- Integrations
+- [Gladly Context](https://apis.io/jsonld/gladly/gladly-context/)
 
-#### Properties
+#### Vocabulary (1)
 
-- [Documentation](https://developer.gladly.com/rest/)
-- [Sample Source](https://github.com/gladly/lookup-practice)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The provider's domain terms, defined.
 
-### Gladly Chat SDK
+- [Gladly Domain Vocabulary](https://apis.io/vocabularies/gladly/gladly-vocabulary/)
 
-JavaScript chat widget loaded from the Gladly CDN. Exposes `Gladly.init`, `show`, `close`, `setUser`, `startConversation`, `navigate`, `applyCampaign`, `getAvailability`, plus a full event system (availability, conversation lifecycle, messages, campaigns). Supports JWT-authenticated user identity issued by the User Identity REST endpoint.
+#### Examples (4)
 
-- **Human URL:** [https://developer.gladly.com/chat/](https://developer.gladly.com/chat/)
+Example requests and responses.
 
-#### Tags
+- [Gladly Conversation List Example](https://apis.io/examples/gladly/gladly-conversation-list-example/)
+- [Gladly Customer Create Example](https://apis.io/examples/gladly/gladly-customer-create-example/)
+- [Gladly Task Create Example](https://apis.io/examples/gladly/gladly-task-create-example/)
+- [Gladly Webhook Create Example](https://apis.io/examples/gladly/gladly-webhook-create-example/)
 
-- Customer Service
-- Chat
-- SDK
-- Web
+#### Collections (43)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://developer.gladly.com/chat/)
-- [SDK](https://cdn.gladly.com/chat-sdk/widget.js)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Gladly Agents API](https://apis.io/collections/gladly/open-gladly-agents-api/)
+- [Gladly Agents Answer Management API](https://apis.io/collections/gladly/open-gladly-answer-management-api/)
+- [Gladly Agents Audiences API](https://apis.io/collections/gladly/open-gladly-audiences-api/)
+- [Gladly Agents Business Hours API](https://apis.io/collections/gladly/open-gladly-business-hours-api/)
+- [Gladly Agents Communications API](https://apis.io/collections/gladly/open-gladly-communications-api/)
+- [Gladly Agents Conversations API](https://apis.io/collections/gladly/open-gladly-conversations-api/)
+- [Gladly Agents Customers API](https://apis.io/collections/gladly/open-gladly-customers-api/)
+- [Gladly Agents Events API](https://apis.io/collections/gladly/open-gladly-events-api/)
+- [Gladly Agents Export API](https://apis.io/collections/gladly/open-gladly-export-api/)
+- [Gladly Agents Freeform Topics API](https://apis.io/collections/gladly/open-gladly-freeform-topics-api/)
+- [Gladly Agents Inboxes API](https://apis.io/collections/gladly/open-gladly-inboxes-api/)
+- [Gladly Agents Organization API](https://apis.io/collections/gladly/open-gladly-organization-api/)
+- [Gladly Agents Payloads API](https://apis.io/collections/gladly/open-gladly-payloads-api/)
+- [Gladly Agents Proactive Conversations API](https://apis.io/collections/gladly/open-gladly-proactive-conversations-api/)
+- [Gladly Agents Public Answer API](https://apis.io/collections/gladly/open-gladly-public-answer-api/)
+- [Gladly Agents Reports API](https://apis.io/collections/gladly/open-gladly-reports-api/)
+- [Gladly API](https://apis.io/collections/gladly/open-gladly-rest-api/)
+- [Gladly Agents Tasks API](https://apis.io/collections/gladly/open-gladly-tasks-api/)
+- [Gladly Agents Teams API](https://apis.io/collections/gladly/open-gladly-teams-api/)
+- [Gladly Agents Topics API](https://apis.io/collections/gladly/open-gladly-topics-api/)
+- [Gladly Agents User Identity API](https://apis.io/collections/gladly/open-gladly-user-identity-api/)
+- [Gladly Agents Webhooks API](https://apis.io/collections/gladly/open-gladly-webhooks-api/)
+- [Gladly Agents API](https://apis.io/collections/gladly/postman-gladly-agents-api/)
+- [Gladly Agents Answer Management API](https://apis.io/collections/gladly/postman-gladly-answer-management-api/)
+- [Gladly Agents Audiences API](https://apis.io/collections/gladly/postman-gladly-audiences-api/)
+- …and 18 more published on APIs.io
 
-### Gladly Sidekick iOS SDK
+#### Governance rules (2)
 
-Swift SDK (v1.2.5, iOS 11+) for embedding the Gladly Sidekick chat experience in iOS apps. Ships `Gladly`, `GladlySettings`, `GladlyUser`, `UIConfiguration`, `UIHeaderConfiguration`, and delegate protocols for chat display, notifications, and unread counts.
+Spectral rulesets for the provider's contracts.
 
-- **Human URL:** [https://developer.gladly.com/ios-sdk/](https://developer.gladly.com/ios-sdk/)
+- [Gladly — jsonschema rules](https://apis.io/rules/gladly/gladly-jsonschema-spectral-rules/)
+- [Gladly API Rules](https://apis.io/rules/gladly/gladly-rules/)
 
-#### Tags
+#### Security (2)
 
-- Customer Service
-- Chat
-- SDK
-- iOS
-- Mobile
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Gladly Authentication](https://apis.io/security/gladly/gladly-authentication/)
+- [Gladly Domain Security](https://apis.io/security/gladly/gladly-domain-security/)
 
-- [Documentation](https://developer.gladly.com/ios-sdk/)
-- [Source Code](https://github.com/gladly/sidekick-ios-sdk)
-- [SDK](https://github.com/gladly/sidekick-ios-sdk)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Gladly Sidekick Android SDK
+Published plans, tiers and prices.
 
-Kotlin SDK (Android Q / API 29+) for embedding the Gladly Sidekick chat experience in Android apps. Provides `Gladly.initialize`, `setUser`, `showChat`, `handleMessageReceived`, `getUnreadCount`, `registerPushToken`/`unregisterPushToken` plus EventInterface for events and errors.
+- [Gladly Plans Pricing](https://apis.io/plans/gladly/gladly-plans-pricing/)
 
-- **Human URL:** [https://developer.gladly.com/android-sdk/](https://developer.gladly.com/android-sdk/)
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Customer Service
-- Chat
-- SDK
-- Android
-- Mobile
+- [Gladly Rate Limits](https://apis.io/rate-limits/gladly/gladly-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://developer.gladly.com/android-sdk/)
-- [Source Code](https://github.com/gladly/sidekick-android-sdk)
-- [SDK](https://github.com/gladly/sidekick-android-sdk)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Gladly Help Center
+- [Gladly Finops](https://apis.io/finops/gladly/gladly-finops/)
 
-Embeddable Help Center widget that builds an FAQ/help page on a brand's website powered by Public Answers from Gladly's Answers knowledge base. Exposes a `.gladlyHC` CSS class hierarchy for fully custom styling. SPA support is limited (Next.js not supported); best run from a single non-SPA HTML page.
+## Where to find this API
 
-- **Human URL:** [https://developer.gladly.com/help-center/](https://developer.gladly.com/help-center/)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Customer Service
-- Help Center
-- Self-Service
-- Web
-
-#### Properties
-
-- [Documentation](https://developer.gladly.com/help-center/)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Gladly App Platform
-
-Framework for building embedded "Apps" inside the Gladly Hero agent workspace. Apps surface third-party data (orders, loyalty, returns, CDP profiles) alongside the customer timeline. Authored as JavaScript/Groovy bundles and managed via the `app-platform-appcfg-cli`.
-
-- **Human URL:** [https://help.gladly.com/developer-tutorials/docs](https://help.gladly.com/developer-tutorials/docs)
-
-#### Tags
-
-- Customer Service
-- Apps
-- Integrations
-- Embedded
-
-#### Properties
-
-- [Documentation](https://help.gladly.com/developer-tutorials/docs)
-- [Sample Source](https://github.com/gladly/app-platform-examples)
-- [C L I](https://github.com/gladly/app-platform-appcfg-cli)
-- [Sample Source](https://github.com/gladly/gladly-getting-started)
-- [Sample Source](https://github.com/gladly/gladapp-examples)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Gladly Webhooks
-
-Event-driven push channel that delivers Gladly platform events (conversation created/updated/closed, message created, task created/updated/closed, customer created/updated, agent state changes) to a brand-supplied HTTPS endpoint. Managed through the Webhooks REST endpoints. Includes retry policy and logging.
-
-- **Human URL:** [https://developer.gladly.com/rest/](https://developer.gladly.com/rest/)
-
-#### Tags
-
-- Customer Service
-- Webhooks
-- Events
-
-#### Properties
-
-- [Documentation](https://developer.gladly.com/rest/)
-- [Sample Source](https://github.com/gladly/webhook-examples)
-- [JSON Schema](json-schema/gladly-webhook-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Example](examples/gladly-webhook-create-example.json)
-- [Postman Collection](collections/gladly-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gladly-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Portal](https://www.gladly.ai/)
+- [Website](https://gladly.com)
 - [Documentation](https://developer.gladly.com/)
-- [API Reference](https://developer.gladly.com/rest/)
-- [Support](https://help.gladly.com/)
-- [Getting Started](https://help.gladly.com/developer-tutorials/docs)
-- [Rate Limits](https://help.gladly.com/developer-tutorials/docs/default-api-rate-limits)
-- [Rate Limits](rate-limits/gladly-rate-limits.yml)
+- [Getting started](https://help.gladly.com/developer-tutorials/docs)
+- [API reference](https://developer.gladly.com/rest/)
 - [Pricing](https://www.gladly.ai/pricing/)
-- [Plans](plans/gladly-plans-pricing.yml)
-- [Fin Ops](finops/gladly-finops.yml)
-- [Privacy Policy](https://www.gladly.ai/privacy-policy/)
-- [Terms of Service](https://www.gladly.ai/terms-of-service/)
+- [Support](https://help.gladly.com/)
 - [Blog](https://www.gladly.ai/blog/)
-- [GitHub Organization](https://github.com/gladly)
-- [LinkedIn](https://www.linkedin.com/company/gladly/)
-- [Twitter](https://twitter.com/gladly)
-- [YouTube](https://www.youtube.com/@gladlysoftware)
-- [Spectral Rules](rules/gladly-rules.yml)
-- [Vocabulary](vocabulary/gladly-vocabulary.yml)
-- [JSON-LD](json-ld/gladly-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
-- [Customers](undefined)
+- [Terms of service](https://www.gladly.ai/terms-of-service/)
+- [Privacy policy](https://www.gladly.ai/privacy-policy/)
+- [GitHub](https://github.com/gladly)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** API Evangelist
-**Email:** info@apievangelist.com
+**Kin Score 54.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 64.6 |
+| Contract governance | 27.3 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 82.1 |
+| Access clarity | 47.4 |
+
+**Agent readiness 35.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 20.8** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/gladly/](https://apis.io/providers/gladly/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Gladly: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/gladly/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
